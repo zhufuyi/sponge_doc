@@ -414,6 +414,7 @@ sponge web dao \
   --db-dsn=root:123456@(192.168.3.37:3306)/school \
   --db-table=teacher \
   --include-init-db=true \
+  --module-name=edusys \
   --out=./edusys
 ```
 
