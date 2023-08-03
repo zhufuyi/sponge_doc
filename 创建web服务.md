@@ -417,7 +417,20 @@ sponge web dao \
   --out=./edusys
 ```
 
-查看参数说明命令 `sponge web dao -h`，参数`--include-init-db`在一个服务中只使用一次，下一次生成`dao`代码时去掉参数`--include-init-db`，否则会造成无法生成最新的`dao`代码，原因是db初始化代码已经存在。
+查看参数说明命令 `sponge web dao -h`。
+
+注意：
+
+> (1) 参数`--include-init-db`在一个服务中只使用一次，下一次生成`dao`代码时去掉参数`--include-init-db`，否则会造成无法生成最新的`dao`代码，原因是db初始化代码已经存在。
+
+> (2) 参数`--module-name`必须存在的条件：
+> 
+> - 没有`--out`参数情况。
+> - 有`--out`参数情况，edusys目录本身为空或者不是由sponge创建的服务目录。
+>
+> 有`--out`参数情况下，sponge默认优先从`docs/gen.info`读取module-name值，如果可以从该文件读取到module-name值，手动指定module-name参数是无效的。
+
+<br>
 
 使用sponge生成的`dao`代码，需要做一些操作：
 
