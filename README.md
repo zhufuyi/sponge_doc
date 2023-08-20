@@ -15,9 +15,7 @@
 
 <br>
 
-[sponge](https://github.com/zhufuyi/sponge) 是一个强大的自动生成代码工具、是一个基于gin和grpc封装的微服务框架、是一个通用的基础开发框架。sponge拥有丰富的生成代码命令，生成不同的功能代码可以组合成完整的服务(类似人为打散的海绵细胞可以自动重组成一个新的海绵)。代码解耦模块化设计，很容易构建出从开发到部署的完整工程项目，让你开发项目(web或微服务)轻而易举、事半功倍。
-
-sponge是一个集成`生成代码`、`微服务框架`、`基础开发框架`三位一体的强大的go语言生产力工具，让go开发也可以"低代码开发"。
+[sponge](https://github.com/zhufuyi/sponge) 是一个集成了`自动生成代码`、`微服务框架`、`通用基础开发框架`的golang生产力工具。sponge拥有丰富的生成代码命令，生成不同的功能代码可以组合成完整的服务(类似人为打散的海绵细胞可以自动重组成一个新的海绵)。代码解耦模块化设计，很容易构建出从开发到部署的完整工程项目，让你开发web或微服务项目轻而易举、事半功倍，使用golang也可以"低代码开发"。
 
 <br>
 
@@ -31,9 +29,9 @@ sponge是一个集成`生成代码`、`微服务框架`、`基础开发框架`�
 >
 > 🔸代码解耦模块化设计，丰富功能组件开箱即用。
 >
-> 🔸Web服务使用流行框架 [gin](https://github.com/gin-gonic/gin)
+> 🔸Web框架 [gin](https://github.com/gin-gonic/gin)
 >
-> 🔸微服务使用主流RPC框架 [grpc](https://github.com/grpc/grpc-go)
+> 🔸RPC框架 [grpc](https://github.com/grpc/grpc-go)
 >
 > 🔸配置解析 [viper](https://github.com/spf13/viper)
 >
@@ -45,7 +43,7 @@ sponge是一个集成`生成代码`、`微服务框架`、`基础开发框架`�
 >
 > 🔸缓存组件 [go-redis](https://github.com/go-redis/redis), [ristretto](github.com/dgraph-io/ristretto)
 >
-> 🔸自动化api接口文档 [swagger](https://github.com/swaggo/swag)
+> 🔸自动化api接口文档 [swagger](https://github.com/swaggo/swag), [protoc-gen-openapiv2](https://github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2)
 >
 > 🔸鉴权 [jwt](https://github.com/golang-jwt/jwt)
 >
@@ -71,11 +69,7 @@ sponge是一个集成`生成代码`、`微服务框架`、`基础开发框架`�
 
 <br>
 
-**项目地址：** [https://github.com/zhufuyi/sponge](https://github.com/zhufuyi/sponge)
-
-<br>
-
-**反馈与交流**
+**🤝 反馈与交流**
 
 > [!tip] 在使用过程中有任何问题和想法，请在这里提 [Issue](https://github.com/zhufuyi/sponge/issues)。
 
