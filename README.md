@@ -73,7 +73,7 @@
 
 > [!tip] 在使用过程中有任何问题和想法，请在这里提 [Issue](https://github.com/zhufuyi/sponge/issues)。
 
-如果对您有帮助给个**star⭐**，欢迎加入`go sponge微信交流群`，加微信进群。
+如果对您有帮助给个**[star⭐](https://github.com/zhufuyi/sponge)**，欢迎加入`go sponge微信交流群`，加微信进群。
 
 <p>
 <img width="300px" src="/assets/images/wechat.jpg">
