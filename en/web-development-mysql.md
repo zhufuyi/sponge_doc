@@ -292,7 +292,4 @@ Other configurations can be adjusted as needed, and you can also add custom conf
 
 ```bash
 make update-config
-
-# Equivalent to the sponge command
-sponge config --server-dir=./
 ```

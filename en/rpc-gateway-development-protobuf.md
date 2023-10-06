@@ -84,7 +84,7 @@ The created RPC gateway service code structure follows the egg model:
 
 #### 🔹Adding Microservice Connection Code
 
-The RPC gateway service you've created is an independent RPC gateway service. To call specific microservice API interfaces within the RPC gateway service, you first need to establish a connection to the microservices.
+If you want to call the microservice api interface in the rpc gateway service, you must first be able to connect to the microservice, and the following rpc connection code is automatically generated.
 
 Navigate to the sponge UI interface, click on the left-hand menu bar **[Public]** --> **[Generate RPC Service Connection Code]**. Fill in the module name, the name of the RPC service(s) (supporting multiple RPC service names separated by commas), and after filling in the parameters, click the `Download Code` button to generate the RPC service connection code, as shown in the image below:
 
@@ -100,9 +100,11 @@ The generated RPC service connection code directory structure is as follows:
     └─ rpcclient
 ```
 
+> [!tip] rpc connection code is actually grpc client connection code, including settings for service discovery, load balancing, secure connection, link tracking, metrics collection, etc. You can also add your own defined connection settings.
+
 Unzip the code and move the `internal` directory to the RPC gateway service code directory.
 
-> [!note] In normal circumstances, moving the `internal` directory should not result in conflicts. If there are conflicting files, it means you have previously specified the same microservice name to generate RPC service connection code. In this case, you can safely ignore overwriting files.
+> [!note] Move the directory `internal` to the rpc service directory normally there will be no conflicting files, if there are conflicting files, it means that the same microservice name has been specified previously to generate the rpc service connection code, ignore the overwrite file at this time.
 
 <br>
 
@@ -136,6 +138,37 @@ grpcClient:
     host: "127.0.0.1"
     port: 38282
     registryDiscoveryType: "
+```
+
+<br>
+
+#### 🔹Adding Proto Files for Microservices
+
+Although in the rpc gateway service can connect to the microservice, but do not know the microservice which api interfaces can be called, through the proto file can tell the rpc gateway service can be called api interface.
+
+Copy the `api/micro service name/v1/xxx.proto` file from the microservice code directory and move it to the `api` directory of the rpc gateway service code. With the microservice proto file, the rpc gateway service will know what api interfaces are available to call.
+
+Navigate to the RPC gateway service directory, open a terminal, and execute the following command:
+
+```bash
+# Copy proto files from other microservice(s) to this service project. If there are multiple microservice directories, separate them with commas.
+make copy-proto SERVER=../user
+```
+
+> [!note] `make copy-proto` will copy all proto files. If a proto file already exists, it will be overwritten. You can find the backup of the overwritten proto file in the directory `/tmp/sponge_copy_backup_proto_files`.
+
+<br>
+
+#### 🔹Running the Prepared Microservice
+
+In the prepared [user](https://github.com/zhufuyi/sponge_examples/tree/main/4_micro-grpc-protobuf) microservice directory, open a terminal and execute the following commands:
+
+```bash
+# Generate and merge code related to API interfaces.
+make proto
+
+# Compile and run the service.
+make run
 ```
 
 <br>
@@ -358,7 +391,4 @@ Other configurations can be adjusted as needed or new configurations can be adde
 
 ```bash
 make update-config
-
-# Equivalent to the sponge command
-sponge config --server-dir=./
 ```

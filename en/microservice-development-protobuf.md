@@ -108,6 +108,13 @@ Manually adding custom API interfaces is the same as described in the "Microserv
 
 <br>
 
+### 🔹Calling APIs from Other Microservices
+
+Calling APIs from Other Microservices is the same as `Calling APIs from Other Microservices` in the `Microservice Development  With MySQL` chapter, click to view
+<a href="/microservice-development-mysql?id=%f0%9f%8f%b7calling-apis-from-other-microservices" target="_blank">Calling APIs from Other Microservices documentation</a>.
+
+<br>
+
 ### 🔹Configuration the Service
 
 The configuration of services is the same as described in the "Microservices Development (MySQL)" section in the document. You can click to view the documentation on <a href="/microservice-development-mysql?id=%f0%9f%8f%b7configuring-the-service" target="_blank">Configuring the Service</a>.
@@ -164,9 +171,6 @@ In your terminal, navigate to the service directory and execute the following co
 
 ```bash
 make update-config
-
-# Equivalent sponge command
-sponge config --server-dir=./
 ```
 
 <br>
@@ -186,6 +190,15 @@ Next, go to the `cmd/service-name/initial` directory and open `initApp.go`. Repl
 Adding custom API interfaces is the same as described in the "Custom API interfaces" section of the document under "Microservices Development With MySQL". You can click to view the documentation on <a href="/microservice-development-mysql?id=%f0%9f%94%b9generating-and-using-cache-code" target="_blank">Generating and Using Cache Code</a> instructions.
 
 > [!tip] In manually added custom API interfaces, you may need to use caching, such as generating tokens. For string-type cache code like this, you can generate it directly and don't need to write it manually. Click to view <a href="/public-doc?id=%f0%9f%94%b9generating-and-using-cache-code" target="_blank">Generating and Using Cache Code</a> instructions.
+
+<br>
+
+### 🔹Calling APIs from Other Microservices
+
+Calling APIs from Other Microservices is the same as `Calling APIs from Other Microservices` in the `Microservice Development  With MySQL` chapter, click to view 
+ <a href="/microservice-development-mysql?id=%f0%9f%8f%b7calling-apis-from-other-microservices" target="_blank">Calling APIs from Other Microservices documentation</a>.
+
+<br>
 
 ### 🔹Configuring the Service
 

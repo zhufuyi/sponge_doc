@@ -507,8 +507,6 @@ Taking the code for `⓵ Web Service Based on SQL` as an example, create a names
 Next, open the configuration center file `configs/user_cc.yml` in the user directory and fill in the Nacos configuration information:
 
 ```yaml
-# Generate the go struct command: sponge config --server-dir=./serverDir
-
 # nacos settings
 nacos:
   ipAddr: "192.168.3.37"    # server address

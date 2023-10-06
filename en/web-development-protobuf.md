@@ -273,9 +273,6 @@ You can configure other settings according to your needs and add new configurati
 
 ```bash
 make update-config
-
-# Equivalent sponge command
-sponge config --server-dir=./
 ```
 
 <br>
@@ -330,9 +327,6 @@ Open a terminal, navigate to the service directory, and execute the command to u
 
 ```bash
 make update-config
-
-# Equivalent sponge command
-sponge config --server-dir=./
 ```
 
 <br>

@@ -198,6 +198,101 @@ Adding a custom API interface is straightforward. Simply define the API interfac
 
 <br>
 
+### 🏷Calling APIs from Other Microservices
+
+If you need to call APIs from other microservices in this service, follow the steps below.
+
+**(1) Adding Connection to Target Microservice Code**
+
+To call the API of the target microservice within this service, you first need to establish a connection to the target microservice. Below are the steps to automatically generate RPC connection code.
+
+Navigate to the Sponge UI interface, click on the left menu bar **[Public]** -> **[Generate RPC Service Connection Code]**. Fill in the module name, specify the RPC service name(s) (multiple names supported, separated by commas). After providing the parameters, click the `Download Code` button to generate the RPC service connection code, as shown in the image below:
+
+![micro-rpc-conn](assets/images/micro-rpc-conn.png)
+
+> [!tip] Equivalent command: **sponge micro rpc-conn --module-name=edusys  --rpc-server-name=user**. There is a simpler equivalent command available by using the `--out` parameter to specify the microservice code directory and directly merge the code into this service. Command: **sponge micro rpc-conn --rpc-server-name=user --out=edusys**
+
+The generated RPC service connection code directory will look like this:
+
+```
+.
+└─ internal
+    └─ rpcclient
+```
+
+> [!tip] The RPC connection code is actually a gRPC client connection code, which includes settings for service discovery, load balancing, secure connections, trace linking, metric collection, etc. You can also add your own custom connection settings.
+
+Extract the code and move the `internal` directory to the code directory of this service.
+
+> [!note] Moving the `internal` directory to the service directory should not normally result in conflicts. If there are conflicting files, it means that you previously specified the same microservice name to generate the RPC service connection code. In this case, simply ignore overwriting the files.
+
+<br>
+
+**(2) Configuring the Address of the Target Microservice**
+
+After adding the connection to the target microservice code, set the address of the target microservice in the configuration file `configs/service_name.yml`. The main configuration is as follows:
+
+```yaml
+grpcClient:
+  - name: "user"        # Microservice name
+    host: "127.0.0.1"   # Microservice address (This field is ignored if service discovery is enabled)
+    port: 8282          # Microservice port (This field is ignored if service discovery is enabled)
+    registryDiscoveryType: ""  # Service discovery, default is disabled, supports consul, etcd, nacos
+```
+
+> [!tip] For more grpcClient settings, refer to `configs/service_name.yml`, such as load balancing, secure connections, etc.
+
+If you need to connect to multiple microservices, you need to set the addresses of multiple microservices. An example is shown below:
+
+```yaml
+grpcClient:
+  - name: "user"
+    host: "127.0.0.1"
+    port: 18282
+    registryDiscoveryType: ""
+  - name: "relation"
+    host: "127.0.0.1"
+    port: 28282
+    registryDiscoveryType: ""
+  - name: "creation"
+    host: "127.0.0.1"
+    port: 38282
+    registryDiscoveryType: ""
+```
+
+<br>
+
+**(3) Adding Proto Files of the Target Microservice**
+
+Even though you can connect to the target microservice, you may not know which API interfaces of the target microservice can be called. You can use proto files to inform this service of the available API interfaces.
+
+Copy the `api/target_microservice_name/v1/xxx.proto` file from the target microservice code directory and move it to the `api` directory of this service. With the proto files of the target microservice, this service will know which API interfaces can be called.
+
+Switch to the directory of this service, open the terminal, and execute the following command:
+
+```bash
+# Copy proto files from other microservices to this service project. If there are multiple target microservice directories, separate them with commas.
+make copy-proto SERVER=../user
+```
+
+> [!note] `make copy-proto` will copy all proto files. If a proto file already exists, it will be overwritten. You can find the backup of overwritten proto files in the directory `/tmp/sponge_copy_backup_proto_files`.
+
+<br>
+
+**(4) Running the Target Microservice**
+
+In the directory of the target microservice, open the terminal and execute the following commands:
+
+```bash
+# Generate and merge API interface related code
+make proto
+
+# Compile and run the service
+make run
+```
+
+<br>
+
 ### 🏷Configuring the Service
 
 The created microservice code includes various components, some of which are disabled by default. You can enable and configure these components as needed in the configuration file `configs/service-name.yml`, which contains detailed explanations.
@@ -226,7 +321,4 @@ Other configurations can be set according to your needs, and you can also add ne
 
 ```bash
 make update-config
-
-# Equivalent sponge command
-sponge config --server-dir=./
 ```
