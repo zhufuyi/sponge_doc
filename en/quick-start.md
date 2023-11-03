@@ -153,7 +153,7 @@ The sponge UI interface supports creating projects in five ways:
 - `⓶Microservice created based on sql`
 - `⓷Web service created based on protobuf`
 - `⓸Microservice created based on protobuf`
-- `⓹RPC gateway service created based on protobuf`
+- `⓹GRPC gateway service created based on protobuf`
 
 Each project creation method has its use cases, which are explained in the <a href="/learn-about-sponge?id=%f0%9f%8f%b7code-generation-framework" target="_blank">Code Generation Framework</a> section. Choose one of these methods based on your project's needs. The sponge UI interface also supports generating various common code components, all of which can seamlessly integrate into your project's code. In addition to UI-based code generation, many code generation commands are integrated into the Makefile file within your project's code. These commands are designed to enable "low-code development" in Go.
 

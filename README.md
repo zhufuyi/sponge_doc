@@ -47,13 +47,13 @@
 >
 > 🔸参数校验 [validator](https://github.com/go-playground/validator)
 >
+> 🔸消息队列 [rabbitmq](https://github.com/rabbitmq/amqp091-go)
+>
 > 🔸自适应限流 [ratelimit](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/ratelimit)
 >
 > 🔸自适应熔断 [circuitbreaker](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/circuitbreaker)
 >
 > 🔸链路跟踪 [opentelemetry](https://github.com/open-telemetry/opentelemetry-go)
->
-> 🔸指标监控 [prometheus](https://github.com/prometheus/client_golang/prometheus), [grafana](https://github.com/grafana/grafana)
 >
 > 🔸服务注册与发现 [etcd](https://github.com/etcd-io/etcd), [consul](https://github.com/hashicorp/consul), [nacos](https://github.com/alibaba/nacos)
 >
@@ -71,7 +71,7 @@
 
 > [!tip] 在使用过程中有任何问题和想法，请在这里提 [Issue](https://github.com/zhufuyi/sponge/issues)。
 
-如果对您有帮助给个**[star⭐](https://github.com/zhufuyi/sponge)**，欢迎加入`go sponge微信交流群`，加微信进群。
+如果对您有帮助给个[star⭐](https://github.com/zhufuyi/sponge)，欢迎加入`go sponge微信交流群`，加微信进群。
 
 <p>
 <img width="300px" src="/assets/images/wechat.jpg">

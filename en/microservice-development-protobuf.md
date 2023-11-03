@@ -38,7 +38,7 @@ Inside the sponge UI, go to the left sidebar, click on **Protobuf** -> **Create 
 
 ![micro-rpc-pb](assets/images/micro-rpc-pb.png)
 
-> [!tip] Equivalent command: **sponge micro rpc-pb --module-name=user --server-name=user --project-name=edusys --protobuf-file=./user.protor**
+> [!tip] Equivalent command: **sponge micro rpc-pb --module-name=user --server-name=user --project-name=edusys --protobuf-file=./user.proto**
 
 > [!tip] The generated code directory name format is `ServiceName-Type-Date`. You can modify the directory name (e.g., remove the type and date) if desired.
 
@@ -84,13 +84,13 @@ make proto
 make run
 ```
 
-> [!note] During development, you will frequently use the `make proto` command, which internally runs a series of code generation subcommands: it generates template code for API interfaces, error codes, RPC client testing code, and relevant *.pb.go files. It also automatically merges the API-related code. You don't need to worry about overwriting existing business logic code. Even if something unexpected happens (e.g., a power outage), you can find a backup of the code before each merge in the `/tmp/sponge_merge_backup_code` directory. If you are on a Windows environment, it will be located at `C:\Users\YourUserName\AppData\Local\Temp\sponge_merge_backup_code`. If you add or update API interface descriptions in the proto files, you need to execute this command; otherwise, it's not necessary.
+> [!note] During development, you will frequently use the `make proto` command, which internally runs a series of code generation subcommands: it generates template code for API interfaces, error codes, grpc client testing code, and relevant *.pb.go files. It also automatically merges the API-related code. You don't need to worry about overwriting existing business logic code. Even if something unexpected happens (e.g., a power outage), you can find a backup of the code before each merge in the `/tmp/sponge_merge_backup_code` directory. If you are on a Windows environment, it will be located at `C:\Users\YourUserName\AppData\Local\Temp\sponge_merge_backup_code`. If you add or update API interface descriptions in the proto files, you need to execute this command; otherwise, it's not necessary.
 
 Use the **Goland** IDE to open the project code, navigate to the `internal/service` directory, and open the test file with the suffix `_client_test.go`. This file contains tests and performance benchmarking functions for each API interface defined in the proto file. You can fill in request parameters before testing, similar to testing API interfaces in a Swagger interface, as shown below:
 
 ![micro-rpc-test](assets/images/micro-rpc-test.png)
 
-If you don't have the **Goland** IDE, you can run tests using commands. Switch to the `internal/service` directory, open the test file with the suffix `_client_test.go`, modify the request parameters for the RPC methods, and execute the test command, e.g., `go test -run Test_service_teacher_methods/GetByID`.
+If you don't have the **Goland** IDE, you can run tests using commands. Switch to the `internal/service` directory, open the test file with the suffix `_client_test.go`, modify the request parameters for the grpc methods, and execute the test command, e.g., `go test -run Test_service_teacher_methods/GetByID`.
 
 <br>
 
@@ -123,9 +123,9 @@ The configuration of services is the same as described in the "Microservices Dev
 
 ## 🏷Developing Microservices with Other Databases
 
-`⓸Microservice created based on protobuf` doesn't include database-related code by default. Developers can choose any database type for data storage. The process of developing microservices with other databases is essentially the same as the one described above for MySQL, with the primary difference being the manual creation of database operation-related code.
+`⓸Microservice created based on protobuf` doesn't include database-related code by default. Developers can choose any database type for data storage. The above describes the specific process of selecting mysql for microservices development, which is simple and easy to operate, thanks to sponge's support for generating the code needed for the api interface (e.g., dao, model, cache) based on mysql tables. If other database types are used, sponge does not support the generation of these codes for the time being.
 
-Although sponge doesn't support automatically generating database-related code for other database types, it generates API interface template code, RPC client test code, error codes, and automates the merging of template code. This significantly reduces the need for manual code writing, making microservices development simpler and more convenient compared to traditional microservices (gRPC) development.
+Although sponge doesn't support automatically generating database-related code for other database types, it generates API interface template code, grpc client test code, error codes, and automates the merging of template code. This significantly reduces the need for manual code writing, making microservices development simpler and more convenient compared to traditional microservices (grpc) development.
 
 The process for developing microservices with other database types is mostly the same as the one for MySQL, with the main difference being in the database operation-related code, which needs to be manually written.
 

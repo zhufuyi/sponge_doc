@@ -279,7 +279,7 @@ make update-config
 
 ## 🏷Using Other Databases for Web Development
 
-`⓷Web service created based on protobuf` do not include database-related code by default. Developers can choose any database type for data storage. The process of developing with other database types is similar to the one described above for using MySQL microservices, which is simple and convenient, thanks to sponge's support for generating various code (e.g., dao, model, cache) based on MySQL tables to create API interfaces. sponge currently does not support generating these codes for other database types.
+`⓷Web service created based on protobuf` do not include database-related code by default. Developers can choose any database type for data storage. The above describes the specific process of choosing mysql for web development, the operation is simple and convenient, thanks to sponge's support for generating various code (e.g., dao, model, cache) based on MySQL tables to create API interfaces. sponge currently does not support generating these codes for other database types.
 
 While sponge does not support generating database-related code for other database types, it simplifies web service development by generating API interface templates, route registration code, error codes, and automatically merging template code based on protobuf files, eliminating the need to write a significant amount of code compared to traditional web service development.
 

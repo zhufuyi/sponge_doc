@@ -15,8 +15,7 @@
 
 <br>
 
-[sponge](https://github.com/zhufuyi/sponge) is a powerful golang productivity tool that integrates `automatic code generation`, `web and microservices frameworks`, `basic development framework`. sponge has a wealth of code generation commands to generate different functionality of the code can be combined into a complete service (similar to artificially scattered sponge cells that can automatically recombine into a new sponge). Code decoupling modular design , it is easy to build a complete project from development to deployment, so that you develop web or microservices project easily, golang can also be "low-code development".
-
+[Sponge](https://github.com/zhufuyi/sponge) is a powerful golang productivity tool that integrates `automatic code generation`, `web and microservices frameworks`, `basic development framework`. Sponge has a wealth of code generation commands to generate different functionality of the code can be combined into a complete service (similar to artificially scattered sponge cells that can automatically recombine into a new sponge). Code decoupling modular design , it is easy to build a complete project from development to deployment, so that you develop web or microservices project easily, golang can also be "low-code development".
 
 <br>
 
@@ -46,6 +45,8 @@
 >
 > 🔸Authentication [jwt](https://github.com/golang-jwt/jwt)
 >
+> 🔸Message Queue [rabbitmq](https://github.com/rabbitmq/amqp091-go)
+>
 > 🔸Parameter validation [validator](https://github.com/go-playground/validator)
 >
 > 🔸Adaptive rate limiting [ratelimit](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/ratelimit)
@@ -73,4 +74,4 @@
 
 > [!tip] If you encounter any issues or have ideas during usage, please provide feedback via [Issue](https://github.com/zhufuyi/sponge/issues) here.
 
-If sponge has been helpful to you, please give it a **[star⭐](https://github.com/zhufuyi/sponge)**.
+If sponge has been helpful to you, please give it a [star⭐](https://github.com/zhufuyi/sponge).

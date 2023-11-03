@@ -1,4 +1,4 @@
-`⓶Microservice created based on sql` is gRPC microservices that use MySQL as their data storage. Since the database type has been chosen, and sponge supports generating standardized CRUD code using GORM, you can easily generate complete microservice code with CRUD API interfaces at the push of a button. Within the microservice code, you can batch-add CRUD API interface code without writing a single line of Go code; all you need to do is connect to the MySQL database.
+`⓶Microservice created based on sql` is grpc microservices that use MySQL as their data storage. Since the database type has been chosen, and sponge supports generating standardized CRUD code using GORM, you can easily generate complete microservice code with CRUD API interfaces at the push of a button. Within the microservice code, you can batch-add CRUD API interface code without writing a single line of Go code; all you need to do is connect to the MySQL database.
 
 If you're developing a microservice that only requires standardized CRUD API interfaces, this is one of the simplest ways to develop microservices. You won't need to write Go code, and it enables "low-code development" for microservice API interfaces. Adding custom API interfaces is also relatively straightforward; you just need to define the API interface in a proto file and then write specific logic in the generated API interface templates.
 
@@ -79,13 +79,13 @@ make proto
 make run
 ```
 
-> [!note] During development, you will frequently use the `make proto` command. It internally executes a series of subcommands for generating code: generating `template code` for API interfaces, `error codes`, `RPC client test code`, and the related `*.pb.go` files. It also automatically merges code related to API interfaces. You don't need to worry about overwriting existing business logic code. Even if something unexpected happens (like a power outage), you can find backup code before each merge in the `/tmp/sponge_merge_backup_code` directory. In Windows, it's located in `C:\Users\YourUsername\AppData\Local\Temp\sponge_merge_backup_code`. Execute this command whenever you add or update API interface descriptions in the proto file; otherwise, it's not necessary.
+> [!note] During development, you will frequently use the `make proto` command. It internally executes a series of subcommands for generating code: generating `template code` for API interfaces, `error codes`, `grpc client test code`, and the related `*.pb.go` files. It also automatically merges code related to API interfaces. You don't need to worry about overwriting existing business logic code. Even if something unexpected happens (like a power outage), you can find backup code before each merge in the `/tmp/sponge_merge_backup_code` directory. In Windows, it's located in `C:\Users\YourUsername\AppData\Local\Temp\sponge_merge_backup_code`. Execute this command whenever you add or update API interface descriptions in the proto file; otherwise, it's not necessary.
 
 Open the project code using the `GoLand` IDE, go to the `internal/service` directory, and open the test file with the suffix `_client_test.go`. Here, you will find tests and performance benchmarking functions for each API interface defined in the proto file. Before testing, fill in the request parameters, similar to testing API interfaces in a Swagger interface, as shown in the image below:
 
 ![micro-rpc-test](assets/images/micro-rpc-test.png)
 
-If you don't have the `GoLand` IDE, you can still test using commands. Navigate to the `internal/service` directory, open the test file with the suffix `_client_test.go`, modify the request parameters for the RPC method, and execute the test command like this: `go test -run Test_service_teacher_methods/GetByID`.
+If you don't have the `GoLand` IDE, you can still test using commands. Navigate to the `internal/service` directory, open the test file with the suffix `_client_test.go`, modify the request parameters for the grpc method, and execute the test command like this: `go test -run Test_service_teacher_methods/GetByID`.
 
 > [!tip] In the CRUD API interfaces, there is a paginated query interface with arbitrary conditions. With this interface, you can avoid writing many API query interfaces. Click to see <a href="/public-doc?id=%f0%9f%94%b9arbitrary-condition-paging-query" target="_blank">Arbitrary Condition Paging Query</a> instructions.
 
@@ -194,25 +194,25 @@ In the `GoLand` IDE, go to the `internal/service` directory and open the test fi
 
 If you're not using the `GoLand` IDE for testing, you can execute the test command in the terminal like this: `go test -run Test_service_teacher_methods/GetByID`.
 
-Adding a custom API interface is straightforward. Simply define the API interface description in the proto file, then write the specific logic code in the generated template. The gRPC client testing code is automatically generated, eliminating the need for third-party gRPC client tools for testing. You don't need to write complete API interface code as in traditional gRPC development, allowing developers to focus on writing specific business logic.
+Adding a custom API interface is straightforward. Simply define the API interface description in the proto file, then write the specific logic code in the generated template. The grpc client testing code is automatically generated, eliminating the need for third-party grpc client tools for testing. You don't need to write complete API interface code as in traditional grpc development, allowing developers to focus on writing specific business logic.
 
 <br>
 
 ### 🏷Calling APIs from Other Microservices
 
-If you need to call APIs from other microservices in this service, follow the steps below.
+According to the project business needs, there may be a need to call other microservice api interfaces in this service, other microservices here refers to the use of protobuf protocol gRCP service, any language implementation of the grpc service can be supported, the following is to call other microservices api interfaces of the operation steps:
 
 **(1) Adding Connection to Target Microservice Code**
 
-To call the API of the target microservice within this service, you first need to establish a connection to the target microservice. Below are the steps to automatically generate RPC connection code.
+To call the API of the target microservice within this service, you first need to establish a connection to the target microservice. Below are the steps to automatically generate grpc connection code.
 
-Navigate to the Sponge UI interface, click on the left menu bar **[Public]** -> **[Generate RPC Service Connection Code]**. Fill in the module name, specify the RPC service name(s) (multiple names supported, separated by commas). After providing the parameters, click the `Download Code` button to generate the RPC service connection code, as shown in the image below:
+Navigate to the Sponge UI interface, click on the left menu bar **[Public]** -> **[Generate GRPC Connection Code]**. Fill in the module name, specify the grpc service name(s) (multiple names supported, separated by commas). After providing the parameters, click the `Download Code` button to generate the grpc service connection code, as shown in the image below:
 
 ![micro-rpc-conn](assets/images/micro-rpc-conn.png)
 
 > [!tip] Equivalent command: **sponge micro rpc-conn --module-name=edusys  --rpc-server-name=user**. There is a simpler equivalent command available by using the `--out` parameter to specify the microservice code directory and directly merge the code into this service. Command: **sponge micro rpc-conn --rpc-server-name=user --out=edusys**
 
-The generated RPC service connection code directory will look like this:
+The generated grpc service connection code directory will look like this:
 
 ```
 .
@@ -220,11 +220,11 @@ The generated RPC service connection code directory will look like this:
     └─ rpcclient
 ```
 
-> [!tip] The RPC connection code is actually a gRPC client connection code, which includes settings for service discovery, load balancing, secure connections, trace linking, metric collection, etc. You can also add your own custom connection settings.
+> [!tip] The grpc connection code is actually a grpc client connection code, which includes settings for service discovery, load balancing, secure connections, trace linking, metric collection, etc. You can also add your own custom connection settings.
 
 Extract the code and move the `internal` directory to the code directory of this service.
 
-> [!note] Moving the `internal` directory to the service directory should not normally result in conflicts. If there are conflicting files, it means that you previously specified the same microservice name to generate the RPC service connection code. In this case, simply ignore overwriting the files.
+> [!note] Moving the `internal` directory to the service directory should not normally result in conflicts. If there are conflicting files, it means that you previously specified the same microservice name to generate the grpc service connection code. In this case, simply ignore overwriting the files.
 
 <br>
 
@@ -262,13 +262,13 @@ grpcClient:
 
 <br>
 
-**(3) Adding Proto Files of the Target Microservice**
+**(3) Copy the Proto Files of the Target Microservice**
 
 Even though you can connect to the target microservice, you may not know which API interfaces of the target microservice can be called. You can use proto files to inform this service of the available API interfaces.
 
-Copy the `api/target_microservice_name/v1/xxx.proto` file from the target microservice code directory and move it to the `api` directory of this service. With the proto files of the target microservice, this service will know which API interfaces can be called.
+Copy the target microservice proto file and move it to the directory `api/target microservice name/v1` in this service. With the target microservice proto file, you can know what api interfaces are available to call in this service.
 
-Switch to the directory of this service, open the terminal, and execute the following command:
+If the target microservice was created with sponge, you can copy the proto file directly with the command, while microservices not created with sponge need to copy the proto file manually.
 
 ```bash
 # Copy proto files from other microservices to this service project. If there are multiple target microservice directories, separate them with commas.
@@ -281,15 +281,7 @@ make copy-proto SERVER=../user
 
 **(4) Running the Target Microservice**
 
-In the directory of the target microservice, open the terminal and execute the following commands:
-
-```bash
-# Generate and merge API interface related code
-make proto
-
-# Compile and run the service
-make run
-```
+If you use microservices created with sponge, execute the command `make run` to run the target microservice, and for other target microservices, run the microservice in the same way as the target microservice.
 
 <br>
 
@@ -297,7 +289,7 @@ make run
 
 The created microservice code includes various components, some of which are disabled by default. You can enable and configure these components as needed in the configuration file `configs/service-name.yml`, which contains detailed explanations.
 
-> [!tip] You can replace, add your own components (gRPC interceptors), or remove unnecessary components in the service code by modifying the code file `internal/server/grpc.go`.
+> [!tip] You can replace, add your own components (grpc interceptors), or remove unnecessary components in the service code by modifying the code file `internal/server/grpc.go`.
 
 **Components Enabled by Default:**
 
@@ -313,7 +305,7 @@ The created microservice code includes various components, some of which are dis
 - **enableCircuitBreaker**: Adaptive circuit breaking component.
 - **enableTrace**: Distributed tracing component.
 - **registryDiscoveryType**: Service registration and discovery component.
-- **gRPC Security**:
+- **grpc security**:
   - **serverSecure**: Certificate-based authentication, supporting server-side authentication and mutual authentication.
   - **enableToken**: Token-based authentication.
 

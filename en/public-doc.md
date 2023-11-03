@@ -10,8 +10,8 @@ Pagination Parameters (required):
 
 Condition Parameters (columns, optional):
 	name: Column name.
-	exp: Expression, defaults to "=" if empty. You can use "=", "!=", ">", ">=", "<", "<=", "like".
-	value: Column value.
+	exp: Expression, defaults to "=" if empty. You can use "=", "!=", ">", ">=", "<", "<=", "like", "in"
+	value: Column value, if exp=in, multiple values are separated by commas.
 	logic: Logic between multiple columns. If empty, it represents logical AND, and you can use "&" (AND) or "|" (OR).
 
 Example: Querying males older than 20

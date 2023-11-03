@@ -1,13 +1,13 @@
 
 ### 🏷Configuration Parsing
 
-`conf` is a component for parsing configurations into Go structures, supporting three file formats: `yaml`, `json`, and `toml`. You can check out [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/conf) for more information.
+`conf` is a component for parsing configurations into Go structures, supporting three file formats: `yaml`, `json`, and `toml`. You can check out [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/conf#conf) for more information.
 
 <br>
 
 ### 🏷Logging
 
-`logger` is a component built on top of [zap](https://github.com/uber-go/zap), and you can find [usage examples here](https://github.com/zhufuyi/sponge/tree/main/pkg/logger).
+`logger` is a component built on top of [zap](https://github.com/uber-go/zap), and you can find [usage examples here](https://github.com/zhufuyi/sponge/tree/main/pkg/logger#logger).
 
 In web or microservices created with sponge, the logging component is enabled by default. By default, it outputs logs to the terminal in console format. You can configure the logger by specifying settings in a YAML configuration file under the `configs` directory:
 
@@ -29,13 +29,33 @@ logger:
 
 ### 🏷Error Codes
 
-`errcode` includes two types of error codes: HTTP and gRPC. Each type is further divided into system-level and business-level error codes, and supports conversion between HTTP and gRPC error codes. Click to view the [error code rules and usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/errcode).
+`errcode` includes two types of error codes: HTTP and grpc. Each type is further divided into system-level and business-level error codes, and supports conversion between HTTP and grpc error codes. Click to view the [error code rules and usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/errcode#errcode).
+
+<br>
+
+### 🏷JWT Authentication
+
+`jwt`is a token generation and parsing component, base on [golang-jwt](https://github.com/golang-jwt/jwt)，click to see [example of use](https://github.com/zhufuyi/sponge/tree/main/pkg/jwt#jwt).
+
+`jwt`as gin middleware , support for custom fields and authentication methods , Check out the [usage example](https://github.com/zhufuyi/sponge/blob/main/pkg/gin/middleware/README.md#jwt-authorization-middleware).
+
+<br>
+
+### 🏷Gin Middleware Collection
+
+Gin middleware includes features like logging, JWT authentication, CORS handling, adaptive rate limiting, adaptive circuit breaking, tracing, metric collection, and Request ID. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/gin/middleware#example-of-use).
+
+<br>
+
+### 🏷GRPC Interceptors  Collection
+
+GRPC interceptors are available for both clients and servers and include features like logging, JWT authentication, recovery, adaptive rate limiting, adaptive circuit breaking, tracing, metric collection, Request ID, retry, timeouts, and token handling. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/grpc/interceptor#example-of-use).
 
 <br>
 
 ### 🏷Resource Statistics
 
-`stat` is a component for monitoring the usage of system and service resources. Click to view [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/stat).
+`stat` is a component for monitoring the usage of system and service resources. Click to view [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/stat#example-of-use).
 
 In web or microservices created with sponge, the resource statistics component is enabled by default. You can configure it in the YAML configuration file located in the `configs` directory using the `enableStat` field:
 
@@ -49,7 +69,7 @@ By default, statistics are generated and logged every minute, including CPU and 
 
 ### 🏷Adaptive Rate Limiting
 
-Adaptive rate limiting dynamically determines whether to apply rate limiting based on a combination of default thresholds and system resource usage. Since servers may have varying processing capabilities, setting fixed parameters can be challenging. Adaptive rate limiting adapts to server capacity, eliminating the need for manual parameter adjustments. Click to view [usage examples](https://github.com/zhufuyi/sponge/blob/main/pkg/shield/ratelimit).
+Adaptive rate limiting dynamically determines whether to apply rate limiting based on a combination of default thresholds and system resource usage. Since servers may have varying processing capabilities, setting fixed parameters can be challenging. Adaptive rate limiting adapts to server capacity, eliminating the need for manual parameter adjustments. Click to view [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/ratelimit#example-of-use).
 
 In web or microservices created with sponge, the rate limiting component is disabled by default. You can configure it in the YAML configuration file located in the `configs` directory using the `enableLimit` field:
 
@@ -71,7 +91,7 @@ Although there are default thresholds and system resource quotas, you can modify
 	}
 ```
 
-For gRPC microservices, modify the defaults in `internal/server/grpc.go`. For example:
+For grpc microservices, modify the defaults in `internal/server/grpc.go`. For example:
 
 ```go
 	// limit interceptor
@@ -89,7 +109,7 @@ For gRPC microservices, modify the defaults in `internal/server/grpc.go`. For ex
 
 ### 🏷Adaptive Circuit Breaking
 
-Adaptive circuit breaking determines whether to initiate a circuit break based on the error rate of requests and system resource usage. Since servers may have varying processing capabilities, setting fixed parameters can be challenging. Adaptive circuit breaking adapts to server capacity, eliminating the need for manual parameter adjustments. Click to view [usage examples](https://github.com/zhufuyi/sponge/blob/main/pkg/shield/circuitbreaker).
+Adaptive circuit breaking determines whether to initiate a circuit break based on the error rate of requests and system resource usage. Since servers may have varying processing capabilities, setting fixed parameters can be challenging. Adaptive circuit breaking adapts to server capacity, eliminating the need for manual parameter adjustments. Click to view [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/circuitbreaker#example-of-use).
 
 In web or microservices created with sponge, the adaptive circuit breaking component is disabled by default. You can configure it in the YAML configuration file located in the `configs` directory using the `enableCircuitBreaker` field:
 
@@ -108,13 +128,13 @@ For web services, it defaults to being effective for HTTP error codes 500 and 50
 	}
 ```
 
-For gRPC microservices, it defaults to being effective for gRPC error codes Internal (13) and Unavailable (14), while other errors do not trigger circuit breaking. You can add additional error codes to trigger circuit breaking by modifying the `CircuitBreaker` in `internal/server/grpc.go`. For example:
+For grpc microservices, it defaults to being effective for grpc error codes Internal (13) and Unavailable (14), while other errors do not trigger circuit breaking. You can add additional error codes to trigger circuit breaking by modifying the `CircuitBreaker` in `internal/server/grpc.go`. For example:
 
 ```go
 	// circuit breaker interceptor
 	if config.Get().App.EnableCircuitBreaker {
 		unaryServerInterceptors = append(unaryServerInterceptors, interceptor.UnaryServerCircuitBreaker(
-			// set rpc code for circuit breaker, default already includes codes.Internal and codes.Unavailable
+			// set grpc code for circuit breaker, default already includes codes.Internal and codes.Unavailable
 			interceptor.WithValidCode(codes.Unauthenticated),
 		))
 	}
@@ -124,7 +144,7 @@ For gRPC microservices, it defaults to being effective for gRPC error codes Inte
 
 ### 🏷Distributed Tracing
 
-Distributed tracing is a component built upon [go.opentelemetry.io/otel](https://github.com/open-telemetry/opentelemetry-go). Click to view [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/tracer).
+Distributed tracing is a component built upon [go.opentelemetry.io/otel](https://github.com/open-telemetry/opentelemetry-go). Click to view [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/tracer#example-of-use).
 
 In web or microservices created with sponge, the distributed tracing component is disabled by default. You can configure it in the YAML configuration file located in the `configs` directory using the `enableTrace` and `jaeger` fields:
 
@@ -219,16 +239,16 @@ Start the **shopgw**, **product**, **inventory**, and **comment** services. Acce
 
 From the image, you can see a total of 10 spans in the primary trace:
 
-- Request to the /api/v1/detail interface
-- shopgw service invoking the RPC client of product
-- RPC server in the product service
-- Manually added mockDAO in the product service
-- shopgw service invoking the RPC client of inventory
-- RPC server in the inventory service
-- Manually added mockDAO in the inventory service
-- shopgw service invoking the RPC client of comment
-- RPC server in the comment service
-- Manually added mockDAO in the comment service
+- request to the /api/v1/detail interface
+- shopgw service invoking the grpc client-side of product
+- grpc server-side in the product service
+- manually added mockDAO in the product service
+- shopgw service invoking the grpc client of inventory
+- grpc server in the inventory service
+- manually added mockDAO in the inventory service
+- shopgw service invoking the grpc client of comment
+- grpc server in the comment service
+- manually added mockDAO in the comment service
 
 The shopgw service sequentially calls the **product**, **inventory**, and **comment** services to fetch data. In practice, you can optimize this by making parallel calls to save time, but be mindful of controlling the number of concurrent goroutines.
 
@@ -238,8 +258,8 @@ The shopgw service sequentially calls the **product**, **inventory**, and **comm
 
 Monitoring involves services providing metrics, which are collected by [Prometheus](https://prometheus.io/docs/introduction/overview) and displayed in [Grafana](https://grafana.com/docs/).
 
-- Click to view an [example of monitoring in the web service](https://github.com/zhufuyi/sponge/tree/main/pkg/gin/middleware/metrics).
-- Click to view an [example of monitoring in gRPC microservices](https://github.com/zhufuyi/sponge/tree/main/pkg/grpc/metrics).
+- Click to view an [example of monitoring in the web service](https://github.com/zhufuyi/sponge/tree/main/pkg/gin/middleware/metrics#example-of-use).
+- Click to view an [example of monitoring in grpc microservices](https://github.com/zhufuyi/sponge/tree/main/pkg/grpc/metrics#example-of-use).
 
 In web or microservices created with sponge, metric collection is enabled by default, and the default route is `/metrics`. You can configure it in the YAML configuration file located in the `configs` directory using the `enableMetrics` field:
 
@@ -343,11 +363,11 @@ Trigger the Prometheus configuration to take effect by executing `curl -X POST h
 
 **(2) Adding Monitoring Dashboards to Grafana**
 
-Import the [RPC server monitoring dashboard](https://github.com/zhufuyi/sponge/blob/main/pkg/grpc/metrics/server_grafana.json) into Grafana. If the monitoring interface does not display data, check if the data source name in the JSON matches the Prometheus data source name in Grafana's configuration.
+Import the [grpc service monitoring dashboard](https://github.com/zhufuyi/sponge/blob/main/pkg/grpc/metrics/server_grafana.json) into Grafana. If the monitoring interface does not display data, check if the data source name in the JSON matches the Prometheus data source name in Grafana's configuration.
 
 <br>
 
-**(3) Load Testing RPC Methods and Observing Monitoring Data**
+**(3) Load Testing GRPC Methods and Observing Monitoring Data**
 
 Open the `internal/service/teacher_client_test.go` file using the `Goland` IDE and test various methods under **Test_teacherService_methods** or **Test_teacherService_benchmark**.
 
@@ -357,7 +377,7 @@ The monitoring interface will look like the following image:
 
 <br>
 
-The monitoring for the RPC client is similar to the server monitoring, and you can find the [RPC client monitoring dashboard](https://github.com/zhufuyi/sponge/blob/main/pkg/grpc/metrics/client_grafana.json) here.
+The monitoring for the grpc client is similar to the server monitoring, and you can find the [grpc client monitoring dashboard](https://github.com/zhufuyi/sponge/blob/main/pkg/grpc/metrics/client_grafana.json) here.
 
 <br>
 
@@ -433,6 +453,8 @@ Services generated by sponge support two methods for collecting profiles: throug
 
 #### 🔹Collecting Profiles via HTTP Interface
 
+Click to see an [example of the use](https://github.com/zhufuyi/sponge/blob/main/pkg/prof/README.md#sampling-profile-by-http) of profile collection via the http interface.
+
 Collecting profiles via the HTTP interface is disabled by default. To enable it, modify the configuration by setting the `enableHTTPProfile` field to `true`. This is typically used during development or testing. Enabling it in a production environment may cause slight performance overhead, so consider whether it's necessary. In addition to the default Go language profiles, it also supports I/O profiling, with the route `/debug/pprof/profile-io`.
 
 - For web services, the default profile collection URL is http://localhost:8080/debug/pprof.
@@ -443,6 +465,8 @@ By combining it with the **go tool pprof**, you can analyze the program's runtim
 <br>
 
 #### 🔹Collecting Profiles via System Signal Notifications
+
+Click here to see an [example of the use](https://github.com/zhufuyi/sponge/blob/main/pkg/prof/README.md#sampling-profile-by-system-notification-signal) of the notification acquisition profile via system signals.
 
 When using the HTTP interface, the program continuously records profile-related information in the background, even though most of the time this information is not needed. It can be improved by collecting profiles only when necessary and automatically stopping the collection afterward. Services generated by sponge support listening to system signals to start and stop profile collection. By default, it uses the **SIGTRAP** (5) system signal (recommended to change to SIGUSR1 on Linux; Windows environments do not support SIGUSR1). You can send a signal to the service like this:
 
@@ -534,37 +558,45 @@ go build
 
 > [!tip] If you are deploying using Docker or Kubernetes, simply modify the default service startup command to start the service with Configuration Center. The deployment script generated by sponge includes two ways to start the service; you only need to choose one.
 
+<br>
+
 ### 🏷Database ORM
 
-`mysql` is a database component based on [gorm](https://github.com/go-gorm/gorm). It builds upon gorm and adds features like tracing and arbitrary condition querying. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/mysql).
+`mysql` is a database component based on [gorm](https://github.com/go-gorm/gorm). It builds upon gorm and adds features like tracing and arbitrary condition querying. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/mysql#example-of-use).
+
+<br>
 
 ### 🏷Redis
 
-`goredis` is a NoSQL component based on [go-redis](https://github.com/go-redis/redis). It builds upon go-redis and adds tracing functionality. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/goredis).
+`goredis` is a NoSQL component based on [go-redis](https://github.com/go-redis/redis). It builds upon go-redis and adds tracing functionality. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/goredis#example-of-use).
 
-### 🏷Gin Middleware
+<br>
 
-Gin middleware includes features like logging, JWT authentication, CORS handling, adaptive rate limiting, adaptive circuit breaking, tracing, metric collection, and Request ID. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/gin/middleware).
+### 🏷Message Queue
 
-### 🏷gRPC Interceptors
+`rabbitmq` is based on [amqp091-go](github.com/rabbitmq/amqp091-go) encapsulated messaging components, support for automatic reconnection and custom queue parameter settings, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/rabbitmq#example-of-use).
 
-gRPC interceptors are available for both clients and servers and include features like logging, JWT authentication, recovery, adaptive rate limiting, adaptive circuit breaking, tracing, metric collection, Request ID, retry, timeouts, and token handling. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/grpc/interceptor).
+<br>
 
 ### 🏷Graceful Service Startup and Shutdown
 
-`app` is a component for gracefully starting and stopping services. It uses [errgroup](https://github.com/zhufuyi/sponge/blob/main/pkg/app/golang.org/x/sync/errgroup) to ensure that multiple services are started correctly simultaneously. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/app).
+`app` is a component for gracefully starting and stopping services. It uses [errgroup](https://github.com/zhufuyi/sponge/blob/main/pkg/app/golang.org/x/sync/errgroup) to ensure that multiple services are started correctly simultaneously. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/app#example-of-use).
+
+<br>
 
 ### 🏷Service Registration and Discovery
 
-- [Service Registration Usage Example](https://github.com/zhufuyi/sponge/blob/main/pkg/servicerd/registry).
-- [Service Discovery Usage Example](https://github.com/zhufuyi/sponge/tree/main/pkg/servicerd/discovery).
+- [Service Registration Usage Example](https://github.com/zhufuyi/sponge/tree/main/pkg/servicerd/registry#example-of-use).
+- [Service Discovery Usage Example](https://github.com/zhufuyi/sponge/tree/main/pkg/servicerd/discovery#example-of-use).
 
 Service registration and discovery support three types: Consul, etcd, and Nacos.
 
-- Consul client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/consulcli).
-- etcd client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/etcdcli).
-- Nacos client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/nacoscli).
+- Consul client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/consulcli#example-of-use).
+- etcd client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/etcdcli#example-of-use).
+- Nacos client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/nacoscli#example-of-use).
+
+<br>
 
 ### 🏷HTTP Client
 
-`gohttp` is a component that wraps the HTTP library. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/gohttp).
+`gohttp` is a component that wraps the HTTP library. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/gohttp#example-of-use).
