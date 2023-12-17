@@ -49,6 +49,8 @@
 >
 > 🔸消息队列 [rabbitmq](https://github.com/rabbitmq/amqp091-go)
 >
+> 🔸分布式事务管理器 [dtm](https://github.com/dtm-labs/dtm)
+>
 > 🔸自适应限流 [ratelimit](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/ratelimit)
 >
 > 🔸自适应熔断 [circuitbreaker](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/circuitbreaker)

@@ -47,6 +47,8 @@
 >
 > 🔸Message Queue [rabbitmq](https://github.com/rabbitmq/amqp091-go)
 >
+> 🔸Distributed Transaction Manager [dtm](https://github.com/dtm-labs/dtm)
+>
 > 🔸Parameter validation [validator](https://github.com/go-playground/validator)
 >
 > 🔸Adaptive rate limiting [ratelimit](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/ratelimit)

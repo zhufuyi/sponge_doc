@@ -1,15 +1,11 @@
 
-### 🏷Configuration Parsing
-
-`conf` is a component for parsing configurations into Go structures, supporting three file formats: `yaml`, `json`, and `toml`. You can check out [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/conf#conf) for more information.
-
-<br>
-
 ### 🏷Logging
 
 `logger` is a component built on top of [zap](https://github.com/uber-go/zap), and you can find [usage examples here](https://github.com/zhufuyi/sponge/tree/main/pkg/logger#logger).
 
-In web or microservices created with sponge, the logging component is enabled by default. By default, it outputs logs to the terminal in console format. You can configure the logger by specifying settings in a YAML configuration file under the `configs` directory:
+In web or microservices created with sponge, the logging component is enabled by default. By default, it outputs logs to the terminal in console format.
+
+Set the field `logger` in the yaml configuration file in the `configs` directory:
 
 ```yaml
 # Logger settings
@@ -27,29 +23,160 @@ logger:
 
 <br>
 
-### 🏷Error Codes
-
-`errcode` includes two types of error codes: HTTP and grpc. Each type is further divided into system-level and business-level error codes, and supports conversion between HTTP and grpc error codes. Click to view the [error code rules and usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/errcode#errcode).
-
-<br>
-
-### 🏷JWT Authentication
-
-`jwt`is a token generation and parsing component, base on [golang-jwt](https://github.com/golang-jwt/jwt)，click to see [example of use](https://github.com/zhufuyi/sponge/tree/main/pkg/jwt#jwt).
-
-`jwt`as gin middleware , support for custom fields and authentication methods , Check out the [usage example](https://github.com/zhufuyi/sponge/blob/main/pkg/gin/middleware/README.md#jwt-authorization-middleware).
-
-<br>
-
-### 🏷Gin Middleware Collection
+### 🏷Gin and Middleware Collection
 
 Gin middleware includes features like logging, JWT authentication, CORS handling, adaptive rate limiting, adaptive circuit breaking, tracing, metric collection, and Request ID. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/gin/middleware#example-of-use).
 
+set the field `http` in the yaml configuration file in the `configs` directory:
+
+```yaml
+http:
+  port: 8080           # port
+  readTimeout: 5    # read timeout
+  writeTimeout: 5   # Write timeout
+```
+
+The common middleware is already in the generated web service code `internal/routers/routers.go`.
+
 <br>
 
-### 🏷GRPC Interceptors  Collection
+### 🏷GRPC and Interceptors Collection
+
+- grpc server-side components, click to see [examples of use](https://github.com/zhufuyi/sponge/tree/main/pkg/grpc/server). 
+- grpc client-side components, click to see [examples of use](https://github.com/zhufuyi/sponge/tree/main/pkg/grpc/client).
+
+Set the grpc server side field `grpc` in the yaml configuration file in the `configs` directory:
+
+```yaml
+grpc:
+  port: 8282          # listen port
+  httpPort: 8283      # profile and metrics ports
+  readTimeout: 5      # read timeout, unit(second)
+  writeTimeout: 5     # write timeout, unit(second)
+  # serverSecure parameter setting
+  # if type="", it means no secure connection, no need to fill in any parameters
+  # if type="one-way", it means server-side certification, only the fields 'certFile' and 'keyFile' should be filled in
+  # if type="two-way", it means both client and server side certification, fill in all fields
+  serverSecure:
+    type: ""              # secures type, "", "one-way", "two-way"
+    caFile: ""            # ca certificate file, valid only in "two-way", absolute path
+    certFile: ""          # server side cert file, absolute path
+    keyFile: ""           # server side key file, absolute path
+```
+
+Set the grpc client field `grpcClient` in the yaml configuration file in the `configs` directory:
+
+```yaml
+grpcClient:
+  - name: "serverNameExample"   # grpc service name, used for service discovery
+    host: "127.0.0.1"           # grpc service address, used for direct connection
+    port: 8282                  # grpc service port
+    registryDiscoveryType: ""   # registration and discovery types: consul, etcd, nacos, if empty, connecting to server using host and port
+    enableLoadBalance: true     # whether to turn on the load balancer
+    # clientSecure parameter setting
+    # if type="", it means no secure connection, no need to fill in any parameters
+    # if type="one-way", it means server-side certification, only the fields 'serverName' and 'certFile' should be filled in
+    # if type="two-way", it means both client and server side certification, fill in all fields
+    clientSecure:
+      type: ""           # secures type, "", "one-way", "two-way"
+      serverName: ""     # server name, e.g. *.foo.com
+      caFile: ""         # client side ca file, valid only in "two-way", absolute path
+      certFile: ""       # client side cert file, absolute path, if secureType="one-way", fill in server side cert file here
+      keyFile: ""        # client side key file, valid only in "two-way", absolute path
+    clientToken:
+      enable: false      # whether to enable token authentication
+      appID: ""          # app id
+      appKey: ""         # app key
+```
+
+<br>
 
 GRPC interceptors are available for both clients and servers and include features like logging, JWT authentication, recovery, adaptive rate limiting, adaptive circuit breaking, tracing, metric collection, Request ID, retry, timeouts, and token handling. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/grpc/interceptor#example-of-use).
+
+The common interceptors are already in the generated grpc service code `internal/server/grpc.go`.
+
+<br>
+
+### 🏷Mysql
+
+`mysql` is a database component based on [gorm](https://github.com/go-gorm/gorm). It builds upon gorm and adds features like tracing and arbitrary condition querying. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/mysql#example-of-use).
+
+Set the field `mysql` in the yaml configuration file in the `configs` directory, Master-slave configuration is supported:
+
+```yaml
+mysql:
+  # dsn format,  <user>:<pass>@(127.0.0.1:3306)/<db>?[k=v& ......]
+  dsn: "root:123456@(127.0.0.1:3306)/account?parseTime=true&loc=Local&charset=utf8mb4"
+  enableLog: true            # whether to turn on printing of all logs
+  maxIdleConns: 3            # set the maximum number of connections in the idle connection pool
+  maxOpenConns: 100          # set the maximum number of open database connections
+  connMaxLifetime: 30        # sets the maximum time for which the connection can be reused, in minutes
+  #slavesDsn:                # sets slaves mysql dsn, array type
+  #  - "your slave dsn 1"
+  #  - "your slave dsn 2"
+  #mastersDsn:               # sets masters mysql dsn, array type, non-required field, if there is only one master, there is no need to set the mastersDsn field, the default dsn field is mysql master.
+  #  - "your master dsn"
+```
+
+<br>
+
+### 🏷Redis
+
+`goredis` is a NoSQL component based on [go-redis](https://github.com/go-redis/redis). It builds upon go-redis and adds tracing functionality. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/goredis#example-of-use).
+
+Set the field `redis` in the yaml configuration file in the `configs` directory, sentinel and cluster configuration is supported:
+
+```yaml
+redis:
+  # dsn format, [user]:<pass>@127.0.0.1:6379/[db], the default user is default, redis version 6.0 and above only supports user.
+  dsn: "default:123456@127.0.0.1:6379/0"
+  dialTimeout: 10       # connection timeout, unit(second)
+  readTimeout: 2        # read timeout, unit(second)
+  writeTimeout: 2       # write timeout, unit(second)
+  # sentinelAddrs: ["127.0.0.1:6379", "127.0.0.1:6380"]
+  # clusterAddrs: ["127.0.0.1:6379", "127.0.0.1:6380"]
+```
+
+<br>
+
+### 🏷Message Queue
+
+`rabbitmq` is based on [amqp091-go](github.com/rabbitmq/amqp091-go) encapsulated messaging components, support for automatic reconnection and custom queue parameter settings, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/rabbitmq#example-of-use).
+
+Set the field `rabbitmq` in the yaml configuration file in the `configs` directory:
+
+```yaml
+rabbitmq:
+  dsn: "amqp://guest:guest@127.0.0.1:5672/"
+```
+
+<br>
+
+### 🏷Service Registration and Discovery
+
+- [Service Registration Usage Example](https://github.com/zhufuyi/sponge/tree/main/pkg/servicerd/registry#example-of-use).
+- [Service Discovery Usage Example](https://github.com/zhufuyi/sponge/tree/main/pkg/servicerd/discovery#example-of-use).
+
+Service registration and discovery support three types: Consul, etcd, and Nacos.
+
+- Consul client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/consulcli#example-of-use).
+- etcd client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/etcdcli#example-of-use).
+- Nacos client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/nacoscli#example-of-use).
+
+Set the fields in the yaml configuration file in the `configs` directory:
+
+```yaml
+consul:
+  addr: "127.0.0.1:8500"
+
+etcd:
+  addrs: ["127.0.0.1:2379"]
+
+nacosRd:
+  ipAddr: "127.0.0.1"
+  port: 8848
+  namespaceID: "public"
+```
 
 <br>
 
@@ -57,13 +184,58 @@ GRPC interceptors are available for both clients and servers and include feature
 
 `stat` is a component for monitoring the usage of system and service resources. Click to view [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/stat#example-of-use).
 
-In web or microservices created with sponge, the resource statistics component is enabled by default. You can configure it in the YAML configuration file located in the `configs` directory using the `enableStat` field:
+In web or microservices created with sponge, the resource statistics component is enabled by default.
+
+Set the field `enableStat` in the yaml configuration file in the `configs` directory:
 
 ```yaml
+app:
   enableStat: true    # Enable resource statistics: true = enabled, false = disabled
 ```
 
 By default, statistics are generated and logged every minute, including CPU and memory data for both the system and the service itself.
+
+<br>
+
+### 🏷Configuration Center
+
+Web or microservices generated by sponge defaultly support the [Nacos](https://nacos.io/zh-cn/docs/v2/what-is-nacos.html) configuration center. The configuration center's purpose is to manage configurations for different environments and services, effectively addressing the drawbacks of static configuration.
+
+To get started, launch a local Nacos service using the [Nacos service startup configuration](https://github.com/zhufuyi/sponge/tree/main/test/server/nacos). After starting the Nacos service, open the management interface at http://localhost:8848/nacos/index.html. Log in with your credentials to access the main interface.
+
+Taking the code for `⓵ Web Service Based on SQL` as an example, create a namespace named `user` in the Nacos interface. Then, create a new configuration. Set the Data ID to `user.yml`, the Group to `dev`, and the configuration content to the contents of the `configs/user.yml` file, as shown in the image below:
+
+![nacos-config](assets/images/nacos-config.jpg)
+
+Next, open the configuration center file `configs/user_cc.yml` in the user directory and fill in the Nacos configuration information:
+
+```yaml
+# nacos settings
+nacos:
+  ipAddr: "127.0.0.1"       # server address
+  port: 8848                # listening port
+  scheme: "http"            # http or https
+  contextPath: "/nacos"     # path
+  namespaceID: "ecfe0595-cae3-43a2-9e47-216dc92207f9" # namespace id
+  group: "dev"              # group name: dev, prod, test
+  dataID: "user.yml"        # config file id
+  format: "yaml"            # configuration file type: json,yaml,toml
+```
+
+Compile and start the user service:
+
+```bash
+# Navigate to the location of main.go
+cd cmd/user
+
+# Build
+go build
+
+# Run the service, the `-c` parameter specifies the configuration file, and the `-enable-cc` parameter indicates getting the configuration from the Configuration Center.
+./user -enable-cc -c=../../configs/user_cc.yml
+```
+
+> [!tip] If you are deploying using Docker or Kubernetes, simply modify the default service startup command to start the service with Configuration Center. The deployment script generated by sponge includes two ways to start the service; you only need to choose one.
 
 <br>
 
@@ -73,7 +245,10 @@ Adaptive rate limiting dynamically determines whether to apply rate limiting bas
 
 In web or microservices created with sponge, the rate limiting component is disabled by default. You can configure it in the YAML configuration file located in the `configs` directory using the `enableLimit` field:
 
+Set the field `enableLimit` in the yaml configuration file in the `configs` directory:
+
 ```yaml
+app:
   enableLimit: false    # Enable adaptive rate limiting: true = enabled, false = disabled
 ```
 
@@ -111,9 +286,12 @@ For grpc microservices, modify the defaults in `internal/server/grpc.go`. For ex
 
 Adaptive circuit breaking determines whether to initiate a circuit break based on the error rate of requests and system resource usage. Since servers may have varying processing capabilities, setting fixed parameters can be challenging. Adaptive circuit breaking adapts to server capacity, eliminating the need for manual parameter adjustments. Click to view [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/circuitbreaker#example-of-use).
 
-In web or microservices created with sponge, the adaptive circuit breaking component is disabled by default. You can configure it in the YAML configuration file located in the `configs` directory using the `enableCircuitBreaker` field:
+In web or microservices created with sponge, the adaptive circuit breaking component is disabled by default.
+
+Set the field `enableCircuitBreaker` in the yaml configuration file in the `configs` directory:
 
 ```yaml
+app:
   enableCircuitBreaker: false    # Enable adaptive circuit breaking: true = enabled, false = disabled
 ```
 
@@ -146,15 +324,17 @@ For grpc microservices, it defaults to being effective for grpc error codes Inte
 
 Distributed tracing is a component built upon [go.opentelemetry.io/otel](https://github.com/open-telemetry/opentelemetry-go). Click to view [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/tracer#example-of-use).
 
-In web or microservices created with sponge, the distributed tracing component is disabled by default. You can configure it in the YAML configuration file located in the `configs` directory using the `enableTrace` and `jaeger` fields:
+In web or microservices created with sponge, the distributed tracing component is disabled by default.
+
+Set the fields `enableTrace` and `jaeger` in the yaml configuration file in the `configs` directory:
 
 ```yaml
-  enableTrace: false    # Enable tracing: true = enabled, false = disabled (must set Jaeger configuration if true)
-  tracingSamplingRate: 1.0      # Distributed tracing sampling rate, range from 0 to 1.0 float, 0 means no sampling, 1.0 means sample all traces
+app:
+  enableTrace: false        # Enable tracing: true = enabled, false = disabled (must set Jaeger configuration if true)
+  tracingSamplingRate: 1.0  # Distributed tracing sampling rate, range from 0 to 1.0 float, 0 means no sampling, 1.0 means sample all traces
 
-# Jaeger Configuration
 jaeger:
-  agentHost: "192.168.3.37"
+  agentHost: "127.0.0.1"
   agentPort: 6831
 ```
 
@@ -254,16 +434,19 @@ The shopgw service sequentially calls the **product**, **inventory**, and **comm
 
 <br>
 
-### 🏷Monitoring
+### 🏷Prometheus and Grafana Monitoring
 
 Monitoring involves services providing metrics, which are collected by [Prometheus](https://prometheus.io/docs/introduction/overview) and displayed in [Grafana](https://grafana.com/docs/).
 
 - Click to view an [example of monitoring in the web service](https://github.com/zhufuyi/sponge/tree/main/pkg/gin/middleware/metrics#example-of-use).
 - Click to view an [example of monitoring in grpc microservices](https://github.com/zhufuyi/sponge/tree/main/pkg/grpc/metrics#example-of-use).
 
-In web or microservices created with sponge, metric collection is enabled by default, and the default route is `/metrics`. You can configure it in the YAML configuration file located in the `configs` directory using the `enableMetrics` field:
+In web or microservices created with sponge, metric collection is enabled by default, and the default route is `/metrics`.
+
+Set the field `enableMetrics` in the yaml configuration file in the `configs` directory:
 
 ```yaml
+app:
   enableMetrics: true    # Enable metric collection: true = enabled, false = disabled
 ```
 
@@ -453,9 +636,11 @@ Services generated by sponge support two methods for collecting profiles: throug
 
 #### 🔹Collecting Profiles via HTTP Interface
 
+> [!note] To be able to collect profiles using the http api interface, you need to set `enableMetrics: true` in the yaml file in the `configs` directory, the default route is `/debug/pprof`.
+
 Click to see an [example of the use](https://github.com/zhufuyi/sponge/blob/main/pkg/prof/README.md#sampling-profile-by-http) of profile collection via the http interface.
 
-Collecting profiles via the HTTP interface is disabled by default. To enable it, modify the configuration by setting the `enableHTTPProfile` field to `true`. This is typically used during development or testing. Enabling it in a production environment may cause slight performance overhead, so consider whether it's necessary. In addition to the default Go language profiles, it also supports I/O profiling, with the route `/debug/pprof/profile-io`.
+This is typically used during development or testing. Enabling it in a production environment may cause slight performance overhead, so consider whether it's necessary. In addition to the default Go language profiles, it also supports I/O profiling, with the route `/debug/pprof/profile-io`.
 
 - For web services, the default profile collection URL is http://localhost:8080/debug/pprof.
 - For microservices, the default profile collection URL is http://localhost:8283/debug/pprof.
@@ -465,6 +650,8 @@ By combining it with the **go tool pprof**, you can analyze the program's runtim
 <br>
 
 #### 🔹Collecting Profiles via System Signal Notifications
+
+> [!note] To be able to use system signals to notify the acquisition profile, you need to set `enableStat: true` in the yaml file in the `configs` directory.
 
 Click here to see an [example of the use](https://github.com/zhufuyi/sponge/blob/main/pkg/prof/README.md#sampling-profile-by-system-notification-signal) of the notification acquisition profile via system signals.
 
@@ -518,82 +705,29 @@ When an alert is triggered, the program internally uses the `kill` function to s
 
 <br>
 
-### 🏷Configuration Center
+### 🏷Configuration Parsing
 
-Web or microservices generated by sponge defaultly support the [Nacos](https://nacos.io/zh-cn/docs/v2/what-is-nacos.html) configuration center. The configuration center's purpose is to manage configurations for different environments and services, effectively addressing the drawbacks of static configuration.
-
-To get started, launch a local Nacos service using the [Nacos service startup configuration](https://github.com/zhufuyi/sponge/tree/main/test/server/nacos). After starting the Nacos service, open the management interface at http://localhost:8848/nacos/index.html. Log in with your credentials to access the main interface.
-
-Taking the code for `⓵ Web Service Based on SQL` as an example, create a namespace named `user` in the Nacos interface. Then, create a new configuration. Set the Data ID to `user.yml`, the Group to `dev`, and the configuration content to the contents of the `configs/user.yml` file, as shown in the image below:
-
-![nacos-config](assets/images/nacos-config.jpg)
-
-Next, open the configuration center file `configs/user_cc.yml` in the user directory and fill in the Nacos configuration information:
-
-```yaml
-# nacos settings
-nacos:
-  ipAddr: "192.168.3.37"    # server address
-  port: 8848                # listening port
-  scheme: "http"            # http or https
-  contextPath: "/nacos"     # path
-  namespaceID: "ecfe0595-cae3-43a2-9e47-216dc92207f9" # namespace id
-  group: "dev"              # group name: dev, prod, test
-  dataID: "user.yml"        # config file id
-  format: "yaml"            # configuration file type: json,yaml,toml
-```
-
-Compile and start the user service:
-
-```bash
-# Navigate to the location of main.go
-cd cmd/user
-
-# Build
-go build
-
-# Run the service, the `-c` parameter specifies the configuration file, and the `-enable-cc` parameter indicates getting the configuration from the Configuration Center.
-./user -enable-cc -c=../../configs/user_cc.yml
-```
-
-> [!tip] If you are deploying using Docker or Kubernetes, simply modify the default service startup command to start the service with Configuration Center. The deployment script generated by sponge includes two ways to start the service; you only need to choose one.
+`conf` is a component for parsing configurations into Go structures, supporting three file formats: `yaml`, `json`, and `toml`. You can check out [usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/conf#conf) for more information.
 
 <br>
 
-### 🏷Database ORM
+### 🏷Error Codes
 
-`mysql` is a database component based on [gorm](https://github.com/go-gorm/gorm). It builds upon gorm and adds features like tracing and arbitrary condition querying. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/mysql#example-of-use).
-
-<br>
-
-### 🏷Redis
-
-`goredis` is a NoSQL component based on [go-redis](https://github.com/go-redis/redis). It builds upon go-redis and adds tracing functionality. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/goredis#example-of-use).
+`errcode` includes two types of error codes: HTTP and grpc. Each type is further divided into system-level and business-level error codes, and supports conversion between HTTP and grpc error codes. Click to view the [error code rules and usage examples](https://github.com/zhufuyi/sponge/tree/main/pkg/errcode#errcode).
 
 <br>
 
-### 🏷Message Queue
+### 🏷JWT Authentication
 
-`rabbitmq` is based on [amqp091-go](github.com/rabbitmq/amqp091-go) encapsulated messaging components, support for automatic reconnection and custom queue parameter settings, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/rabbitmq#example-of-use).
+`jwt`is a token generation and parsing component, base on [golang-jwt](https://github.com/golang-jwt/jwt)，click to see [example of use](https://github.com/zhufuyi/sponge/tree/main/pkg/jwt#jwt).
+
+`jwt`as gin middleware , support for custom fields and authentication methods , Check out the [usage example](https://github.com/zhufuyi/sponge/blob/main/pkg/gin/middleware/README.md#jwt-authorization-middleware).
 
 <br>
 
 ### 🏷Graceful Service Startup and Shutdown
 
 `app` is a component for gracefully starting and stopping services. It uses [errgroup](https://github.com/zhufuyi/sponge/blob/main/pkg/app/golang.org/x/sync/errgroup) to ensure that multiple services are started correctly simultaneously. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/app#example-of-use).
-
-<br>
-
-### 🏷Service Registration and Discovery
-
-- [Service Registration Usage Example](https://github.com/zhufuyi/sponge/tree/main/pkg/servicerd/registry#example-of-use).
-- [Service Discovery Usage Example](https://github.com/zhufuyi/sponge/tree/main/pkg/servicerd/discovery#example-of-use).
-
-Service registration and discovery support three types: Consul, etcd, and Nacos.
-
-- Consul client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/consulcli#example-of-use).
-- etcd client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/etcdcli#example-of-use).
-- Nacos client, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/nacoscli#example-of-use).
 
 <br>
 
