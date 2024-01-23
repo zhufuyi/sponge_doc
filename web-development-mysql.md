@@ -1,9 +1,9 @@
 
-`⓵基于sql创建的web服务`是使用mysql作为数据存储的web服务，因为已经选定了数据库类型，并且sponge支持生成gorm的标准化CRUD代码，所以可以一键生成带有CRUD api接口的完整web服务代码，在web服务代码中支持批量添加标准化CRUD api接口代码，不需要编写任何一行go代码，只需连接mysql数据库。
+`⓵基于sql创建web服务`是使用mysql作为数据存储的web服务，因为已经选定了数据库类型，并且sponge支持生成gorm的标准化CRUD代码，所以可以一键生成带有CRUD api接口的完整web服务代码，在web服务代码中支持批量添加标准化CRUD api接口代码，不需要编写任何一行go代码，只需连接mysql数据库。
 
-如果开发只有标准化CRUD api接口的web服务，这是最简单的web开发方式之一，不需要写go代码，实现了web服务api接口"低代码开发"。但添加自定义api接口时，则需要像传统开发api接口一样人工编写完整的api接口代码，这也是`⓵基于sql创建的web服务`的不足之处，不能做到自动生成自定义api接口代码，而在另外一种web开发方式`⓷基于protobuf创建的web服务`(也就是<a href="/zh-cn/web-development-protobuf" target="_blank">web开发</a>)中解决了这个不足。
+如果开发只有标准化CRUD api接口的web服务，这是最简单的web开发方式之一，不需要写go代码，实现了web服务api接口"低代码开发"。但添加自定义api接口时，则需要像传统开发api接口一样人工编写完整的api接口代码，这也是`⓵基于sql创建web服务`的不足之处，不能做到自动生成自定义api接口代码，而在另外一种web开发方式`⓷基于protobuf创建web服务`(也就是<a href="/zh-cn/web-development-protobuf" target="_blank">web开发</a>)中解决了这个不足。
 
-因此`⓵基于sql创建的web服务`适合使用mysql作为数据存储，并且绝大多数api接口是标准化CRUD接口的web项目，例如后台管理项目。
+因此`⓵基于sql创建web服务`适合使用mysql作为数据存储，并且绝大多数api接口是标准化CRUD接口的web项目，例如后台管理项目。
 
 <br>
 
@@ -136,7 +136,7 @@ make run
 
 ### 🏷人工添加自定义api接口
 
-`⓵基于sql创建的web服务`这种方式不支持自动生成自定义的api接口模板代码，只能像传统开发web api接口那样，人工编写handler函数、定义请求参数和返回值、定义字段校验tag、定义业务错误码、注册路由、填写swagger用的注解信息、编写具体逻辑代码等一系列步骤。
+`⓵基于sql创建web服务`这种方式不支持自动生成自定义的api接口模板代码，只能像传统开发web api接口那样，人工编写handler函数、定义请求参数和返回值、定义字段校验tag、定义业务错误码、注册路由、填写swagger用的注解信息、编写具体逻辑代码等一系列步骤。
 
 例如在本项目中添加一个登录接口，需要经过下面6个步骤：
 
@@ -258,7 +258,7 @@ make run
 
 <br>
 
-可以看到添加自定义api接口，比添加标准化CRUD api接口(自动生成)麻烦很多，自定义api接口所有相关代码都是需要人工编写，因此`⓵基于sql创建的web服务`这种方式适合绝大多数api接口是标准化CRUD，极少数是自定义api接口场景。如果web项目中有不少自定义api接口，建议使用`⓷基于protobuf创建的web服务`方式来开发web服务。
+可以看到添加自定义api接口，比添加标准化CRUD api接口(自动生成)麻烦很多，自定义api接口所有相关代码都是需要人工编写，因此`⓵基于sql创建web服务`这种方式适合绝大多数api接口是标准化CRUD，极少数是自定义api接口场景。如果web项目中有不少自定义api接口，建议使用`⓷基于protobuf创建web服务`方式来开发web服务。
 
 <br>
 

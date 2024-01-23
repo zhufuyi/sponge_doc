@@ -3,7 +3,7 @@
 
 `logger`是基于[zap](https://github.com/uber-go/zap)封装的组件，点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/logger#logger)。
 
-在sponge创建的web或微服务中，日志组件默认是开启的，默认是输出到终端，默认输出日志格式是console，可以设置输出格式为json，设置日志保存到指定文件，日志文件切割和保留时间。
+在sponge创建的web或grpc服务中，日志组件默认是开启的，默认是输出到终端，默认输出日志格式是console，可以设置输出格式为json，设置日志保存到指定文件，日志文件切割和保留时间。
 
 在`configs`目录下yaml配置文件设置字段`logger`：
 
@@ -186,7 +186,7 @@ nacosRd:
 
 `stat`是对系统和服务资源进行使用情况统计的组件，点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/stat#example-of-use)。
 
-在sponge创建的web或微服务中，资源统计组件默认是开启的。
+在sponge创建的web或grpc务中，资源统计组件默认是开启的。
 
 在`configs`目录下yaml配置文件设置字段`enableStat`：
 
@@ -201,11 +201,11 @@ app:
 
 ### 🏷配置中心
 
-sponge生成的web或微服务默认支持[Nacos](https://nacos.io/zh-cn/docs/v2/what-is-nacos.html)配置中心，配置中心作用是对不同环境、不同服务的配置统一管理，有效的解决地静态配置的缺点。
+sponge生成的web或grpc务默认支持[Nacos](https://nacos.io/zh-cn/docs/v2/what-is-nacos.html)配置中心，配置中心作用是对不同环境、不同服务的配置统一管理，有效的解决地静态配置的缺点。
 
 在本地启动nacos服务，这是[nacos服务启动配置](https://github.com/zhufuyi/sponge/tree/main/test/server/nacos)，启动nacos服务之后，在浏览器打开管理界面 http://localhost:8848/nacos/index.html ，登录账号密码进入主界面。
 
-以`⓵基于sql创建的web服务`代码为例使用配置中心nacos，在nacos界面创建一个名称空间`user`，然后新建配置，Data ID值为`user.yml`，Group值为`dev`，配置内容值`configs/user.yml`文件内容，如图下图所示：
+以`⓵基于sql创建web服务`代码为例使用配置中心nacos，在nacos界面创建一个名称空间`user`，然后新建配置，Data ID值为`user.yml`，Group值为`dev`，配置内容值`configs/user.yml`文件内容，如图下图所示：
 
 ![nacos-config](assets/images/nacos-config.jpg)
 
@@ -247,7 +247,7 @@ go build
 
 自适应限流是默认阈值与系统资源使用情况综合决定是否限流。由于不同服务器的处理能力不一样，在服务器比较多时候，参数不好设置，根据服务器处理能力自适应限流，避免了每个服务手动设置参数的麻烦。点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/ratelimit#example-of-use)。
 
-在sponge创建的web或微服务中，限流组件默认是关闭的。
+在sponge创建的web或grpc务中，限流组件默认是关闭的。
 
 在`configs`目录下yaml文件设置字段`enableLimit`：
 
@@ -272,7 +272,7 @@ app:
 	}
 ```
 
-对于`微服务(grpc)`，在`internal/server/grpc.go`里的UnaryServerRateLimit修改默认值，示例：
+对于`grpc服务`，在`internal/server/grpc.go`里的UnaryServerRateLimit修改默认值，示例：
 
 ```go
 	// limit interceptor
@@ -292,7 +292,7 @@ app:
 
 自适应熔断是根据请求错误率与系统资源使用情况综合决定是否熔断。由于不同服务器的处理能力不一样，在服务器比较多时候，参数不好设置，根据服务器处理能力自适应熔断，避免了每个服务手动设置参数的麻烦。点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/circuitbreaker#example-of-use)。
 
-在sponge创建的web或微服务中，自适应熔断组件默认是关闭的。
+在sponge创建的web或grpc务中，自适应熔断组件默认是关闭的。
 
 在`configs`目录下yaml配置文件设置字段`enableCircuitBreaker`：
 
@@ -312,7 +312,7 @@ app:
 	}
 ```
 
-对于微服务，对默认Internal(13)和Unavailable(14)错误码有效，其他错误不会触发熔断，可以增加其他错误码，在`internal/server/grpc.go`里的CircuitBreaker添加错误码，示例：
+对于grpc服务，对默认Internal(13)和Unavailable(14)错误码有效，其他错误不会触发熔断，可以增加其他错误码，在`internal/server/grpc.go`里的CircuitBreaker添加错误码，示例：
 ```go
 	// circuit breaker interceptor
 	if config.Get().App.EnableCircuitBreaker {
@@ -329,7 +329,7 @@ app:
 
 链路跟踪是基于[go.opentelemetry.io/otel](https://github.com/open-telemetry/opentelemetry-go)封装的组件，点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/tracer#example-of-use)。
 
-在sponge创建的web或微服务中，链路跟踪组件默认是关闭的。
+在sponge创建的web或grpc务中，链路跟踪组件默认是关闭的。
 
 在`configs`目录下yaml配置文件设置字段`enableTrace`和`jaeger`：
 
@@ -369,7 +369,7 @@ jaeger:
 
 #### 🔹单服务链路跟踪示例
 
-以`⓵基于sql创建的web服务`代码为例，修改配置文件`configs/user.yml`，开启链路跟踪功能(字段enableTrace)，并且填写jaeger配置信息。
+以`⓵基于sql创建web服务`代码为例，修改配置文件`configs/user.yml`，开启链路跟踪功能(字段enableTrace)，并且填写jaeger配置信息。
 
 如果想跟踪redis，启用redis缓存，把yaml配置文件里的缓存类型字段**cacheType**值改为redis，并配置redis地址，同时在本地使用docker启动redis服务，这是[redis服务启动脚本](https://github.com/zhufuyi/sponge/tree/main/test/server/redis)。
 
@@ -416,7 +416,7 @@ defer span.End()
 
 #### 🔹多服务链路跟踪示例
 
-以极简版的电商微服务集群为例，点击查看[源码](https://github.com/zhufuyi/sponge_examples/tree/main/6_micro-cluster)，一个共四个服务**shopgw**、**product**、**inventory**、**comment**，分别修改4个服务yaml配置(在configs目录下)，开启链路跟踪功能，并且填写jaeger配置信息。
+以一个极简版的电商微服务集群为例，点击查看[源码](https://github.com/zhufuyi/sponge_examples/tree/main/6_micro-cluster)，一个共四个服务**shopgw**、**product**、**inventory**、**comment**，分别修改4个服务yaml配置(在configs目录下)，开启链路跟踪功能，并且填写jaeger配置信息。
 
 在 **product**、**inventory**、**comment** 三个服务的**internal/service**目录下找到模板文件，填充代码替代`panic("implement me")`，使得代码可以正常执行，并且手动添加一个**span**，添加随机延时。
 
@@ -448,9 +448,9 @@ shopgw服务串行调用了**product**、**inventory**、**comment** 三个服�
 监控是服务程序提供metrics，[Prometheus](https://prometheus.io/docs/introduction/overview)采集到metrics，然后在[Grafana](https://grafana.com/docs/)展示。
 
 - 点击查看`web`服务监控[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/gin/middleware/metrics#example-of-use)。
-- 点击查看`微服务`监控[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/grpc/metrics#example-of-use)。
+- 点击查看`grpc服务`监控[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/grpc/metrics#example-of-use)。
 
-在sponge创建的web或微服务中，指标采集功能默认是开启的，默认路由是`/metrics`。
+在sponge创建的web或grpc务中，指标采集功能默认是开启的，默认路由是`/metrics`。
 
 在`configs`目录下yaml配置文件设置字段`enableMetrics`：
 
@@ -489,7 +489,7 @@ docker-compose up -d
 
 #### 🔹web服务监控示例
 
-以`⓵基于sql创建的web服务`代码为例，默认提供指标接口 [http://localhost:8080/metrics](http://localhost:8080/metrics) 。
+以`⓵基于sql创建web服务`代码为例，默认提供指标接口 [http://localhost:8080/metrics](http://localhost:8080/metrics) 。
 
 **(1) 在prometheus添加监控目标**
 
@@ -532,9 +532,9 @@ wrk -t2 -c10 -d10s http://192.168.3.27:8080/api/v1/course/1
 
 <br>
 
-#### 🔹微服务监控示例
+#### 🔹grpc服务监控示例
 
-以`⓶基于sql创建的微服务`代码为例，默认提供指标接口 [http://localhost:8283/metrics](http://localhost:8283/metrics) 。
+以`⓶基于sql创建grpc服务`代码为例，默认提供指标接口 [http://localhost:8283/metrics](http://localhost:8283/metrics) 。
 
 **(1) 在prometheus添加监控目标**
 
@@ -630,7 +630,7 @@ docker-compose up -d
 
 稍等一会，然后在浏览器打开 [http://localhost:9090/targets](http://localhost:9090/targets)  检查新添加的采集目标是否生效。然后关闭服务，稍等一会，检查是否自动移除采集目标。
 
-> [!tip] 在web或微服务中，通常是使用程序代码自动把json信息提交给consul，不是通过命令，web或微服务正常启动服务后，Prometheus就可以动态获取到监控目标，web或微服务停止后，Prometheus自动移除监控目标。
+> [!tip] 在web或grpc务中，通常是使用程序代码自动把json信息提交给consul，不是通过命令，web或grpc务正常启动服务后，Prometheus就可以动态获取到监控目标，web或grpc务停止后，Prometheus自动移除监控目标。
 
 <br>
 
@@ -651,7 +651,7 @@ sponge生成的服务支持`http接口`和`系统信号通知`两种方式采集
 通常在开发或测试时使用，如果线上开启会有一点点性能损耗，根据实际情况是否开启使用。除了支持go语言本身提供默认的profile分析，还支持io分析，路由是`/debug/pprof/profile-io`。
 
 - 对于web服务，默认采集profile地址 http://localhost:8080/debug/pprof
-- 对于微服务，默认采集profile地址 http://localhost:8283/debug/pprof
+- 对于grpc服务，默认采集profile地址 http://localhost:8283/debug/pprof
 
 结合**go tool pprof**工具，任意时刻都可以分析当前程序运行状况。
 
@@ -701,7 +701,7 @@ go tool pprof -http=[host]:[port] [options] source
 
 > [!note] 要能够使用系统信号来通知采集profile，需要在configs目录下yaml文件设置 `enableStat: true`
 
-在线上运行的服务，没有出问题时基本不会去手动采集profile，但是又想在服务发出告警同时采集profile文件。为了解决这个问题，sponge创建的web或微服务默认支持自适应采集profile功能，是把`系统信号通知采集profile`与`资源统计的告警功能`结合起来实现的，告警条件：
+在线上运行的服务，没有出问题时基本不会去手动采集profile，但是又想在服务发出告警同时采集profile文件。为了解决这个问题，sponge创建的web或grpc务默认支持自适应采集profile功能，是把`系统信号通知采集profile`与`资源统计的告警功能`结合起来实现的，告警条件：
 
 - 记录程序的cpu使用率连续3次(默认每分钟一次)，3次平均使用率超过80%时触发告警。
 - 记录程序的物理内存使用率3次(默认每分钟一次)，3次平均占用系统内存超过80%时触发告警。

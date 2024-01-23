@@ -1,15 +1,15 @@
 
-`⓶基于sql创建的微服务`是使用mysql作为数据存储的微服务(grpc)，因为已经选定了数据库类型，并且sponge支持生成gorm的标准化CRUD代码，所以可以一键生成带有CRUD api接口的完整微服务代码，在微服务代码中可以批量添加CRUD api接口代码，不需要编写任何一行go代码，只需连接mysql数据库。
+`⓶基于sql创建grpc服务`是使用mysql作为数据存储的grpc服务，因为已经选定了数据库类型，并且sponge支持生成gorm的标准化CRUD代码，所以可以一键生成带有CRUD api接口的完整grpc服务代码，在grpc服务代码中可以批量添加CRUD api接口代码，不需要编写任何一行go代码，只需连接mysql数据库。
 
-如果开发只有标准化CRUD api接口的微服务，这是最简单的微服务开发方式之一，不需要写go代码，实现了微服务api接口"低代码开发"。添加自定义api接口时，也比较简单，只需在proto文件定义api接口，然后在生成的api接口模板编写具体逻辑代码。
+如果开发只有标准化CRUD api接口的grpc服务，这是最简单的grpc服务开发方式之一，不需要写go代码，实现了grpc服务api接口"低代码开发"。添加自定义api接口时，也比较简单，只需在proto文件定义api接口，然后在生成的api接口模板编写具体逻辑代码。
 
-因此`⓶基于sql创建的微服务`适合选用mysql作为数据库的微服务项目。
+因此`⓶基于sql创建grpc服务`适合选用mysql作为数据库的微服务项目。
 
 <br>
 
 ### 🏷前期准备
 
-开发微服务项目前准备：
+开发grpc服务项目前准备：
 
 - 已安装sponge
 - mysql服务
@@ -27,19 +27,19 @@ sponge run
 
 <br>
 
-### 🏷创建微服务项目
+### 🏷创建grpc服务项目
 
-进入sponge的UI界面，点击左边菜单栏【SQL】-->【创建微服务项目】，填写`mysql dsn地址`，然后点击按钮`获取表名`，选择表名(可多选)，接着填写其他参数，鼠标放在问号`?`位置查可以看参数说明，填写完参数后，点击按钮`下载代码`生成微服务完整项目代码，如下图所示：
+进入sponge的UI界面，点击左边菜单栏【SQL】-->【创建grpc服务】，填写`mysql dsn地址`，然后点击按钮`获取表名`，选择表名(可多选)，接着填写其他参数，鼠标放在问号`?`位置查可以看参数说明，填写完参数后，点击按钮`下载代码`生成grpc服务完整项目代码，如下图所示：
 
 ![micro-rpc](assets/images/micro-rpc.png)
 
 > [!tip] 等价命令 **sponge micro rpc --module-name=user --server-name=user --project-name=edusys --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher**
 
-> [!tip] 解压的微服务代码目录名称的格式是`服务名称-类型-时间`，可以修改目录名称(例如把名称中的类型和时间去掉)。
+> [!tip] 解压的grpc服务代码目录名称的格式是`服务名称-类型-时间`，可以修改目录名称(例如把名称中的类型和时间去掉)。
 
 > [!tip] 成功生成代码之后会保存记录，方便下一次生成代码使用，如果`mysql dsn地址`不变，刷新或重新打开页面时会自动获取到表名，不需要点击按钮`获取表名`就可以直接选择表名。
 
-这是创建的微服务代码目录：
+这是创建的grpc服务代码目录：
 
 ```
 .
@@ -68,11 +68,11 @@ sponge run
 └─ scripts
 ```
 
-创建的微服务代码结构鸡蛋模型：
+创建的grpc服务代码结构鸡蛋模型：
 
 ![micro-rpc-pb-anatomy](assets/images/micro-rpc-pb-anatomy.png)
 
-解压代码文件，打开终端，切换到微服务代码目录，执行命令：
+解压代码文件，打开终端，切换到grpc服务代码目录，执行命令：
 
 ```bash
 # 生成与合并api接口相关代码
@@ -118,7 +118,7 @@ make run
      └─ service
 ```
 
-解压代码，把目录`internal`和`api`移动到微服务代码目录下，就完成了在微服务中批量添加service CURD api接口。
+解压代码，把目录`internal`和`api`移动到grpc服务代码目录下，就完成了在grpc服务中批量添加service CURD api接口。
 
 > [!note] 移动目录`internal`和`api`正常情况下不会有冲突文件，如果有冲突文件，说明之前已经指定相同的mysql表来生成service CRUD代码了，此时忽略覆盖文件。
 
@@ -138,7 +138,7 @@ make run
 
 <br>
 
-批量添加标准化的CURD api接口代码到微服务项目代码中，不需要人工编写任何go代码。
+批量添加标准化的CURD api接口代码到grpc服务项目代码中，不需要人工编写任何go代码。
 
 <br>
 
@@ -214,19 +214,19 @@ make run
 
 <br>
 
-### 🏷调用其他微服务api接口
+### 🏷调用其他grpc服务api接口
 
-根据项目业务需求，有可能需要在本服务调用其他微服务的api接口，这里的其他微服务是指使用protobuf协议的grpc服务，包括其他语言实现的grpc服务，下面是调用其他微服务api接口的操作步骤：
+根据项目业务需求，有可能需要在本服务调用其他grpc服务的api接口，这里的其他grpc服务是指使用protobuf协议的grpc服务，包括其他语言实现的grpc服务，下面是调用其他grpc服务api接口的操作步骤：
 
-**(1) 添加连接目标微服务代码**
+**(1) 添加连接目标grpc服务代码**
 
-想要在本服务内调用目标微服务api接口，首先要能够连接上目标微服务，下面自动生成grpc连接代码。
+如果想要在本服务内调用目标grpc服务api接口，首先要能够连接上目标grpc服务，下面自动生成grpc连接代码。
 
 进入sponge的UI界面，点击左边菜单栏【Public】-->【生成grpc服务连接代码】，填写module名称，填写grpc服务名称(支持多个grpc服务名称，用逗号分隔)，填写完参数后，点击按钮`下载代码`生成grpc服务连接代码，如下图所示：
 
 ![micro-rpc-conn](assets/images/micro-rpc-conn.png)
 
-> [!tip] 等价命令 **sponge micro rpc-conn --module-name=edusys  --rpc-server-name=user**。有更简单的等价命令，使用参数`--out`指定微服务代码目录，直接合并代码到本服务代码，**sponge micro rpc-conn --rpc-server-name=user --out=edusys**
+> [!tip] 等价命令 **sponge micro rpc-conn --module-name=edusys  --rpc-server-name=user**。有更简单的等价命令，使用参数`--out`指定grpc服务代码目录，直接合并代码到本服务代码，**sponge micro rpc-conn --rpc-server-name=user --out=edusys**
 
 生成的grpc服务连接代码目录如下：
 
@@ -240,25 +240,25 @@ make run
 
 解压代码，把目录`internal`移动到本服务代码目录下。
 
-> [!note] 移动目录`internal`到本服务目录下正常情况下不会有冲突文件，如果有冲突文件，说明之前已经指定相同的微服务名称来生成grpc服务连接代码了，此时忽略覆盖文件。
+> [!note] 移动目录`internal`到本服务目录下正常情况下不会有冲突文件，如果有冲突文件，说明之前已经指定相同的grpc服务名称来生成grpc服务连接代码了，此时忽略覆盖文件。
 
 <br>
 
-**(2) 配置目标微服务的地址**
+**(2) 配置目标grpc服务的地址**
 
-添加连接目标微服务代码之后，在配置文件`configs/服务名称.yml`设置连接目标微服务的地址，主要配置内容如下：
+添加连接目标grpc服务代码之后，在配置文件`configs/服务名称.yml`设置连接目标grpc服务的地址，主要配置内容如下：
 
 ```yaml
 grpcClient:
-  - name: "user"        # 微服务名称
-    host: "127.0.0.1"   # 微服务地址，如果开启服务发现，此字段值无效
-    port: 8282          # 微服务端口，如果开启服务发现，此字段值无效
+  - name: "user"        # grpc服务名称
+    host: "127.0.0.1"   # grpc服务地址，如果开启服务发现，此字段值无效
+    port: 8282          # grpc服务端口，如果开启服务发现，此字段值无效
     registryDiscoveryType: ""  # 服务发现，默认关闭，支持consul, etcd, nacos
 ```
 
 > [!tip] 更多grpcClient设置看`configs/服务名称.yml`，例如负载均衡、安全连接等。
 
-如果连接多个微服务，需要设置多个微服务的地址，示例如下：
+如果连接多个grpc服务，需要设置多个grpc服务的地址，示例如下：
 
 ```yaml
 grpcClient:
@@ -278,34 +278,34 @@ grpcClient:
 
 <br>
 
-**(3) 复制目标微服务的proto文件**
+**(3) 复制目标grpc服务的proto文件**
 
-虽然可以连接到目标微服务，但是不知道目标微服务哪些api接口可以调用，通过proto文件可以告诉本服务可以调用的api接口。
+虽然可以连接到目标grpc服务，但是不知道目标grpc服务哪些api接口可以调用，通过proto文件可以告诉本服务可以调用的api接口。
 
-把目标微服务的proto文件复制出来，并移动到本服务的目录`api/目标微服务名称/v1`下。有了目标微服务proto文件，在本服务就可以知道有哪些api接口可以调用了。
+把目标grpc服务的proto文件复制出来，并移动到本服务的目录`api/目标grpc服务名称/v1`下。有了目标grpc服务proto文件，在本服务就可以知道有哪些api接口可以调用了。
 
-如果目标微服务是使用sponge创建的，可以直接使用命令复制proto文件，非sponge创建的微服务则需要手动复制proto文件。
+如果目标grpc服务是使用sponge创建的，可以直接使用命令复制proto文件，非sponge创建的grpc服务则需要手动复制proto文件。
 
 ```bash
-# 从其他微服务中复制proto文件到本服务项目中，如果有多个目标微服务目录，用逗号分隔
+# 从其他grpc服务中复制proto文件到本服务项目中，如果有多个目标grpc服务目录，用逗号分隔
 make copy-proto SERVER=../user
 
-# 执行命令会把proto文件复制到本服务目录 api/目标微服务名称/v1 下。
+# 执行命令会把proto文件复制到本服务目录 api/目标grpc服务名称/v1 下。
 ```
 
 > [!note] `make copy-proto`会把所有proto文件复制过来，如果proto文件存在，会覆盖proto文件，可以在目录`/tmp/sponge_copy_backup_proto_files`下找到覆盖前的备份proto文件。
 
 <br>
 
-**(4) 运行目标微服务**
+**(4) 运行目标grpc服务**
 
-如果使用sponge创建的微服务，执行命令`make run`运行目标微服务，而其他目标微服务，请按照目标微服务方式运行微服务。
+如果使用sponge创建的grpc服务，执行命令`make run`运行目标grpc服务，如果不是sponge创建的grpc服务，请根据实际命令启动grpc服务。
 
 <br>
 
 ### 🏷设置服务
 
-创建的微服务代码中包含了丰富的组件，有些组件默认是关闭的，根据实际需要开启使用，统一在配置文件`configs/服务名称.yml`进行设置，配置文件里有详细说明。
+创建的grpc服务代码中包含了丰富的组件，有些组件默认是关闭的，根据实际需要开启使用，统一在配置文件`configs/服务名称.yml`进行设置，配置文件里有详细说明。
 
 > [!tip] 可以在服务代码中替换、添加自己的组件(grpc interceptor)，或者删除不需要的组件，在代码文件`internal/server/grpc.go`修改。
 
@@ -337,5 +337,5 @@ make update-config
 
 相关视频介绍：
 
-- [一键生成微服务(grpc)完整项目代码](https://www.bilibili.com/video/BV1Tg4y1b79U/)
-- [批量生成CRUD代码到微服务(grpc)](https://www.bilibili.com/video/BV1TY411z7rY/)
+- [一键生成grpc服务完整项目代码](https://www.bilibili.com/video/BV1Tg4y1b79U/)
+- [批量生成CRUD代码到grpc服务](https://www.bilibili.com/video/BV1TY411z7rY/)

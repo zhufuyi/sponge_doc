@@ -1,11 +1,11 @@
 
-`⓷基于protobuf创建的web服务`是用于通用web服务开发，支持自选数据库类型作为数据存储。而`⓵基于sql创建的web服务`，也就是 <a href="/zh-cn/web-development-mysql" target="_blank">web开发(mysql)</a> 已经选定mysql数据库类型，这是两种方式创建web服务的主要区别之一，可以把`⓵基于sql创建的web服务`看作是`⓷基于protobuf创建的web服务`一个特殊子集。
+`⓷基于protobuf创建web服务`是用于通用web服务开发，支持自选数据库类型作为数据存储。而`⓵基于sql创建web服务`，也就是 <a href="/zh-cn/web-development-mysql" target="_blank">web开发(mysql)</a> 已经选定mysql数据库类型，这是两种方式创建web服务的主要区别之一，可以把`⓵基于sql创建web服务`看作是`⓷基于protobuf创建web服务`一个特殊子集。
 
-`⓷基于protobuf创建的web服务`支持选用任意数据库类型，当然也包括mysql，如果选用了mysql数据库类型，不仅支持批量添加标准化的CRUD api接口功能，更重要的是支持生成自定义api接口的模板代码。也就是说`⓷基于protobuf创建的web服务`不需要像传统web开发自定义api接口那样编写完整的api接口代码，只需在proto文件定义api接口描述信息，然后在生成的模板中编写具体逻辑代码。
+`⓷基于protobuf创建web服务`支持选用任意数据库类型，当然也包括mysql，如果选用了mysql数据库类型，不仅支持批量添加标准化的CRUD api接口功能，更重要的是支持生成自定义api接口的模板代码。也就是说`⓷基于protobuf创建web服务`不需要像传统web开发自定义api接口那样编写完整的api接口代码，只需在proto文件定义api接口描述信息，然后在生成的模板中编写具体逻辑代码。
 
-`⓷基于protobuf创建的web服务`选用其他数据库类型时，需要人工编写dao、model、数据库初始化等代码，不支持自动生成。
+`⓷基于protobuf创建web服务`选用其他数据库类型时，需要人工编写dao、model、数据库初始化等代码，不支持自动生成。
 
-因此`⓷基于protobuf创建的web服务`适合通用的web项目开发。
+因此`⓷基于protobuf创建web服务`适合通用的web项目开发。
 
 <br>
 
@@ -13,8 +13,8 @@
 
 选用mysql数据库之后，
 
-- 如果web项目只有标准化CRUD api接口，`⓷基于protobuf创建的web服务`和`⓵基于sql创建的web服务`是完全等价的，都不需要编写任何go代码。
-- 如果web项目有不少自定义api接口，`⓷基于protobuf创建的web服务`比`⓵基于sql创建的web服务`更高的开发效率，因为可以批量生成自定义api接口模板代码，减少人工编写代码。
+- 如果web项目只有标准化CRUD api接口，`⓷基于protobuf创建web服务`和`⓵基于sql创建web服务`是完全等价的，都不需要编写任何go代码。
+- 如果web项目有不少自定义api接口，`⓷基于protobuf创建web服务`比`⓵基于sql创建web服务`更高的开发效率，因为可以批量生成自定义api接口模板代码，减少人工编写代码。
 
 <br>
 
@@ -280,7 +280,7 @@ make update-config
 
 ## 🏷选用其他数据库进行web开发
 
-`⓷基于protobuf创建的web服务`默认不包括操作数据库相关代码，开发者可以选用任何数据库类型作为数据存储，上面介绍了选用mysql进行web开发的具体过程，操作起来简单方便，得益于sponge支持基于mysql表来生成api接口所需的各种代码(例如dao、model、cache)。如果选用其他数据库类型，sponge暂时不支持生成这些代码。
+`⓷基于protobuf创建web服务`默认不包括操作数据库相关代码，开发者可以选用任何数据库类型作为数据存储，上面介绍了选用mysql进行web开发的具体过程，操作起来简单方便，得益于sponge支持基于mysql表来生成api接口所需的各种代码(例如dao、model、cache)。如果选用其他数据库类型，sponge暂时不支持生成这些代码。
 
 虽然sponge不支持通过其他数据库类型来生成操作数据库相关代码，但基于proto文件生成`api接口模板代码`、`注册路由代码`、`错误码`、`自动合并模板代码`等，减少了不少人工编写的代码，比传统的web服务开发更高效率。
 

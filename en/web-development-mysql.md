@@ -1,9 +1,9 @@
 
-The `⓵Web service created based on sql` (web service based on SQL) is a web service that uses MySQL as its data storage. Since the database type has already been chosen, and sponge supports generating standardized CRUD code using GORM, you can generate a complete web service code with CRUD API interfaces with a single click. This web service allows you to easily add standardized CRUD API interfaces without writing a single line of Go code, as long as you connect it to a MySQL database.
+The `⓵Create web service based on sql` (web service based on SQL) is a web service that uses MySQL as its data storage. Since the database type has already been chosen, and sponge supports generating standardized CRUD code using GORM, you can generate a complete web service code with CRUD API interfaces with a single click. This web service allows you to easily add standardized CRUD API interfaces without writing a single line of Go code, as long as you connect it to a MySQL database.
 
-If you're developing a web service with only standardized CRUD API interfaces, this is one of the simplest ways to develop a web application. It allows you to achieve "low-code development" of web service APIs without writing Go code. However, when adding custom API interfaces, you'll need to manually write the complete API interface code, just like traditional API development. This is a limitation of the `⓵Web service created based on sql`, as it doesn't automatically generate custom API interface code. This limitation is addressed in another web development approach called `⓷Web service created based on protobuf` (web development with [protobuf](https://en.wikipedia.org/wiki/Protocol_Buffers)), as explained in the <a href="/web-development-protobuf" target="_blank">Web Development</a> section.
+If you're developing a web service with only standardized CRUD API interfaces, this is one of the simplest ways to develop a web application. It allows you to achieve "low-code development" of web service APIs without writing Go code. However, when adding custom API interfaces, you'll need to manually write the complete API interface code, just like traditional API development. This is a limitation of the `⓵Create web service based on sql`, as it doesn't automatically generate custom API interface code. This limitation is addressed in another web development approach called `⓷Create web service based on protobuf` (web development with [protobuf](https://en.wikipedia.org/wiki/Protocol_Buffers)), as explained in the <a href="/web-development-protobuf" target="_blank">Web Development</a> section.
 
-Therefore, `⓵Web service created based on sql` is suitable for web projects that use MySQL as the data store and where the majority of API interfaces are standardized CRUD interfaces, such as backend administration projects.
+Therefore, `⓵Create web service based on sql` is suitable for web projects that use MySQL as the data store and where the majority of API interfaces are standardized CRUD interfaces, such as backend administration projects.
 
 <br>
 
@@ -139,7 +139,7 @@ Adding standardized CRUD API interface code to your web service project requires
 
 ### 🏷Manually Adding Custom API Interfaces
 
-The `⓵Web service created based on sql` (web service based on SQL) does not support automatic generation of custom API interface template code. You'll need to manually write handler functions, define request parameters and response structures, set field validation tags, define custom error codes, register routes, provide Swagger annotations, and write the actual logic, just like traditional web API development.
+The `⓵Create web service based on sql` (web service based on SQL) does not support automatic generation of custom API interface template code. You'll need to manually write handler functions, define request parameters and response structures, set field validation tags, define custom error codes, register routes, provide Swagger annotations, and write the actual logic, just like traditional web API development.
 
 For example, to add a login interface to this project, you'll need to follow these six steps:
 
@@ -261,7 +261,7 @@ In your browser, refresh [http://localhost:8080/swagger/index.html](http://local
 
 <br>
 
-It's clear that adding custom API interfaces is more complex than adding standardized CRUD API interfaces (which are automatically generated). All related code for custom API interfaces must be manually written. Therefore, the `⓵Web service created based on sql` (web service based on SQL) approach is suitable for scenarios where the majority of API interfaces are standardized CRUD, and only a few are custom. If your web project includes a significant number of custom API interfaces, it's advisable to use the `⓷Web service created based on protobuf` (web service based on [protobuf](https://en.wikipedia.org/wiki/Protocol_Buffers)) approach for web service development.
+It's clear that adding custom API interfaces is more complex than adding standardized CRUD API interfaces (which are automatically generated). All related code for custom API interfaces must be manually written. Therefore, the `⓵Create web service based on sql` (web service based on SQL) approach is suitable for scenarios where the majority of API interfaces are standardized CRUD, and only a few are custom. If your web project includes a significant number of custom API interfaces, it's advisable to use the `⓷Create web service based on protobuf` (web service based on [protobuf](https://en.wikipedia.org/wiki/Protocol_Buffers)) approach for web service development.
 
 <br>
 

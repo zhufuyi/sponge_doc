@@ -1,11 +1,11 @@
 
-The `⓷Web service created based on protobuf` is designed for general web service development and supports various database types as data storage options. On the other hand, the `⓵Web service created based on sql`, which is <a href="/web-development-mysql" target="_blank">Web Development with MySQL</a>, specifically uses MySQL as the database type. This is one of the main differences between the two methods, and you can consider `⓵Web service created based on sql` as a specialized subset of `⓷Web service created based on protobuf`.
+The `⓷Create web service based on protobuf` is designed for general web service development and supports various database types as data storage options. On the other hand, the `⓵Create web service based on sql`, which is <a href="/web-development-mysql" target="_blank">Web Development with MySQL</a>, specifically uses MySQL as the database type. This is one of the main differences between the two methods, and you can consider `⓵Create web service based on sql` as a specialized subset of `⓷Create web service based on protobuf`.
 
-When you choose `⓷Web service created based on protobuf`, you have the flexibility to select any database type, including MySQL. If you opt for MySQL as the database type, it not only supports batch addition of standardized CRUD API interfaces but, more importantly, it also allows the generation of template code for custom API interfaces. This means that with `⓷Web service created based on protobuf`, you don't need to write complete API interface code as you would in traditional web development. Instead, you define API interface descriptions in proto files and then write specific logic code in the generated templates.
+When you choose `⓷Create web service based on protobuf`, you have the flexibility to select any database type, including MySQL. If you opt for MySQL as the database type, it not only supports batch addition of standardized CRUD API interfaces but, more importantly, it also allows the generation of template code for custom API interfaces. This means that with `⓷Create web service based on protobuf`, you don't need to write complete API interface code as you would in traditional web development. Instead, you define API interface descriptions in proto files and then write specific logic code in the generated templates.
 
-When using other database types with `⓷Web service created based on protobuf`, you'll need to manually write DAO, model, database initialization, and other code, as auto-generation is not supported.
+When using other database types with `⓷Create web service based on protobuf`, you'll need to manually write DAO, model, database initialization, and other code, as auto-generation is not supported.
 
-Therefore, `⓷Web service created based on protobuf` is suitable for general web project development.
+Therefore, `⓷Create web service based on protobuf` is suitable for general web project development.
 
 <br>
 
@@ -13,8 +13,8 @@ Therefore, `⓷Web service created based on protobuf` is suitable for general we
 
 When you choose MySQL as the database:
 
-- If your web project only requires standardized CRUD API interfaces, `⓷Web service created based on protobuf` and `⓵Web service created based on sql` are functionally equivalent, and you don't need to write any Go code.
-- If your web project includes custom API interfaces, `⓷Web service created based on protobuf` is simpler than `⓵Web service created based on sql` because it can batch generate template code for custom API interfaces.
+- If your web project only requires standardized CRUD API interfaces, `⓷Create web service based on protobuf` and `⓵Create web service based on sql` are functionally equivalent, and you don't need to write any Go code.
+- If your web project includes custom API interfaces, `⓷Create web service based on protobuf` is simpler than `⓵Create web service based on sql` because it can batch generate template code for custom API interfaces.
 
 <br>
 
@@ -279,7 +279,7 @@ make update-config
 
 ## 🏷Using Other Databases for Web Development
 
-`⓷Web service created based on protobuf` do not include database-related code by default. Developers can choose any database type for data storage. The above describes the specific process of choosing mysql for web development, the operation is simple and convenient, thanks to sponge's support for generating various code (e.g., dao, model, cache) based on MySQL tables to create API interfaces. sponge currently does not support generating these codes for other database types.
+`⓷Create web service based on protobuf` do not include database-related code by default. Developers can choose any database type for data storage. The above describes the specific process of choosing mysql for web development, the operation is simple and convenient, thanks to sponge's support for generating various code (e.g., dao, model, cache) based on MySQL tables to create API interfaces. sponge currently does not support generating these codes for other database types.
 
 While sponge does not support generating database-related code for other database types, it simplifies web service development by generating API interface templates, route registration code, error codes, and automatically merging template code based on protobuf files, eliminating the need to write a significant amount of code compared to traditional web service development.
 

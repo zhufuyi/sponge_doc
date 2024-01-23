@@ -1,7 +1,7 @@
 
 ### 🏷二进制部署
 
-sponge创建的web和微服务支持二进制部署，有2种方式。
+sponge创建的web和grpc服务支持二进制部署，有2种方式。
 
 **方式一：** 在本地以nohup方式后台运行服务，切换到服务代码目录，执行部署命令示例：
 
@@ -38,7 +38,7 @@ make deploy-binary USER=root PWD=123456 IP=192.168.1.10
 
 ### 🏷docker部署
 
-sponge创建的web和微服务支持docker部署，部署在本机的docker容器上，需要本地安装有[docker](https://www.docker.com/)服务和[docker-compose](https://github.com/docker/compose/releases)命令，切换到服务代码目录，部署命令：
+sponge创建的web和grpc服务支持docker部署，部署在本机的docker容器上，需要本地安装有[docker](https://www.docker.com/)服务和[docker-compose](https://github.com/docker/compose/releases)命令，切换到服务代码目录，部署命令：
 
 ```bash
 # 构建容器并运行服务，如果需要更新服务，再次执行此命令
@@ -63,7 +63,7 @@ docker-compose down
 
 ### 🏷构建和上传容器镜像
 
-sponge创建的web和微服务支持了构建镜像和推送镜像脚本，只需几个简单命令就可以完成推送镜像到私有镜像仓库。
+sponge创建的web和grpc服务支持了构建镜像和推送镜像脚本，只需几个简单命令就可以完成推送镜像到私有镜像仓库。
 
 #### 🔹构建容器镜像
 
@@ -115,7 +115,7 @@ make image-push REPO_HOST=myRepo.com TAG=1.0
 
 ### 🏷持续集成部署
 
-sponge创建的web和微服务支持在 [jenkins](https://www.jenkins.io/doc/) 构建和部署，部署目标可以是docker、 [k8s](https://kubernetes.io/docs/home/) ，下面以使用jenkins自动构建和部署到k8s为示例。
+sponge创建的web和grpc服务支持在 [jenkins](https://www.jenkins.io/doc/) 构建和部署，部署目标可以是docker、 [k8s](https://kubernetes.io/docs/home/) ，下面以使用jenkins自动构建和部署到k8s为示例。
 
 #### 🔹搭建 jenkins-go 平台
 
@@ -231,7 +231,7 @@ PROD_REGISTRY_HOST http://localhost:29090
 
 #### 🔹自动部署到k8s
 
-以`⓵基于sql创建的web服务`为例，服务名称为`user`，使用jenkins构建和部署到k8s。
+以`⓵基于sql创建web服务`为例，服务名称为`user`，使用jenkins构建和部署到k8s。
 
 第一次构建服务需要做一些前期准备：
 
@@ -301,4 +301,4 @@ curl http://localhost:8080/api/v1/teacher/1
 
 <br>
 
-sponge生成的web和微服务包括了Jenkinsfile、构建和上传镜像脚本、k8s部署脚本，基本不需要修改脚本就可以使用，当然也可以修改脚本适合自己场景。
+sponge生成的web和grpc服务包括了Jenkinsfile、构建和上传镜像脚本、k8s部署脚本，基本不需要修改脚本就可以使用，当然也可以修改脚本适合自己场景。

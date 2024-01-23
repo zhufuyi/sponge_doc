@@ -14,7 +14,7 @@ A grpc gateway serves as the unified entry point for grpc services, providing fu
 - In a distributed system, a grpc gateway can provide load balancing, routing, and security functions, thereby enhancing the performance and availability of the distributed system.
 - In a cross-platform system, a grpc gateway can support grpc services on different platforms, helping users build cross-platform grpc systems.
 
-Here, `⓹GRPC gateway service created based on protobuf` is a web service serving as the unified entry point for grpc services. The following section outlines the specific development process for a grpc gateway service.
+Here, `⓹Create grpc gateway service based on protobuf` is a web service serving as the unified entry point for grpc services. The following section outlines the specific development process for a grpc gateway service.
 
 <br>
 
@@ -24,7 +24,7 @@ Before developing an grpc gateway service, ensure the following preparations:
 
 - sponge is installed.
 - You have a protobuf file, such as [user_gw.proto](https://github.com/zhufuyi/sponge_examples/blob/main/5_micro-gin-rpc-gateway/user-gateway/api/user_gw/v1/user_gw.proto).
-- You have a microservice [user](https://github.com/zhufuyi/sponge_examples/tree/main/4_micro-grpc-protobuf), or you can quickly create one by referring to the <a href="/microservice-development-protobuf?id=%f0%9f%94%b9creating-a-microservice-project" target="_blank">Creating a Microservice Project</a>.
+- You have a grpc service [user](https://github.com/zhufuyi/sponge_examples/tree/main/4_micro-grpc-protobuf), or you can quickly create one by referring to the <a href="/microservice-development-protobuf?id=%f0%9f%94%b9creating-a-grpc-service-project" target="_blank">Creating a GRPC Service Project</a>.
 
 Open a terminal and start the sponge UI service:
 
@@ -80,11 +80,11 @@ The created grpc gateway service code structure follows the egg model:
 
 <br>
 
-### 🏷Working with Microservice Integration
+### 🏷Working with GRPC Service Integration
 
-#### 🔹Adding Microservice Connection Code
+#### 🔹Adding GRPC Service Connection Code
 
-If you want to call the microservice api interface in the grpc gateway service, you must first be able to connect to the microservice, and the following grpc connection code is automatically generated.
+If you want to call the grpc service api interface in the grpc gateway service, you must first be able to connect to the grpc service, and the following grpc connection code is automatically generated.
 
 Navigate to the sponge UI interface, click on the left-hand menu bar **[Public]** --> **[generate grpc connection code]**. Fill in the module name, the name of the grpc service(s) (supporting multiple grpc service names separated by commas), and after filling in the parameters, click the `Download Code` button to generate the grpc service connection code, as shown in the image below:
 
@@ -104,25 +104,25 @@ The generated grpc service connection code directory structure is as follows:
 
 Unzip the code and move the `internal` directory to the grpc gateway service code directory.
 
-> [!note] Move the directory `internal` to the grpc service directory normally there will be no conflicting files, if there are conflicting files, it means that the same microservice name has been specified previously to generate the grpc service connection code, ignore the overwrite file at this time.
+> [!note] Move the directory `internal` to the grpc service directory normally there will be no conflicting files, if there are conflicting files, it means that the same grpc service name has been specified previously to generate the grpc service connection code, ignore the overwrite file at this time.
 
 <br>
 
-#### 🔹Configuring Microservice Addresses
+#### 🔹Configuring GRPC Service Addresses
 
-After adding the microservice connection code, set the address for connecting to the microservice in the configuration file `configs/service-name.yml`. The main configuration details are as follows:
+After adding the grpc service connection code, set the address for connecting to the grpc service in the configuration file `configs/service-name.yml`. The main configuration details are as follows:
 
 ```yaml
 grpcClient:
-  - name: "user"        # Microservice name
-    host: "127.0.0.1"   # Microservice address (if service discovery is enabled, this field is ineffective)
-    port: 8282          # Microservice port (if service discovery is enabled, this field is ineffective)
-    registryDiscoveryType: ""  # Service discovery, default is disabled, supports consul, etcd, nacos
+  - name: "user"        # grpc service name
+    host: "127.0.0.1"   # grpc service address (if service discovery is enabled, this field is ineffective)
+    port: 8282          # grpc service port (if service discovery is enabled, this field is ineffective)
+    registryDiscoveryType: ""  # service discovery, default is disabled, supports consul, etcd, nacos
 ```
 
 > [!tip] For more grpcClient settings, refer to `configs/service-name.yml`, such as load balancing, secure connections, and more.
 
-If you need to connect to multiple microservices, you should set the addresses for each of them as shown below:
+If you need to connect to multiple grpc services, you should set the addresses for each of them as shown below:
 
 ```yaml
 grpcClient:
@@ -142,16 +142,16 @@ grpcClient:
 
 <br>
 
-#### 🔹Adding Proto Files for Microservices
+#### 🔹Adding Proto Files for GRPC Service
 
-Although in the grpc gateway service can connect to the microservice, but do not know the microservice which api interfaces can be called, through the proto file can tell the grpc gateway service can be called api interface.
+Although in the grpc gateway service can connect to the grpc service, but do not know the grpc service which api interfaces can be called, through the proto file can tell the grpc gateway service can be called api interface.
 
-Copy the `api/micro service name/v1/xxx.proto` file from the microservice code directory and move it to the `api` directory of the grpc gateway service code. With the microservice proto file, the grpc gateway service will know what api interfaces are available to call.
+Copy the `api/micro service name/v1/xxx.proto` file from the grpc service code directory and move it to the `api` directory of the grpc gateway service code. With the microservice proto file, the grpc gateway service will know what api interfaces are available to call.
 
 Navigate to the grpc gateway service directory, open a terminal, and execute the following command:
 
 ```bash
-# Copy proto files from other microservice(s) to this service project. If there are multiple microservice directories, separate them with commas.
+# Copy proto files from other grpc service to this service project. If there are multiple grpc service directories, separate them with commas.
 make copy-proto SERVER=../user
 ```
 
@@ -159,9 +159,9 @@ make copy-proto SERVER=../user
 
 <br>
 
-#### 🔹Running the Prepared Microservice
+#### 🔹Running the Prepared GRPC Service
 
-In the prepared [user](https://github.com/zhufuyi/sponge_examples/tree/main/4_micro-grpc-protobuf) microservice directory, open a terminal and execute the following commands:
+In the prepared [user](https://github.com/zhufuyi/sponge_examples/tree/main/4_micro-grpc-protobuf) grpc service directory, open a terminal and execute the following commands:
 
 ```bash
 # Generate and merge code related to API interfaces.
@@ -235,9 +235,9 @@ make proto
 
 **(2) Writing Specific Logic Code in Template Files**
 
-With the `microservice connection code`, `microservice API interfaces`, and `generated template code` in place, you can now write specific logic code. Execute the following command:
+With the `grpc service connection code`, `grpc service API interfaces`, and `generated template code` in place, you can now write specific logic code. Execute the following command:
 
-If you simply want to forward HTTP requests to microservices, the generated template code should already provide the necessary functionality, and you won't need to write Go code. Remove the `panic("implement me")` line and uncomment the code under the `example` directory. Then, make any necessary adjustments. For example, open the `internal/service/user_gw.go` file and the uncommented code will look like this:
+If you simply want to forward HTTP requests to grpc service, the generated template code should already provide the necessary functionality, and you won't need to write Go code. Remove the `panic("implement me")` line and uncomment the code under the `example` directory. Then, make any necessary adjustments. For example, open the `internal/service/user_gw.go` file and the uncommented code will look like this:
 
 ```go
 package service
@@ -305,7 +305,7 @@ func (c *userClient) ChangePassword(ctx context.Context, req *edusysV1.ChangePas
 
 <br>
 
-If you need to retrieve data from multiple microservices and assemble it into the desired format for the client, you can import multiple microservice client interfaces into the `xxxClient` struct and instantiate them. Here's an example:
+If you need to retrieve data from multiple grpc services and assemble it into the desired format for the client, you can import multiple grpc service client interfaces into the `xxxClient` struct and instantiate them. Here's an example:
 
 ```go
 package service
@@ -350,7 +350,7 @@ Switch to the grpc gateway service code directory and execute the following comm
 make run
 ```
 
-Open [http://localhost:8080/apis/swagger/index.html](http://localhost:8080/apis/swagger/index.html) in your browser. You will see the API interfaces on the page, as shown in the image below. Test whether you can successfully call the microservice interfaces by making requests through the Swagger interface.
+Open [http://localhost:8080/apis/swagger/index.html](http://localhost:8080/apis/swagger/index.html) in your browser. You will see the API interfaces on the page, as shown in the image below. Test whether you can successfully call the grpc service interfaces by making requests through the Swagger interface.
 
 > [!warning] Before writing specific logic code, if you directly request via the Swagger page, it will return a 500 error because the generated template code (internal/service/xxx.go) has a `panic("implement me")` line in every method function, indicating that specific logic code needs to be implemented.
 

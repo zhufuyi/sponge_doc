@@ -248,11 +248,11 @@ Access the sponge code generation UI interface in your web browser at http://loc
 
 The sponge UI interface supports creating projects in five ways:
 
-- `⓵Web service created based on sql`
-- `⓶Microservice created based on sql`
-- `⓷Web service created based on protobuf`
-- `⓸Microservice created based on protobuf`
-- `⓹GRPC gateway service created based on protobuf`
+- `⓵Create web service based on sql`
+- `⓶Create grpc service based on sql`
+- `⓷Create web service based on protobuf`
+- `⓸Create grpc service based on protobuf`
+- `⓹Create grpc gateway service based on protobuf`
 
 Each project creation method has its use cases, which are explained in the <a href="/learn-about-sponge?id=%f0%9f%8f%b7code-generation-framework" target="_blank">Code Generation Framework</a> section. Choose one of these methods based on your project's needs. The sponge UI interface also supports generating various common code components, all of which can seamlessly integrate into your project's code. In addition to UI-based code generation, many code generation commands are integrated into the Makefile file within your project's code. These commands are designed to enable "low-code development" in Go.
 
@@ -260,7 +260,7 @@ Each project creation method has its use cases, which are explained in the <a hr
 
 ### 🏷Creating a Project Example
 
-Below is an example of creating a project using the `⓵Web service created based on sql` method. This is one of the simplest ways to create a project, as it requires no manual Go code writing. You only need to connect to a MySQL database to generate a fully deployed web service project. The web service includes standardized `CRUD` operations, `pagination with arbitrary conditions`, and `caching`. It also comes with a variety of components that are ready to use.
+Below is an example of creating a project using the `⓵Create web service based on sql` method. This is one of the simplest ways to create a project, as it requires no manual Go code writing. You only need to connect to a MySQL database to generate a fully deployed web service project. The web service includes standardized `CRUD` operations, `pagination with arbitrary conditions`, and `caching`. It also comes with a variety of components that are ready to use.
 
 > [!tip] Code generation depends on a MySQL service and MySQL tables. If you don't have them ready, here are the [scripts to start a MySQL service with Docker](https://github.com/zhufuyi/sponge/blob/main/test/server/mysql/docker-compose.yaml). After starting the MySQL service, import the [MySQL table SQL](https://github.com/zhufuyi/sponge_examples/blob/main/1_web-gin-CRUD/test/sql/user.sql).
 

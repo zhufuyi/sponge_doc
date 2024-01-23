@@ -1,14 +1,14 @@
-`⓶Microservice created based on sql` is grpc microservices that use MySQL as their data storage. Since the database type has been chosen, and sponge supports generating standardized CRUD code using GORM, you can easily generate complete microservice code with CRUD API interfaces at the push of a button. Within the microservice code, you can batch-add CRUD API interface code without writing a single line of Go code; all you need to do is connect to the MySQL database.
+`⓶Create grpc service based on sql` is grpc service that use MySQL as their data storage. Since the database type has been chosen, and sponge supports generating standardized CRUD code using GORM, you can easily generate complete grpc service code with CRUD API interfaces at the push of a button. Within the grpc service code, you can batch-add CRUD API interface code without writing a single line of Go code; all you need to do is connect to the MySQL database.
 
-If you're developing a microservice that only requires standardized CRUD API interfaces, this is one of the simplest ways to develop microservices. You won't need to write Go code, and it enables "low-code development" for microservice API interfaces. Adding custom API interfaces is also relatively straightforward; you just need to define the API interface in a proto file and then write specific logic in the generated API interface templates.
+If you're developing a grpc service that only requires standardized CRUD API interfaces, this is one of the simplest ways to develop grpc service. You won't need to write Go code, and it enables "low-code development" for grpc service API interfaces. Adding custom API interfaces is also relatively straightforward; you just need to define the API interface in a proto file and then write specific logic in the generated API interface templates.
 
-Therefore, `⓶Microservice created based on sql` using MySQL as the database are suitable for microservice projects where MySQL is the preferred database option.
+Therefore, `⓶Create grpc service based on sql` using MySQL as the database are suitable for grpc service projects where MySQL is the preferred database option.
 
 <br>
 
 ### 🏷Pre-development Preparations
 
-Before developing a microservice project, make sure you have the following:
+Before developing a grpc service project, make sure you have the following:
 
 - sponge installed
 - MySQL service
@@ -24,19 +24,19 @@ sponge run
 
 Access http://localhost:24631 in your web browser to enter the sponge code generation UI.
 
-### 🏷Creating a Microservice Project
+### 🏷Creating a GRPC Service Project
 
-In the sponge UI, navigate to the left sidebar **SQL** -> **Create Microservice Project**. Fill in the `MySQL DSN address`, then click the button to `Fetch Table Names`. Select the table names (you can select multiple), fill in the other parameters, and hover over the question marks `?` to see parameter explanations. After filling in the parameters, click the button to `Download Code` to generate the complete microservice project code, as shown in the image below:
+In the sponge UI, navigate to the left sidebar **SQL** -> **Create grpc service**. Fill in the `MySQL DSN address`, then click the button to `Fetch Table Names`. Select the table names (you can select multiple), fill in the other parameters, and hover over the question marks `?` to see parameter explanations. After filling in the parameters, click the button to `Download Code` to generate the complete grpc service project code, as shown in the image below:
 
 ![micro-rpc](assets/images/micro-rpc.png)
 
 > [!tip] Equivalent command: **sponge micro rpc --module-name=user --server-name=user --project-name=edusys --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher**
 
-> [!tip] The directory name for the extracted microservice code follows the format `ServiceName-Type-Date`. You can modify the directory name, for example, removing the type and date.
+> [!tip] The directory name for the extracted grpc service code follows the format `ServiceName-Type-Date`. You can modify the directory name, for example, removing the type and date.
 
 > [!tip] After successfully generating the code, sponge saves the record, making it convenient for generating code the next time. If the `MySQL DSN address` remains the same, refreshing or reopening the page will automatically fetch the table names without clicking the `Fetch Table Names` button.
 
-This is the directory structure of the created microservice code:
+This is the directory structure of the created grpc service code:
 
 ```
 .
@@ -65,11 +65,11 @@ This is the directory structure of the created microservice code:
 └─ scripts
 ```
 
-The created microservice code follows the egg model structure:
+The created grpc service code follows the egg model structure:
 
 ![micro-rpc-pb-anatomy](assets/images/micro-rpc-pb-anatomy.png)
 
-Unzip the code files, open your terminal, navigate to the microservice code directory, and execute the following commands:
+Unzip the code files, open your terminal, navigate to the grpc service code directory, and execute the following commands:
 
 ```bash
 # Generate and merge code related to API interfaces
@@ -114,7 +114,7 @@ The generated service CRUD code directory structure is shown below. The `interna
      └─ service
 ```
 
-Unzip the code and move the `internal` and `api` directories to your microservice code directory. This completes the bulk addition of service CRUD API interfaces to your microservice project.
+Unzip the code and move the `internal` and `api` directories to your grpc service code directory. This completes the bulk addition of service CRUD API interfaces to your grpc service project.
 
 > [!note] Moving the `internal` and `api` directories should not normally result in conflicting files. If there are conflicting files, it means that you previously specified the same MySQL table to generate service CRUD code. In this case, you can ignore file overwrites.
 
@@ -198,19 +198,19 @@ Adding a custom API interface is straightforward. Simply define the API interfac
 
 <br>
 
-### 🏷Calling APIs from Other Microservices
+### 🏷Calling APIs from Other GRPC Service
 
-According to the project business needs, there may be a need to call other microservice api interfaces in this service, other microservices here refers to the use of protobuf protocol gRCP service, any language implementation of the grpc service can be supported, the following is to call other microservices api interfaces of the operation steps:
+According to the project business needs, there may be a need to call other grpc service api interfaces in this service, other grpc service here refers to the use of protobuf protocol grpc service, any language implementation of the grpc service can be supported, the following is to call other grpc services api interfaces of the operation steps:
 
-**(1) Adding Connection to Target Microservice Code**
+**(1) Adding Connection to Target grpc service Code**
 
-To call the API of the target microservice within this service, you first need to establish a connection to the target microservice. Below are the steps to automatically generate grpc connection code.
+To call the API of the target grpc service within this service, you first need to establish a connection to the target grpc service. Below are the steps to automatically generate grpc connection code.
 
 Navigate to the Sponge UI interface, click on the left menu bar **[Public]** -> **[Generate GRPC Connection Code]**. Fill in the module name, specify the grpc service name(s) (multiple names supported, separated by commas). After providing the parameters, click the `Download Code` button to generate the grpc service connection code, as shown in the image below:
 
 ![micro-rpc-conn](assets/images/micro-rpc-conn.png)
 
-> [!tip] Equivalent command: **sponge micro rpc-conn --module-name=edusys  --rpc-server-name=user**. There is a simpler equivalent command available by using the `--out` parameter to specify the microservice code directory and directly merge the code into this service. Command: **sponge micro rpc-conn --rpc-server-name=user --out=edusys**
+> [!tip] Equivalent command: **sponge micro rpc-conn --module-name=edusys  --rpc-server-name=user**. There is a simpler equivalent command available by using the `--out` parameter to specify the grpc service code directory and directly merge the code into this service. Command: **sponge micro rpc-conn --rpc-server-name=user --out=edusys**
 
 The generated grpc service connection code directory will look like this:
 
@@ -224,25 +224,25 @@ The generated grpc service connection code directory will look like this:
 
 Extract the code and move the `internal` directory to the code directory of this service.
 
-> [!note] Moving the `internal` directory to the service directory should not normally result in conflicts. If there are conflicting files, it means that you previously specified the same microservice name to generate the grpc service connection code. In this case, simply ignore overwriting the files.
+> [!note] Moving the `internal` directory to the service directory should not normally result in conflicts. If there are conflicting files, it means that you previously specified the same grpc service name to generate the grpc service connection code. In this case, simply ignore overwriting the files.
 
 <br>
 
-**(2) Configuring the Address of the Target Microservice**
+**(2) Configuring the Address of the Target grpc service**
 
-After adding the connection to the target microservice code, set the address of the target microservice in the configuration file `configs/service_name.yml`. The main configuration is as follows:
+After adding the connection to the target grpc service code, set the address of the target grpc service in the configuration file `configs/service_name.yml`. The main configuration is as follows:
 
 ```yaml
 grpcClient:
-  - name: "user"        # Microservice name
-    host: "127.0.0.1"   # Microservice address (This field is ignored if service discovery is enabled)
-    port: 8282          # Microservice port (This field is ignored if service discovery is enabled)
-    registryDiscoveryType: ""  # Service discovery, default is disabled, supports consul, etcd, nacos
+  - name: "user"        # grpc service name
+    host: "127.0.0.1"   # grpc service address (This field is ignored if service discovery is enabled)
+    port: 8282          # grpc service port (This field is ignored if service discovery is enabled)
+    registryDiscoveryType: ""  # service discovery, default is disabled, supports consul, etcd, nacos
 ```
 
 > [!tip] For more grpcClient settings, refer to `configs/service_name.yml`, such as load balancing, secure connections, etc.
 
-If you need to connect to multiple microservices, you need to set the addresses of multiple microservices. An example is shown below:
+If you need to connect to multiple grpc services, you need to set the addresses of multiple grpc services. An example is shown below:
 
 ```yaml
 grpcClient:
@@ -262,16 +262,16 @@ grpcClient:
 
 <br>
 
-**(3) Copy the Proto Files of the Target Microservice**
+**(3) Copy the Proto Files of the Target GRPC Service**
 
-Even though you can connect to the target microservice, you may not know which API interfaces of the target microservice can be called. You can use proto files to inform this service of the available API interfaces.
+Even though you can connect to the target grpc service, you may not know which API interfaces of the target grpc service can be called. You can use proto files to inform this service of the available API interfaces.
 
-Copy the target microservice proto file and move it to the directory `api/target microservice name/v1` in this service. With the target microservice proto file, you can know what api interfaces are available to call in this service.
+Copy the target grpc service proto file and move it to the directory `api/target grpc service name/v1` in this service. With the target grpc service proto file, you can know what api interfaces are available to call in this service.
 
-If the target microservice was created with sponge, you can copy the proto file directly with the command, while microservices not created with sponge need to copy the proto file manually.
+If the target grpc service was created with sponge, you can copy the proto file directly with the command, while grpc service not created with sponge need to copy the proto file manually.
 
 ```bash
-# Copy proto files from other microservices to this service project. If there are multiple target microservice directories, separate them with commas.
+# Copy proto files from other grpc service to this service project. If there are multiple target grpc service directories, separate them with commas.
 make copy-proto SERVER=../user
 ```
 
@@ -279,15 +279,15 @@ make copy-proto SERVER=../user
 
 <br>
 
-**(4) Running the Target Microservice**
+**(4) Running the Target GRPC Service**
 
-If you use microservices created with sponge, execute the command `make run` to run the target microservice, and for other target microservices, run the microservice in the same way as the target microservice.
+If you use grpc service created with sponge, execute the command `make run` to run the target grpc service, if the grpc service was not created using sponge, start the grpc service according to the actual command.
 
 <br>
 
 ### 🏷Configuring the Service
 
-The created microservice code includes various components, some of which are disabled by default. You can enable and configure these components as needed in the configuration file `configs/service-name.yml`, which contains detailed explanations.
+The created grpc service code includes various components, some of which are disabled by default. You can enable and configure these components as needed in the configuration file `configs/service-name.yml`, which contains detailed explanations.
 
 > [!tip] You can replace, add your own components (grpc interceptors), or remove unnecessary components in the service code by modifying the code file `internal/server/grpc.go`.
 

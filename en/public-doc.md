@@ -5,7 +5,7 @@ Within the CRUD API interfaces, there's one called Arbitrary Conditional Paginat
 ```yaml
 Pagination Parameters (required):
 	page: Page number, starting from 0.
-	size(limit): Rows per page, default maximum is 1000. Only `⓵Web service created based on sql` use `size`, other services created using different methods use `limit`.
+	size(limit): Rows per page, default maximum is 1000. Only `⓵Create web service based on sql` use `size`, other services created using different methods use `limit`.
 	sort: Sorting field, default is descending by `id`, but you can change it to sort by other fields. If a field name is preceded by a minus sign "-", it indicates descending order, otherwise, it's ascending. You can use a comma to sort by multiple fields.
 
 Condition Parameters (columns, optional):
@@ -54,20 +54,20 @@ The generated DAO CRUD code directory structure is as follows, and it contains G
      └─ model
 ```
 
-Unzip the code and move the `internal` directory to the `web service` or `microservice` code directory. This completes the process of adding DAO CRUD API interfaces in batch to the microservice.
+Unzip the code and move the `internal` directory to the `web` or `grpc` service code directory. This completes the process of adding DAO CRUD API interfaces in batch to the grpc service.
 
 > [!note] Moving the `internal` directory should not result in conflicts in normal circumstances. If there are conflicts, it means that the same MySQL table was specified to generate DAO CRUD code before. In such cases, ignore the file overwrite.
 
 <br>
 
-Next, you can use the DAO CRUD interfaces. The location of calling the DAO CRUD interfaces differs between the `web service` and `microservice`:
+Next, you can use the DAO CRUD interfaces. The location of calling the DAO CRUD interfaces differs between the `web` and `grpc` service:
 
 **Calling DAO CRUD Interfaces in Handler for Web Services:**
 
 Navigate to the `internal/handler` directory,
 
-- For `⓵Web service created based on sql`, open the `table_name.go` file.
-- For `⓷Web service created based on protobuf`, open the `proto_file_name.go` file.
+- For `⓵Create web service based on sql`, open the `table_name.go` file.
+- For `⓷Create web service based on protobuf`, open the `proto_file_name.go` file.
 - You can also create a new `.go` file.
 
 Reference the DAO interface inside the structure, as shown below:
@@ -79,12 +79,12 @@ type userHandler struct {
 }
 ```
 
-**Calling DAO CRUD Interfaces in Service for Microservices:**
+**Calling DAO CRUD Interfaces in Service for GRPC Service:**
 
 Navigate to the `internal/service` directory,
 
-- For `⓶Microservice created based on sql`, open the `table_name.go` file.
-- For `⓸Microservice created based on protobuf`, open the `proto_file_name.go` file.
+- For `⓶Create grpc service based on sql`, open the `table_name.go` file.
+- For `⓸Create grpc service based on protobuf`, open the `proto_file_name.go` file.
 - You can also create a new `.go` file.
 
 Reference the DAO interface inside the structure, as shown below:
@@ -118,18 +118,18 @@ The generated cache code directory structure is as follows, and it contains Go f
      └─ cache
 ```
 
-Unzip the code and move the `internal` directory to the `web service` or `microservice` code directory.
+Unzip the code and move the `internal` directory to the `web` or `grpc` service code directory.
 
 <br>
 
-Next, you can use the cache interface. The location of calling the cache code differs between the `web service` and `microservice`:
+Next, you can use the cache interface. The location of calling the cache code differs between the `web` and `grp` service:
 
 **Calling Cache Code in Handler for Web Services:**
 
 Navigate to the `internal/handler` directory,
 
-- For `⓵Web service created based on sql`, open the `table_name.go` file.
-- For `⓷Web service created based on protobuf`, open the `proto_file_name.go` file.
+- For `⓵Create web service based on sql`, open the `table_name.go` file.
+- For `⓷Create web service based on protobuf`, open the `proto_file_name.go` file.
 - You can also create a new `.go` file.
 
 Reference the cache interface inside the structure, as shown below:
@@ -141,12 +141,12 @@ type userHandler struct {
 }
 ```
 
-**Calling Cache Code in Service for Microservices:**
+**Calling Cache Code in Service for GRPC Service:**
 
 Navigate to the `internal/service` directory,
 
-- For `⓶Microservice created based on sql`, open the `table_name.go` file.
-- For `⓸Microservice created based on protobuf`, open the `proto_file_name.go` file.
+- For `⓶Create grpc service based on sql`, open the `table_name.go` file.
+- For `⓸Create grpc service based on protobuf`, open the `proto_file_name.go` file.
 - You can also create a new `.go` file.
 
 Reference the cache interface inside the structure, as shown below:

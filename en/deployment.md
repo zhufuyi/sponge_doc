@@ -1,7 +1,7 @@
 
 ### 🏷Binary Deployment
 
-Web and microservices created by sponge support binary deployment in two ways.
+Web and grpc services created by sponge support binary deployment in two ways.
 
 **Method 1:** Run the service in the background on your local machine using the `nohup` command. Navigate to the service code directory and execute the deployment commands as follows:
 
@@ -38,7 +38,7 @@ To start or stop a deployed service, you need to navigate to the target machine'
 
 ### 🏷Docker Deployment
 
-Web and microservices created by sponge also support Docker deployment, running on Docker containers on your local machine. You need to have [Docker](https://www.docker.com/) and [docker-compose](https://github.com/docker/compose/releases) commands installed locally. Navigate to the service code directory and use the following deployment commands:
+Web and grpc services created by sponge also support Docker deployment, running on Docker containers on your local machine. You need to have [Docker](https://www.docker.com/) and [docker-compose](https://github.com/docker/compose/releases) commands installed locally. Navigate to the service code directory and use the following deployment commands:
 
 ```bash
 # Build the container and run the service, execute this command again if you need to update the service
@@ -63,7 +63,7 @@ docker-compose down
 
 ### 🏷Build and Upload Container Images
 
-Web and microservices created by sponge support building and pushing container images with simple commands, allowing you to easily push images to a private image repository.
+Web and grpc services created by sponge support building and pushing container images with simple commands, allowing you to easily push images to a private image repository.
 
 #### 🔹Build Container Images
 
@@ -115,7 +115,7 @@ make image-push REPO_HOST=myRepo.com TAG=1.0
 
 ### 🏷Continuous Integration and Deployment
 
-Web and microservices created by sponge support building and deploying with [Jenkins](https://www.jenkins.io/doc/). The deployment targets can be Docker and [Kubernetes (k8s)](https://kubernetes.io/docs/home/). Below is an example of using Jenkins for automatic building and deploying to Kubernetes.
+Web and grpc services created by sponge support building and deploying with [Jenkins](https://www.jenkins.io/doc/). The deployment targets can be Docker and [Kubernetes (k8s)](https://kubernetes.io/docs/home/). Below is an example of using Jenkins for automatic building and deploying to Kubernetes.
 
 #### 🔹Setting up the jenkins-go Platform
 
@@ -301,4 +301,4 @@ curl http://localhost:8080/api/v1/teacher/1
 
 <br>
 
-sponge-generated web and microservices come with Jenkinsfiles, scripts for building and uploading images, and Kubernetes deployment scripts. You can use these scripts without modification for most use cases, but you also have the option to customize them to suit your specific needs.
+sponge-generated web and grpc services come with Jenkinsfiles, scripts for building and uploading images, and Kubernetes deployment scripts. You can use these scripts without modification for most use cases, but you also have the option to customize them to suit your specific needs.

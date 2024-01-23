@@ -250,11 +250,11 @@ sponge run
 
 在sponge UI界面上支持5种方式创建项目， 分别是:
 
-- `⓵基于sql创建的web服务`
-- `⓶基于sql创建的微服务`
-- `⓷基于protobuf创建的web服务`
-- `⓸基于protobuf创建的微服务`
-- `⓹基于protobuf创建的grpc网关服务`
+- `⓵基于sql创建web服务`
+- `⓶基于sql创建grpc服务`
+- `⓷基于protobuf创建web服务`
+- `⓸基于protobuf创建grpc服务`
+- `⓹基于protobuf创建grpc网关服务`
 
 每种方式创建的项目使用场景在 <a href="/zh-cn/learn-about-sponge?id=%f0%9f%8f%b7%e7%94%9f%e6%88%90%e4%bb%a3%e7%a0%81%e6%a1%86%e6%9e%b6" target="_blank">生成代码框架</a> 章节中介绍，根据项目实际需要选择其中一种方式。在sponge UI界面还支持生成多种公共代码，这些公共代码都可以无缝嵌入到项目代码中，除了在UI界面生成代码，更多生成代码命令集成在项目代码下的Makefile文件中，通过Makefile生成的代码都是无缝嵌入到项目代码中。这么多生成代码命令目的是尽可能让golang也可以实现"低代码开发"。
 
@@ -262,7 +262,7 @@ sponge run
 
 ### 🏷创建项目示例
 
-下面使用`⓵基于sql创建的web服务`方式来创建项目示例，也是5种方式中创建项目最简单之一，不需要编写任何一行go代码，只需连接mysql数据库，就可以生成一个线上部署的完整web服务项目，web服务的api接口包括了标准化的`CRUD`、`任意条件的分页查询`、`缓存`，也包括了丰富的组件，开箱即用。
+下面使用`⓵基于sql创建web服务`方式来创建项目示例，也是5种方式中创建项目最简单之一，不需要编写任何一行go代码，只需连接mysql数据库，就可以生成一个线上部署的完整web服务项目，web服务的api接口包括了标准化的`CRUD`、`任意条件的分页查询`、`缓存`，也包括了丰富的组件，开箱即用。
 
 > [!tip] 生成代码需要依赖mysql服务和mysql表，如果都没有准备好，这里有[docker启动mysql服务脚本](https://github.com/zhufuyi/sponge/blob/main/test/server/mysql/docker-compose.yaml)，启动mysql服务之后导入[mysql表sql](https://github.com/zhufuyi/sponge_examples/blob/main/1_web-gin-CRUD/test/sql/user.sql)。
 

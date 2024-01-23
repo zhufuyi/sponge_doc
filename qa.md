@@ -1,9 +1,13 @@
 
+> [!tip] 如果有新的问题可以在这里添加 `https://go-sponge.com/qa/question` ，复制url在浏览器新标签上访问。
+
+<br>
+
 <h3>如何设置请求参数校验规则？</h3>
 
 <br>
 
-**对于 `⓵基于sql创建的web服务` 代码**
+**对于 `⓵基于sql创建web服务` 代码**
 
 **解答：**
 
@@ -203,7 +207,7 @@ zsh: no matches found: --db-dsn=root:123456@(127.0.0.1:3306)/school
 
 <br>
 
-在`⓷基于protobuf创建的web服务`，`⓹基于protobuf创建的grpc网关服务`中，下面是常见的三种情况:
+在`⓷基于protobuf创建web服务`，`⓹基于protobuf创建grpc网关服务`中，下面是常见的三种情况:
 
 (1) 请求查询参数无法获取，例如请求地址 http://localhost:8080/api/v1/getUser?name=Tom ，服务端获取请求参数`name`为空。
 
@@ -418,8 +422,8 @@ kill -trap pid值
 
 <br>
 
-- 在`⓵基于sql创建的web服务`代码中，如果修改了swagger注解后，必须执行命令`make docs`，然后重启服务`make run`才能生效。
-- 如果`基于sql来创建web或微服务`时使用了嵌入Model，删除是软删除，否则是物理删除。
-- 在`基于protobuf来创建web或微服务`代码中，执行命令`make proto`生成的xxx.pb.go代码中结构体字段的tag json默认是去掉omitempty属性，如果想保留omitempty，打开scripts/protoc.sh，注释掉这行命令`sponge del-omitempty --dir=$protoBasePath --suffix-name=pb.go > /dev/null`
+- 在`⓵基于sql创建web服务`代码中，如果修改了swagger注解后，必须执行命令`make docs`，然后重启服务`make run`才能生效。
+- 如果`基于sql来创建web或grpc服务`时使用了嵌入Model，删除是软删除，否则是物理删除。
+- 在`基于protobuf来创建web或grpc服务`代码中，执行命令`make proto`生成的xxx.pb.go代码中结构体字段的tag json默认是去掉omitempty属性，如果想保留omitempty，打开scripts/protoc.sh，注释掉这行命令`sponge del-omitempty --dir=$protoBasePath --suffix-name=pb.go > /dev/null`
 
 

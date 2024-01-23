@@ -7,7 +7,7 @@ CRUD api 接口中有一个接口叫任意条件分页查询，这个接口参�
 ```yaml
 分页参数 (必须):
 	page: 页码，从0开始。
-	size(limit): 每页行数，默认最大1000，只有 ⓵基于sql创建的web服务 是size，其他方式创建的服务使用limit。
+	size(limit): 每页行数，默认最大1000，只有 ⓵基于sql创建web服务 是size，其他方式创建的服务使用limit。
 	sort: 排序字段, 默认是id倒序，可以改为其他字段排序，字段名称前面有减号"-"表示倒序，没有减号表示升序，多字段排序用逗号分隔。
 
 条件参数columns (非必须):
@@ -57,20 +57,20 @@ CRUD api 接口中有一个接口叫任意条件分页查询，这个接口参�
      └─ model
 ```
 
-解压代码，把目录`internal`移动到`web服务`或`微服务`代码目录下，就完成了在微服务中批量添加dao CURD api接口。
+解压代码，把目录`internal`移动到`web服务`或`grpc服务`代码目录下，就完成了在grpc服务中批量添加dao CURD api接口。
 
 > [!note] 移动目录`internal`正常情况下不会有冲突文件，如果有冲突文件，说明之前已经指定相同的mysql表来生成dao CRUD代码了，此时忽略覆盖文件。
 
 <br>
 
-接下来引用dao CRUD接口，在`web服务`和`微服务`调用dao CRUD的代码文件位置不一样。
+接下来引用dao CRUD接口，在`web服务`和`grpc服务`调用dao CRUD的代码文件位置不一样。
 
 **在web服务的handler调用dao CRUD接口：**
 
 进入目录`internal/handler`，
 
-- 对于`⓵基于sql创建的web服务`，打开`表名.go`文件。
-- 对于`⓷基于protobuf创建的web服务`，打开`proto文件名.go`文件。
+- 对于`⓵基于sql创建web服务`，打开`表名.go`文件。
+- 对于`⓷基于protobuf创建web服务`，打开`proto文件名.go`文件。
 - 也可以是新创建的go文件。
 
 在结构体里面引用dao接口，示例如下：
@@ -84,12 +84,12 @@ type userHandler struct {
 
 <br>
 
-**在微服务的service调用dao CRUD接口：**
+**在grpc服务的service调用dao CRUD接口：**
 
 进入目录`internal/service`，
 
-- 对于`⓶基于sql创建的微服务`，打开`表名.go`文件。
-- 对于`⓸基于protobuf创建的微服务`，打开`proto文件名.go`文件。
+- 对于`⓶基于sql创建grpc服务`，打开`表名.go`文件。
+- 对于`⓸基于protobuf创建grpc服务`，打开`proto文件名.go`文件。
 - 也可以是新创建的go文件。
 
 在结构体里面引用dao接口，示例如下：
@@ -125,18 +125,18 @@ type userService struct {
      └─ cache
 ```
 
-解压代码，把目录`internal`移动到`web服务`或`微服务`代码目录下。
+解压代码，把目录`internal`移动到`web服务`或`grpc服务`代码目录下。
 
 <br>
 
-接下来引用cache接口，在`web服务`和`微服务`调用cache的代码文件位置不一样。
+接下来引用cache接口，在`web服务`和`grpc服务`调用cache的代码文件位置不一样。
 
 **在web服务的handler调用cache代码：**
 
 进入目录`internal/handler`，
 
-- 对于`⓵基于sql创建的web服务`，打开`表名.go`文件。
-- 对于`⓷基于protobuf创建的web服务`，打开`proto文件名.go`文件。
+- 对于`⓵基于sql创建web服务`，打开`表名.go`文件。
+- 对于`⓷基于protobuf创建web服务`，打开`proto文件名.go`文件。
 - 也可以是新创建的go文件。
 
 在结构体里面引用cache接口，示例如下：
@@ -150,12 +150,12 @@ type userHandler struct {
 
 <br>
 
-**在微服务的service调用cache代码：**
+**在grpc服务的service调用cache代码：**
 
 进入目录`internal/service`，
 
-- 对于`⓶基于sql创建的微服务`，打开`表名.go`文件。
-- 对于`⓸基于protobuf创建的微服务`，打开`proto文件名.go`文件。
+- 对于`⓶基于sql创建grpc服务`，打开`表名.go`文件。
+- 对于`⓸基于protobuf创建grpc服务`，打开`proto文件名.go`文件。
 - 也可以是新创建的go文件。
 
 在结构体里面引用cache接口，示例如下：

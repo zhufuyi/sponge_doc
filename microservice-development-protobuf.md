@@ -1,19 +1,19 @@
 
-`⓸基于protobuf创建的微服务`是用于通用的微服务开发，支持自选数据库类型作为数据存储。而`⓶基于sql创建的微服务`，也就是 <a href="/zh-cn/microservice-development-mysql" target="_blank">微服务开发(mysql)</a> 已经选定mysql数据库类型，这是两种方式创建微服务的主要区别，可以把`⓶基于sql创建的微服务`看作是`⓸基于protobuf创建的微服务`一个特殊子集。
+`⓸基于protobuf创建grpc服务`是用于通用的grpc服务开发，支持自选数据库类型作为数据存储。而`⓶基于sql创建grpc服务`，也就是 <a href="/zh-cn/microservice-development-mysql" target="_blank">grpc服务开发(mysql)</a> 已经选定mysql数据库类型，这是两种方式创建grpc服务的主要区别，可以把`⓶基于sql创建grpc服务`看作是`⓸基于protobuf创建grpc服务`一个特殊子集。
 
-`⓸基于protobuf创建的微服务`支持选用任意数据库类型，当然也包括mysql，如果选用mysql数据库类型，基本等价于`⓶基于sql创建的微服务`，除了创建服务时依赖proto文件不一样，其他都一样。
+`⓸基于protobuf创建grpc服务`支持选用任意数据库类型，当然也包括mysql，如果选用mysql数据库类型，基本等价于`⓶基于sql创建grpc服务`，除了创建服务时依赖proto文件不一样，其他都一样。
 
-`⓸基于protobuf创建的微服务`选用其他数据库类型时，需要人工编写dao、model、数据库初始化等代码。
+`⓸基于protobuf创建grpc服务`选用其他数据库类型时，需要人工编写dao、model、数据库初始化等代码。
 
-因此`⓸基于protobuf创建的微服务`适合通用的微服务项目开发。
+因此`⓸基于protobuf创建grpc服务`适合通用的grpc服务项目开发。
 
 <br>
 
-## 🏷选用mysql进行微服务开发
+## 🏷选用mysql进行grpc服务开发
 
 ### 🔹前期准备
 
-开发微服务项目前准备：
+开发grpc服务项目前准备：
 
 - 已安装sponge
 - mysql服务
@@ -32,19 +32,19 @@ sponge run
 
 <br>
 
-### 🔹创建微服务项目
+### 🔹创建grpc服务
 
-进入sponge的UI界面，点击左边菜单栏【Protobuf】-->【创建微服务项目】，选择proto文件(可多选)，接着填写其他参数，鼠标放在问号`?`位置查可以看参数说明，填写完参数后，点击按钮`下载代码`生成微服务完整项目代码，如下图所示：
+进入sponge的UI界面，点击左边菜单栏【Protobuf】-->【创建grpc服务】，选择proto文件(可多选)，接着填写其他参数，鼠标放在问号`?`位置查可以看参数说明，填写完参数后，点击按钮`下载代码`生成grpc服务完整项目代码，如下图所示：
 
 ![micro-rpc-pb](assets/images/micro-rpc-pb.png)
 
 > [!tip] 等价命令 **sponge micro rpc-pb --module-name=user --server-name=user --project-name=edusys --protobuf-file=./user.proto**
 
-> [!tip] 解压的微服务代码目录名称的格式是`服务名称-类型-时间`，可以修改目录名称(例如把名称中的类型和时间去掉)。
+> [!tip] 解压的grpc服务代码目录名称的格式是`服务名称-类型-时间`，可以修改目录名称(例如把名称中的类型和时间去掉)。
 
 > [!tip] 成功生成代码之后会保存记录，方便下一次生成代码使用，刷新或重新打开页面时显示上一次部分参数。
 
-这是创建的微服务代码目录：
+这是创建的grpc服务代码目录：
 
 ```
 .
@@ -70,11 +70,11 @@ sponge run
 └─ scripts
 ```
 
-创建的微服务代码结构鸡蛋模型：
+创建的grpc服务代码结构鸡蛋模型：
 
 ![micro-rpc-pb-anatomy](assets/images/micro-rpc-pb-anatomy.png)
 
-解压代码文件，打开终端，切换到微服务代码目录，执行命令：
+解压代码文件，打开终端，切换到grpc服务代码目录，执行命令：
 
 ```bash
 # 生成与合并api接口相关代码
@@ -96,7 +96,7 @@ make run
 
 ### 🔹自动添加CRUD api接口
 
-自动添加CRUD api接口与`微服务开发(mysql)`章节中`自动添加CRUD api接口`一样，点击查看
+自动添加CRUD api接口与`grpc服务开发(mysql)`章节中`自动添加CRUD api接口`一样，点击查看
 <a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%87%aa%e5%8a%a8%e6%b7%bb%e5%8a%a0crud-api%e6%8e%a5%e5%8f%a3" target="_blank">自动添加CRUD api接口文档</a>。
 
 
@@ -106,39 +106,39 @@ make run
 
 ### 🔹人工添加自定义api接口
 
-人工添加自定义api接口与`微服务开发(mysql)`章节中`人工添加自定义api接口`一样，点击查看
+人工添加自定义api接口与`grpc服务开发(mysql)`章节中`人工添加自定义api接口`一样，点击查看
 <a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e4%ba%ba%e5%b7%a5%e6%b7%bb%e5%8a%a0%e8%87%aa%e5%ae%9a%e4%b9%89api%e6%8e%a5%e5%8f%a3" target="_blank">人工添加自定义api接口文档</a>。
 
 <br>
 
-### 🔹调用其他微服务api接口
+### 🔹调用其他grpc服务api接口
 
-调用其他微服务api接口与`微服务开发(mysql)`章节中`调用其他微服务api接口`一样，点击查看
+调用其他grpc服务api接口与`grpc服务开发(mysql)`章节中`调用其他grpc服务api接口`一样，点击查看
 
-<a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%b0%83%e7%94%a8%e5%85%b6%e4%bb%96%e5%be%ae%e6%9c%8d%e5%8a%a1api%e6%8e%a5%e5%8f%a3" target="_blank">调用其他微服务api接口文档</a>。
+<a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%b0%83%e7%94%a8%e5%85%b6%e4%bb%96grpc%e6%9c%8d%e5%8a%a1api%e6%8e%a5%e5%8f%a3" target="_blank">调用其他grpc服务api接口文档</a>。
 
 <br>
 
 ### 🔹设置服务
 
-设置服务与`微服务开发(mysql)`章节中`设置服务`一样，点击查看
+设置服务与`grpc服务开发(mysql)`章节中`设置服务`一样，点击查看
 <a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%ae%be%e7%bd%ae%e6%9c%8d%e5%8a%a1" target="_blank">设置服务文档</a>。
 
 <br>
 
-## 🏷选用其他数据库进行微服务开发
+## 🏷选用其他数据库进行grpc服务开发
 
-`⓸基于protobuf创建的微服务`默认不包括操作数据库相关代码，开发者可以选用任何数据库类型作为数据存储，上面介绍了选用mysql进行微服务开发的具体过程，操作起来简单方便，得益于sponge支持基于mysql表来生成api接口所需的各种代码(例如dao、model、cache)。如果选用其他数据库类型，sponge暂时不支持生成这些代码。
+`⓸基于protobuf创建grpc服务`默认不包括操作数据库相关代码，开发者可以选用任何数据库类型作为数据存储，上面介绍了选用mysql进行grpc服务开发的具体过程，操作起来简单方便，得益于sponge支持基于mysql表来生成api接口所需的各种代码(例如dao、model、cache)。如果选用其他数据库类型，sponge暂时不支持生成这些代码。
 
-虽然sponge不支持通过其他数据库类型来生成操作数据库相关代码，但基于proto文件生成`api接口模板代码`、`grpc客户端测试代码`、`错误码`、`自动合并模板代码`等，减少了不少原本需要人工编写的代码，比传统的微服务(grpc)开发更简单方便。
+虽然sponge不支持通过其他数据库类型来生成操作数据库相关代码，但基于proto文件生成`api接口模板代码`、`grpc客户端测试代码`、`错误码`、`自动合并模板代码`等，减少了不少原本需要人工编写的代码，比传统的grpc服务开发更简单方便。
 
-`选用其他数据库类型`与`选用mysql`的微服务开发流程基本一样，没什么区别，最大的不同点是数据库操作相关代码，前者是人工编写，后者是自动生成。
+`选用其他数据库类型`与`选用mysql`的grpc服务开发流程基本一样，没什么区别，最大的不同点是数据库操作相关代码，前者是人工编写，后者是自动生成。
 
 <br>
 
 ### 🔹前期准备
 
-开发微服务项目前准备：
+开发grpc服务项目前准备：
 
 - 已安装sponge
 - 数据库服务
@@ -154,9 +154,9 @@ sponge run
 
 <br>
 
-### 🔹创建微服务项目
+### 🔹创建grpc服务
 
-请看上面章节 <a href="/zh-cn/microservice-development-protobuf?id=%f0%9f%94%b9%e5%88%9b%e5%bb%ba%e5%be%ae%e6%9c%8d%e5%8a%a1%e9%a1%b9%e7%9b%ae" target="_blank">创建微服务项目文档</a>。
+请看上面章节 <a href="/zh-cn/microservice-development-protobuf?id=%f0%9f%94%b9%e5%88%9b%e5%bb%bagrpc%e6%9c%8d%e5%8a%a1" target="_blank">创建grpc服务文档</a>。
 
 <br>
 
@@ -192,24 +192,24 @@ make update-config
 
 > [!note] 在api接口模板代码编写具体逻辑代码时，如果涉及到对数据操作，例如需要人工编写`model`、`dao`等代码。
 
-添加自定义api接口与`微服务开发(mysql)`章节中`人工添加自定义api接口`一样，点击查看
+添加自定义api接口与`grpc服务开发(mysql)`章节中`人工添加自定义api接口`一样，点击查看
 <a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e4%ba%ba%e5%b7%a5%e6%b7%bb%e5%8a%a0%e8%87%aa%e5%ae%9a%e4%b9%89api%e6%8e%a5%e5%8f%a3" target="_blank">人工添加自定义api接口文档</a>。
 
 > [!tip] 在人工添加的自定义api接口中，可能需要用到缓存，例如生成的token，这类string类型缓存代码可以直接生成，不需要人工编写，点击查看<a href="/zh-cn/public-doc?id=%f0%9f%94%b9%e7%94%9f%e6%88%90%e5%92%8c%e4%bd%bf%e7%94%a8cache%e4%bb%a3%e7%a0%81" target="_blank">生成和使用cache代码说明</a>。
 
 <br>
 
-### 🔹调用其他微服务api接口
+### 🔹调用其他grpc服务api接口
 
-调用其他微服务api接口与`微服务开发(mysql)`章节中`调用其他微服务api接口`一样，点击查看
+调用其他grpc服务api接口与`grpc服务开发(mysql)`章节中`调用其他grpc服务api接口`一样，点击查看
 
-<a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%b0%83%e7%94%a8%e5%85%b6%e4%bb%96%e5%be%ae%e6%9c%8d%e5%8a%a1api%e6%8e%a5%e5%8f%a3" target="_blank">调用其他微服务api接口文档</a>。
+<a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%b0%83%e7%94%a8%e5%85%b6%e4%bb%96grpc%e6%9c%8d%e5%8a%a1api%e6%8e%a5%e5%8f%a3" target="_blank">调用其他grpc服务api接口文档</a>。
 
 <br>
 
 ### 🔹设置服务
 
-设置服务与`微服务开发(mysql)`章节中`设置服务`一样，点击查看
+设置服务与`grpc服务开发(mysql)`章节中`设置服务`一样，点击查看
 <a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%ae%be%e7%bd%ae%e6%9c%8d%e5%8a%a1" target="_blank">设置服务文档</a>。
 
 <br>
@@ -218,5 +218,5 @@ make update-config
 
 相关视频介绍：
 
-- [一键生成通用微服务(grpc)项目代码](https://www.bilibili.com/video/BV1WY4y1X7zH/)
-- [批量生成任意API接口代码到微服务(grpc)](https://www.bilibili.com/video/BV1Yo4y1q76o/)
+- [一键生成通用grpc服务项目代码](https://www.bilibili.com/video/BV1WY4y1X7zH/)
+- [批量生成任意API接口代码到grpc服务](https://www.bilibili.com/video/BV1Yo4y1q76o/)

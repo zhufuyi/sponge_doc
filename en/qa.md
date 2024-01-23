@@ -1,4 +1,8 @@
 
+> [!tip] If there is a new issue you can add `https://go-sponge.com/qa/question` here, copy the url to access it on a new tab in your browser.
+
+<br>
+
 <h3>How to Set Validation Rules for Request Parameters?</h3>
 
 <br>
@@ -202,7 +206,7 @@ zsh: no matches found: --db-dsn=root:123456@(127.0.0.1:3306)/school
 
 <br>
 
-In `Services Created Based on Protobuf`, `gRPC Gateway Services Created Based on Protobuf`, and `gRPC Services Created Based on Protobuf`, the following are common scenarios:
+In `Create Services Based on Protobuf`, `Create GRPC Gateway Service Based on Protobuf`, and `Create GRPC Service Based on Protobuf`, the following are common scenarios:
 
 (1) Query parameters cannot be retrieved. For example, when making a request to the URL `http://localhost:8080/api/v1/getUser?name=Tom`, the server cannot retrieve the value of the `name` parameter.
 
@@ -406,7 +410,7 @@ Captured profiles are saved to the `/tmp/service_name_profile` directory.
 <br>
 
 - In the code for `⓵ web service based on sql`, if you modify swagger annotations, you must execute the command `make docs`, and then restart the service with `make run` to take effect.
-- When creating a web or microservice `based on sql`, if you use an embedded model, deletion is soft delete; otherwise, it is a physical delete.
-- In the code for `creating web or microservices based on protobuf`, when executing the command `make proto`, the default json tag for structure fields in the generated xxx.pb.go code is without the omitempty property. If you want to keep omitempty, open scripts/protoc.sh and comment out this line `sponge del-omitempty --dir=$protoBasePath --suffix-name=pb.go > /dev/null`
+- When creating a web or grpc service `based on sql`, if you use an embedded model, deletion is soft delete; otherwise, it is a physical delete.
+- In the code for `creating web or grpc service based on protobuf`, when executing the command `make proto`, the default json tag for structure fields in the generated xxx.pb.go code is without the omitempty property. If you want to keep omitempty, open scripts/protoc.sh and comment out this line `sponge del-omitempty --dir=$protoBasePath --suffix-name=pb.go > /dev/null`
 
 <br>

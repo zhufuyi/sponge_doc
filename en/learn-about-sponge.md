@@ -9,9 +9,9 @@
 
 > 🔸**Phase Three**: sponge introduces support for using the Protocol Buffers (protobuf) protocol to generate custom API interfaces. It also adds the capability to generate generic web service code. In this phase, sponge supports both "SQL web development" and "protobuf web development."
 
-> 🔸**Phase Four**: sponge supports generating "Microservices (grpc) code based on SQL," "Generic Microservices (grpc) code based on protobuf," and "grpc gateway service code based on protobuf." In this phase, the microservices framework has matured.
+> 🔸**Phase Four**: sponge supports generating "grpc service code based on SQL," "Generic grpc service code based on protobuf," and "grpc gateway service code based on protobuf." In this phase, the microservices framework has matured.
 
-> 🔸**Phase Five**: sponge adds features such as a graphical user interface (UI) for code generation commands, a rich set of out-of-the-box components, microservices (grpc) service testing, and automated build and deployment. It has evolved into a foundational development framework.
+> 🔸**Phase Five**: sponge adds features such as a graphical user interface (UI) for code generation commands, a rich set of out-of-the-box components, grpc service testing, and automated build and deployment. It has evolved into a foundational development framework.
 
 In summary, sponge is a Go productivity tool that integrates "automatic code generation," "web and microservices frameworks," and "basic development frameworks."
 
@@ -26,22 +26,22 @@ The code generation primarily relies on two methods: **SQL** and **protobuf**. E
 
 From the diagram, you can see that there are two ways to create projects based on SQL:
 
-- `⓵Web service created based on sql` (gin, represented by the green box).
-- `⓶Microservice created based on sql` (grpc, represented by the purple box).
+- `⓵Create web service based on sql` (gin, represented by the green box).
+- `⓶Create grpc service based on sql` (grpc, represented by the purple box).
 
 There are three ways to create projects based on protobuf:
 
-- `⓷Web service created based on protobuf` (gin, represented by the green box).
-- `⓸Microservice created based on protobuf` (grpc, represented by the purple box).
-- `⓹GRPC gateway service created based on protobuf` (gin and grpc, represented by the green box).
+- `⓷Create web service based on protobuf` (gin, represented by the green box).
+- `⓸Create grpc service based on protobuf` (grpc, represented by the purple box).
+- `⓹Create grpc gateway service based on protobuf` (gin and grpc, represented by the green box).
 
 In other words, sponge supports a total of five project creation methods, each suitable for different project scenarios:
 
 <!-- tabs:start -->
 
-#### **⓵Web service created based on sql**
+#### **⓵Create web service based on sql**
 
-`⓵Web service created based on sql` is a traditional web service that uses MySQL as its data storage. It includes complete functionality from development to deployment and provides standardized CRUD API interfaces.
+`⓵Create web service based on sql` is a traditional web service that uses MySQL as its data storage. It includes complete functionality from development to deployment and provides standardized CRUD API interfaces.
 
 **Use Case:** Projects that use MySQL as their data storage and involve mostly standardized CRUD interfaces, such as admin panel projects.
 
@@ -53,9 +53,9 @@ In other words, sponge supports a total of five project creation methods, each s
 
 As shown in the diagram above, the generated web service code includes three submodules: `handler`, `dao`, and `model`. Similarly, when generating `handler` module code, it includes `dao` and `model` submodules.
 
-#### **⓶Microservice created based on sql**
+#### **⓶Create grpc service based on sql**
 
-`⓶Microservice created based on sql` is a microservice (grpc) that uses MySQL as its data storage. It includes complete functionality from development to deployment, standardized CRUD API interfaces, and grpc client testing code.
+`⓶Create grpc service based on sql` is a grpc service that uses MySQL as its data storage. It includes complete functionality from development to deployment, standardized CRUD API interfaces, and grpc client testing code.
 
 **Use Case:** General microservice projects that use MySQL as their data storage.
 
@@ -65,14 +65,14 @@ As shown in the diagram above, the generated web service code includes three sub
 - It generates standardized CRUD API interface descriptions in the proto file by parsing SQL, eliminating the need for manual definitions.
 - It supports batch addition of standardized CRUD API interfaces.
 - Custom API interfaces are supported. To add custom API interfaces, fill in the description in the proto file and then provide specific logic in the API interface template.
-- It supports generating DAO CRUD code separately and seamlessly integrating it into the microservice project code. Then, you can call the `dao` interface in the `service`.
-- It automatically generates grpc client testing and load testing code, eliminating the need for third-party grpc client tools to test microservices. You can test API interfaces directly in GoLand or VS Code.
+- It supports generating DAO CRUD code separately and seamlessly integrating it into the grpc service project code. Then, you can call the `dao` interface in the `service`.
+- It automatically generates grpc client testing and load testing code, eliminating the need for third-party grpc client tools to test grpc service. You can test API interfaces directly in GoLand or VS Code.
 
-As shown in the diagram above, the generated microservice (grpc) code includes `service`, `dao`, `model`, and `protobuf` four submodules. When generating the `service` module code, it includes `dao`, `model`, and `protobuf` three submodules.
+As shown in the diagram above, the generated grpc service code includes `service`, `dao`, `model`, and `protobuf` four submodules. When generating the `service` module code, it includes `dao`, `model`, and `protobuf` three submodules.
 
-#### **⓷Web service created based on protobuf**
+#### **⓷Create web service based on protobuf**
 
-`⓷Web service created based on protobuf` is a general web service that includes all the necessary functionality from development to deployment and API interface template code. It supports various database types for data storage.
+`⓷Create web service based on protobuf` is a general web service that includes all the necessary functionality from development to deployment and API interface template code. It supports various database types for data storage.
 
 **Use Case:** General web service projects.
 
@@ -80,14 +80,14 @@ As shown in the diagram above, the generated microservice (grpc) code includes `
 
 - It supports batch generation of template code for any API interfaces.
 - When adding new API interfaces, it automatically merges the added API interface code into the template code.
-- If MySQL is selected as the data storage type, it is essentially an enhanced version of `⓵Web service created based on sql`. It not only supports batch addition of standardized CRUD API interfaces, but also automatically generates custom API interface code (except for specific logic). Adding a complete custom API interface does not require manually writing all the interface code, similar to traditional API development.
+- If MySQL is selected as the data storage type, it is essentially an enhanced version of `⓵Create web service based on sql`. It not only supports batch addition of standardized CRUD API interfaces, but also automatically generates custom API interface code (except for specific logic). Adding a complete custom API interface does not require manually writing all the interface code, similar to traditional API development.
 - If a non-MySQL data type is selected, you must manually write code to connect to the data and create the DAO. The handler calls the DAO interface.
 
 Refer to the diagram above. The generated web service code includes the `handler template`. If MySQL is used as the data type, the generated code also includes the `dao` and `model` submodules. For other data types, you need to manually write the `dao` and `model` submodule code.
 
-#### **⓸Microservice created based on protobuf**
+#### **⓸Create grpc service based on protobuf**
 
-`⓸Microservice created based on protobuf` is a general microservice (grpc) that includes all the necessary functionality from development to deployment and API interface template code. It supports various database types for data storage.
+`⓸Create grpc service based on protobuf` is a general grpc service that includes all the necessary functionality from development to deployment and API interface template code. It supports various database types for data storage.
 
 **Use Case:** General microservice projects.
 
@@ -95,16 +95,16 @@ Refer to the diagram above. The generated web service code includes the `handler
 
 - It supports batch generation of template code for any API interfaces.
 - When adding new API interfaces, it automatically merges the added API interface code into the template code.
-- If MySQL is selected as the data storage type, it is the same as `⓶Microservice created based on sql`. It supports batch addition of standardized CRUD API interfaces and can seamlessly generate DAO CRUD code to integrate into the microservice project code. Then, you can call the `dao` interface in the `service`.
+- If MySQL is selected as the data storage type, it is the same as `⓶Create grpc service based on sql`. It supports batch addition of standardized CRUD API interfaces and can seamlessly generate DAO CRUD code to integrate into the grpc service project code. Then, you can call the `dao` interface in the `service`.
 - If a non-MySQL data type is selected, you must manually write code to connect to the data and create the DAO. The service module calls the DAO interface.
-- It automatically generates grpc client testing and load testing code, eliminating the need for third-party grpc client tools to test microservices. You can test API interfaces directly in GoLand or VS Code.
+- It automatically generates grpc client testing and load testing code, eliminating the need for third-party grpc client tools to test grpc service. You can test API interfaces directly in GoLand or VS Code.
 - Knowledge of Protocol Buffers (protobuf) is required.
 
-As shown in the diagram, the generated microservice code includes the `service template`. If MySQL is used as the data type, the generated code also includes the `dao`, `model`, and `protobuf` submodules. For other data types, you need to manually write the `dao`, `model`, and `protobuf` submodule code.
+As shown in the diagram, the generated grpc service code includes the `service template`. If MySQL is used as the data type, the generated code also includes the `dao`, `model`, and `protobuf` submodules. For other data types, you need to manually write the `dao`, `model`, and `protobuf` submodule code.
 
-#### **⓹GRPC gateway service created based on protobuf**
+#### **⓹Create grpc gateway service based on protobuf**
 
-`⓹GRPC gateway service created based on protobuf` serves as the unified entry point for grpc services and is a web service that includes all the necessary functionality, API interface template code, and features for various database types.
+`⓹Create grpc gateway service based on protobuf` serves as the unified entry point for grpc services and is a web service that includes all the necessary functionality, API interface template code, and features for various database types.
 
 **Use Case:** Microservices architecture, distributed systems, cross-platform systems.
 
@@ -184,7 +184,7 @@ The project code directory structure created by sponge follows the [project-layo
 │    ├── routers      # HTTP routing directory.
 │    ├── rpcclient    # Directory for client-side code that connects to grpc services.
 │    ├── server       # Directory for creating services, including HTTP and grpc.
-│    ├── service      # Directory for implementing grpc business functionality (specific to microservices).
+│    ├── service      # Directory for implementing grpc business functionality (specific to grpc service).
 │    └── types        # Directory for defining request and response parameter structures for HTTP.
 ├── pkg            # Directory for shared libraries.
 ├── scripts        # Directory for scripts, including compilation, execution, code generation, and deployment scripts.
@@ -192,7 +192,7 @@ The project code directory structure created by sponge follows the [project-layo
 └── third_party    # Directory for external helper programs, forked code, and other third-party tools.
 ```
 
-> [!tip] The directory structure is mostly the same for web services and microservices (grpc). However, there are some directories that are unique to web services (e.g., `routers`, `handler`, `types`) and some unique to microservices (e.g., `service`) within the `internal` directory.
+> [!tip] The directory structure is mostly the same for web services and grpc service. However, there are some directories that are unique to web services (e.g., `routers`, `handler`, `types`) and some unique to grpc service (e.g., `service`) within the `internal` directory.
 
 <br>
 
@@ -200,13 +200,13 @@ The project code directory structure created by sponge follows the [project-layo
 
 #### 🔹Template Code
 
-sponge's source code consists of three major parts: "Code Generation Tools," "Web and Microservices Code," and "Basic Development Framework Scripts." The latter two are collectively referred to as "Template Code." The directory structure of the service code created using the five different methods is similar, and they share the same set of template code found within the sponge source code.
+sponge's source code consists of three major parts: "Code Generation Tools," "Web and GRPC Services Code," and "Basic Development Framework Scripts." The latter two are collectively referred to as "Template Code." The directory structure of the service code created using the five different methods is similar, and they share the same set of template code found within the sponge source code.
 
 > [!tip] In the sponge source code, apart from the `cmd/sponge`, `cmd/protoc-gen-go-gin`, and `cmd/protoc-gen-go-rpc-tmpl` directories, which belong to the code generation tools, all other directories' code is template code.
 
-If you understand the project code created by sponge, you essentially understand the sponge source code (developing projects makes it easier to comprehend). The main areas to focus on in the project code are the `api` and `internal` directories. The `api` directory is primarily used to define API interface descriptions, while the `internal` directory is where business logic code is stored. The typical workflow when using sponge to develop projects is to "define API interfaces in proto files" -> "write specific logic code in the generated template code." This process remains consistent for both web and microservices development.
+If you understand the project code created by sponge, you essentially understand the sponge source code (developing projects makes it easier to comprehend). The main areas to focus on in the project code are the `api` and `internal` directories. The `api` directory is primarily used to define API interface descriptions, while the `internal` directory is where business logic code is stored. The typical workflow when using sponge to develop projects is to "define API interfaces in proto files" -> "write specific logic code in the generated template code." This process remains consistent for both web and grpc services development.
 
-> [!tip] If you initially start with a monolithic web service (`⓷Web service created based on protobuf`) and find that your business functionality is growing, it's incredibly convenient to split the complex monolithic web service into microservices. This can be achieved with minimal code rewriting, as web and microservices share the same set of template code.
+> [!tip] If you initially start with a monolithic web service (`⓷Create web service based on protobuf`) and find that your business functionality is growing, it's incredibly convenient to split the complex monolithic web service into grpc service. This can be achieved with minimal code rewriting, as web and grpc service share the same set of template code.
 
 > [!tip] sponge's code generation commands and template code are kept in sync. Executing the `sponge upgrade` command ensures that both code generation commands and template code remain consistent.
 
@@ -220,11 +220,11 @@ sponge offers a rich set of code generation capabilities. You can generate code 
 
 In the sponge UI interface, you can create projects in five different ways:
 
-- `⓵Web service created based on sql`(gin)
-- `⓶Microservice created based on sql`(grpc)
-- `⓷Web service created based on protobuf`(gin)
-- `⓸Microservice created based on protobuf`(grpc)
-- `⓹GRPC gateway service created based on protobuf`(gin, grpc)
+- `⓵Create web service based on sql`
+- `⓶Create grpc service based on sql`
+- `⓷Create web service based on protobuf`
+- `⓸Create grpc service based on protobuf`
+- `⓹Create grpc gateway service based on protobuf`
 
 The sponge UI interface also supports generating various common code snippets, all of which can be seamlessly integrated into your project code. These include:
 
@@ -260,19 +260,19 @@ sponge offers a variety of code generation commands to minimize or eliminate the
 
 sponge's code generation process divides code into two main parts: business logic and non-business logic. Taking a complete web service project code as an example, consider the entire web service codebase as an egg. The "shell" represents the web service framework code, while both the "white" and the "yolk" represent business logic code. The "yolk" is the core of the business logic (code that needs to be written manually). Examples include defining MySQL tables, defining API interfaces, and writing specific logic code. The "white" serves as the bridge between the core business logic code and the web framework code (auto-generated and does not require manual coding). It includes code generated based on proto files, such as route registration code, handler method function code, parameter validation code, error codes, Swagger documentation, and more.
 
-The egg model for `⓷Web service created based on protobuf` code is illustrated in the following diagram:
+The egg model for `⓷Create web service based on protobuf` code is illustrated in the following diagram:
 
 ![web-http-pb-anatomy](assets/images/web-http-pb-anatomy.png)
 
 <br>
 
-The egg model for `⓶Microservice created based on sql` and `⓸Microservice created based on protobuf` code is illustrated in the following diagram:
+The egg model for `⓶Create grpc service based on sql` and `⓸Create grpc service based on protobuf` code is illustrated in the following diagram:
 
 ![micro-rpc-pb-anatomy](assets/images/micro-rpc-pb-anatomy.png)
 
 <br>
 
-The egg model for `⓹GRPC gateway service created based on protobuf` code is illustrated in the following diagram:
+The egg model for `⓹Create grpc gateway service based on protobuf` code is illustrated in the following diagram:
 
 ![micro-rpc-gw-pb-anatomy](assets/images/micro-rpc-gw-pb-anatomy.png)
 

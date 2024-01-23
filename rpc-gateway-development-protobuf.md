@@ -2,7 +2,7 @@ grpc网关是grpc服务的统一入口，它可以为客户端提供负载均衡
 
 **主要作用：**
 
-- 通常位于客户端和grpc服务之间，它可以将客户端的请求均匀地分发到多个grpc服务，从而提高grpc服务的吞吐量和可用性。
+- 通常位于客户端和grpc服务之间，它可以将客户端的请求均匀地分发到多个grpc服务，从而提高微服务的吞吐量和可用性。
 - 根据客户端的请求，将请求转发到相应的grpc服务，从而简化客户端的开发。
 - 提供身份认证、授权、加密等安全功能，从而保护grpc服务的安全。
 - 收集grpc服务的运行状态信息，并提供监控功能，从而帮助用户管理grpc服务。
@@ -13,7 +13,7 @@ grpc网关是grpc服务的统一入口，它可以为客户端提供负载均衡
 - 在分布式系统中，grpc网关可以提供负载均衡、路由、安全等功能，从而提高分布式系统的性能和可用性。
 - 在跨平台系统种，grpc网关可以支持不同平台的grpc服务，从而帮助用户构建跨平台的grpc系统。
 
-这里`⓹基于protobuf创建的grpc网关服务`是grpc服务的统一入口的web服务，下面介绍grpc网关服务开发具体流程。
+这里`⓹基于protobuf创建grpc网关服务`是grpc服务的统一入口的web服务，下面介绍grpc网关服务开发具体流程。
 
 <br>
 
@@ -23,7 +23,7 @@ grpc网关是grpc服务的统一入口，它可以为客户端提供负载均衡
 
 - 已安装sponge
 - proto文件，例如[user_gw.proto](https://github.com/zhufuyi/sponge_examples/blob/main/5_micro-gin-rpc-gateway/user-gateway/api/user_gw/v1/user_gw.proto)。
-- 微服务[user](https://github.com/zhufuyi/sponge_examples/tree/main/4_micro-grpc-protobuf)，也可以临时快速创建一个微服务，点击查看<a href="/zh-cn/microservice-development-protobuf?id=%f0%9f%94%b9%e5%88%9b%e5%bb%ba%e5%be%ae%e6%9c%8d%e5%8a%a1%e9%a1%b9%e7%9b%ae" target="_blank">创建微服务项目文档</a>
+- grpc服务[user](https://github.com/zhufuyi/sponge_examples/tree/main/4_micro-grpc-protobuf)，也可以临时快速创建一个grpc服务，点击查看<a href="/zh-cn/microservice-development-protobuf?id=%f0%9f%94%b9%e5%88%9b%e5%bb%bagrpc%e6%9c%8d%e5%8a%a1" target="_blank">创建grpc服务文档</a>。
 
 打开终端，启动sponge UI界面服务：
 
@@ -80,11 +80,11 @@ sponge run
 
 <br>
 
-### 🏷对接微服务相关操作
+### 🏷对接grpc服务相关操作
 
-#### 🔹添加连接微服务代码
+#### 🔹添加连接grpc服务代码
 
-想要在grpc网关服务里调用微服务api接口，首先要能够连接上微服务，下面自动生成grpc服务连接代码。
+想要在grpc网关服务里调用grpc服务api接口，首先要能够连接上grpc服务，下面自动生成grpc服务连接代码。
 
 进入sponge的UI界面，点击左边菜单栏【Public】-->【生成grpc服务连接代码】，填写module名称，填写grpc服务名称(支持多个grpc服务名称，用逗号分隔)，填写完参数后，点击按钮`下载代码`生成grpc服务连接代码，如下图所示：
 
@@ -104,25 +104,25 @@ sponge run
 
 解压代码，把目录`internal`移动到grpc网关服务代码目录下。
 
-> [!note] 移动目录`internal`到grpc服务目录下正常情况下不会有冲突文件，如果有冲突文件，说明之前已经指定相同的微服务名称来生成grpc服务连接代码了，此时忽略覆盖文件。
+> [!note] 移动目录`internal`到grpc服务目录下正常情况下不会有冲突文件，如果有冲突文件，说明之前已经指定相同的grpc服务名称来生成grpc服务连接代码了，此时忽略覆盖文件。
 
 <br>
 
-#### 🔹配置微服务地址
+#### 🔹配置grpc服务地址
 
-添加连接微服务代码之后，在配置文件`configs/服务名称.yml`设置连接微服务的地址，主要配置内容如下：
+添加连接grpc服务代码之后，在配置文件`configs/服务名称.yml`设置连接grpc服务的地址，主要配置内容如下：
 
 ```yaml
 grpcClient:
-  - name: "user"        # 微服务名称
-    host: "127.0.0.1"   # 微服务地址，如果开启服务发现，此字段值无效
-    port: 8282          # 微服务端口，如果开启服务发现，此字段值无效
+  - name: "user"        # grpc服务名称
+    host: "127.0.0.1"   # grpc服务地址，如果开启服务发现，此字段值无效
+    port: 8282          # grpc服务端口，如果开启服务发现，此字段值无效
     registryDiscoveryType: ""  # 服务发现，默认关闭，支持consul, etcd, nacos
 ```
 
 > [!tip] 更多grpcClient设置看`configs/服务名称.yml`，例如负载均衡、安全连接等。
 
-如果连接多个微服务，需要设置多个微服务的地址，示例如下：
+如果连接多个grpc服务，需要设置多个grpc服务的地址，示例如下：
 
 ```yaml
 grpcClient:
@@ -142,16 +142,16 @@ grpcClient:
 
 <br>
 
-#### 🔹添加微服务的proto文件
+#### 🔹添加grpc服务的proto文件
 
-虽然在grpc网关服务可以连接到微服务，但是不知道微服务哪些api接口可以调用，通过proto文件可以告诉grpc网关服务可以调用的api接口。
+虽然在grpc网关服务可以连接到grpc服务，但是不知道grpc服务哪些api接口可以调用，通过proto文件可以告诉grpc网关服务可以调用的api接口。
 
-把微服务代码目录的`api/微服务名称/v1/xxx.proto`文件复制出来，并移动到grpc网关服务代码的`api`目录。有了微服务proto文件，grpc网关服务就可以知道有哪些api接口可以调用了。
+把grpc服务代码目录的`api/grpc服务名称/v1/xxx.proto`文件复制出来，并移动到grpc网关服务代码的`api`目录。有了grpc服务proto文件，grpc网关服务就可以知道有哪些api接口可以调用了。
 
 切换到grpc网关服务目录，打开终端，执行命令：
 
 ```bash
-# 从其他微服务中复制proto文件到本服务项目中，如果有多个微服务目录，用逗号分隔
+# 从其他grpc服务中复制proto文件到本服务项目中，如果有多个grpc服务目录，用逗号分隔
 make copy-proto SERVER=../user
 ```
 
@@ -159,9 +159,9 @@ make copy-proto SERVER=../user
 
 <br>
 
-#### 🔹运行已经准备好的微服务
+#### 🔹运行已经准备好的grpc服务
 
-在已经准备好的微服务[user](https://github.com/zhufuyi/sponge_examples/tree/main/4_micro-grpc-protobuf)目录下打开终端，执行命令：
+在已经准备好的grpc服务[user](https://github.com/zhufuyi/sponge_examples/tree/main/4_micro-grpc-protobuf)目录下打开终端，执行命令：
 
 ```bash
 # 生成与合并api接口相关代码
@@ -235,9 +235,9 @@ make proto
 
 **(2) 在模板文件编写具体逻辑代码**
 
-有了`连接微服务代码`、`微服务api接口`、`生成的模板代码`之后，接下来可以编写具体逻辑代码了，执行命令：
+有了`连接grpc服务代码`、`grpc服务api接口`、`生成的模板代码`之后，接下来可以编写具体逻辑代码了，执行命令：
 
-如果只是简单的把http请求转发给微服务处理，生成的模板代码默认已经实现了，不需要写go代码，删除`panic("implement me")`，然后释放`example`下面的注释代码，然后简单的调整一下代码即可。例如打开`internal/service/user_gw.go`文件，释放注释后的代码如下：
+如果只是简单的把http请求转发给grpc服务处理，生成的模板代码默认已经实现了，不需要写go代码，删除`panic("implement me")`，然后释放`example`下面的注释代码，然后简单的调整一下代码即可。例如打开`internal/service/user_gw.go`文件，释放注释后的代码如下：
 
 ```go
 package service
@@ -305,7 +305,7 @@ func (c *userClient) ChangePassword(ctx context.Context, req *edusysV1.ChangePas
 
 <br>
 
-上面是从单个微服务中获取数据，实际使用中有可能需要从多个微服务中获取数据，然后组装成客户端所需的数据，只需在`xxxClient`结构体引入多个微服务client接口，然后实例化，示例代码如下：
+上面是从单个grpc服务中获取数据，实际使用中有可能需要从多个grpc服务中获取数据，然后组装成客户端所需的数据，只需在`xxxClient`结构体引入多个grpc服务client接口，然后实例化，示例代码如下：
 
 ```go
 package service
@@ -351,7 +351,7 @@ func NewUserClient() edusysV1.UserLogicer {
 make run
 ```
 
-在浏览器打开 [http://localhost:8080/apis/swagger/index.html](http://localhost:8080/apis/swagger/index.html)，可以在页面上看到api接口，如下图所示。请求api接口，测试是否能够正常调用微服务接口。
+在浏览器打开 [http://localhost:8080/apis/swagger/index.html](http://localhost:8080/apis/swagger/index.html)，可以在页面上看到api接口，如下图所示。请求api接口，测试是否能够正常调用grpc服务接口。
 
 > [!warning] 在没有编写具体逻辑代码之前，直接在swagger页面请求，会返回错误码500，因为生成的模板代码(internal/service/xxx.go)下每个方法函数下都有一行代码 `panic("implement me")`，提示需要实现具体逻辑代码。
 
