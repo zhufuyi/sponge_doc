@@ -264,7 +264,7 @@ Below is an example of creating a project using the `⓵Create web service based
 
 > [!tip] Code generation depends on a MySQL service and MySQL tables. If you don't have them ready, here are the [scripts to start a MySQL service with Docker](https://github.com/zhufuyi/sponge/blob/main/test/server/mysql/docker-compose.yaml). After starting the MySQL service, import the [MySQL table SQL](https://github.com/zhufuyi/sponge_examples/blob/main/1_web-gin-CRUD/test/sql/user.sql).
 
-Enter the sponge UI interface, click on the left menu bar **[SQL]** -> **[Create Web Project]**, fill in the `MySQL DSN address`, click `Fetch Table Names`, then select the table name(s) (multiple selections are allowed). Next, fill in other parameters, and hover over the question mark `?` to view parameter descriptions. After filling in the parameters, click the `Download Code` button to generate the complete web service project, as shown in the screenshot below:
+Enter the sponge UI interface, click on the left menu bar **[SQL]** -> **[Create Web Service]**, fill in the `MySQL DSN address`, click `Fetch Table Names`, then select the table name(s) (multiple selections are allowed). Next, fill in other parameters, and hover over the question mark `?` to view parameter descriptions. After filling in the parameters, click the `Download Code` button to generate the complete web service project, as shown in the screenshot below:
 
 ![web-http](assets/images/web-http.png)
 

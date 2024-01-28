@@ -41,7 +41,7 @@ Access [http://localhost:24631](http://localhost:24631) in your browser to enter
 
 ### 🔹Creating a Web Service Project
 
-In the sponge UI interface, click on the left-hand menu **[Protobuf]** --> **[Create Web Project]**. Select the proto file(s) (multiple selections are possible), fill in the other parameters, and hover over the question mark `?` to view parameter descriptions. After completing the parameters, click the `Download Code` button to generate the web service project code, as shown in the image below:
+In the sponge UI interface, click on the left-hand menu **[Protobuf]** --> **[Create Web Service]**. Select the proto file(s) (multiple selections are possible), fill in the other parameters, and hover over the question mark `?` to view parameter descriptions. After completing the parameters, click the `Download Code` button to generate the web service project code, as shown in the image below:
 
 ![web-http](assets/images/web-http-pb.png)
 

@@ -29,7 +29,7 @@ Access the sponge code generation UI interface in your browser by navigating to 
 
 ### 🏷Creating a Web Service Project
 
-In the sponge UI interface, navigate to the left sidebar, click on "SQL," and then click on "Create Web Project." Fill in the `MySQL DSN address`, click the "Get Table Names" button, select the table names (you can select multiple), and then fill in the other parameters. Hover over the question mark `?` to view parameter explanations. After filling in the parameters, click the "Download Code" button to generate the complete project code for the web service, as shown in the image below:
+In the sponge UI interface, navigate to the left sidebar, click on "SQL," and then click on "Create Web Service" Fill in the `MySQL DSN address`, click the "Get Table Names" button, select the table names (you can select multiple), and then fill in the other parameters. Hover over the question mark `?` to view parameter explanations. After filling in the parameters, click the "Download Code" button to generate the complete project code for the web service, as shown in the image below:
 
 ![web-http](assets/images/web-http.png)
 

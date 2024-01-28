@@ -20,7 +20,7 @@ Here, `⓹Create grpc gateway service based on protobuf` is a web service servin
 
 ### 🏷Pre-development Preparations
 
-Before developing an grpc gateway service, ensure the following preparations:
+Before developing a grpc gateway service, ensure the following preparations:
 
 - sponge is installed.
 - You have a protobuf file, such as [user_gw.proto](https://github.com/zhufuyi/sponge_examples/blob/main/5_micro-gin-rpc-gateway/user-gateway/api/user_gw/v1/user_gw.proto).
@@ -38,7 +38,7 @@ Access the sponge code generation UI interface in your web browser at http://loc
 
 ### 🏷Creating a GRPC Gateway Service Project
 
-Access the sponge UI interface, click on the left menu bar **[Protobuf]** -> **[Create GRPC Gateway Project]**, select the protobuf file(s) (multiple selections allowed), and then fill in the other parameters. Hover over the question mark `?` to view parameter descriptions. After filling in the parameters, click the `Download Code` button to generate the grpc gateway service project code, as shown in the screenshot below:
+Access the sponge UI interface, click on the left menu bar **[Protobuf]** -> **[Create GRPC Gateway Service]**, select the protobuf file(s) (multiple selections allowed), and then fill in the other parameters. Hover over the question mark `?` to view parameter descriptions. After filling in the parameters, click the `Download Code` button to generate the grpc gateway service project code, as shown in the screenshot below:
 
 ![micro-rpc-gw-pb](assets/images/micro-rpc-gw-pb.png)
 

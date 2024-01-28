@@ -266,7 +266,7 @@ sponge run
 
 > [!tip] 生成代码需要依赖mysql服务和mysql表，如果都没有准备好，这里有[docker启动mysql服务脚本](https://github.com/zhufuyi/sponge/blob/main/test/server/mysql/docker-compose.yaml)，启动mysql服务之后导入[mysql表sql](https://github.com/zhufuyi/sponge_examples/blob/main/1_web-gin-CRUD/test/sql/user.sql)。
 
-进入sponge的UI界面，点击左边菜单栏【SQL】--> 【创建web项目】，填写`mysql dsn地址`，点击`获取表名`，然后选择表名(可多选)，接着填写其他参数，鼠标放在问号`?`位置查看参数说明，填写完参数后，点击按钮`下载代码`生成web服务完整项目代码，如下图所示：
+进入sponge的UI界面，点击左边菜单栏【SQL】--> 【创建web服务】，填写`mysql dsn地址`，点击`获取表名`，然后选择表名(可多选)，接着填写其他参数，鼠标放在问号`?`位置查看参数说明，填写完参数后，点击按钮`下载代码`生成web服务完整项目代码，如下图所示：
 
 ![web-http](assets/images/web-http.png)
 

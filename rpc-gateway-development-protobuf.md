@@ -37,7 +37,7 @@ sponge run
 
 ### 🏷创建grpc网关服务项目
 
-进入sponge的UI界面，点击左边菜单栏【Protobuf】-->【创建grpc网关项目】，选择proto文件(可多选)，接着填写其他参数，鼠标放在问号`?`位置可以查看参数说明，填写完参数后，点击按钮`下载代码`生成grpc网关服务项目代码，如下图所示：
+进入sponge的UI界面，点击左边菜单栏【Protobuf】-->【创建grpc网关服务】，选择proto文件(可多选)，接着填写其他参数，鼠标放在问号`?`位置可以查看参数说明，填写完参数后，点击按钮`下载代码`生成grpc网关服务项目代码，如下图所示：
 
 ![micro-rpc-gw-pb](assets/images/micro-rpc-gw-pb.png)
 
