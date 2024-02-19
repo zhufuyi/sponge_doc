@@ -1,9 +1,7 @@
 
-`⓷基于protobuf创建web服务`是用于通用web服务开发，支持自选数据库类型作为数据存储。而`⓵基于sql创建web服务`，也就是 <a href="/zh-cn/web-development-mysql" target="_blank">web开发(mysql)</a> 已经选定mysql数据库类型，这是两种方式创建web服务的主要区别之一，可以把`⓵基于sql创建web服务`看作是`⓷基于protobuf创建web服务`一个特殊子集。
+`⓷基于protobuf创建web服务`创建通用的web服务代码，可以选用自己的数据库和orm。而`⓵基于sql创建web服务`，也就是 <a href="/zh-cn/web-development-mysql" target="_blank">web开发(sql)</a> 只支持mysql、postgresql、tidb、sqlite数据库类型，这是两种方式创建web服务的主要区别之一，可以把`⓵基于sql创建web服务`看作是`⓷基于protobuf创建web服务`一个子集。
 
-`⓷基于protobuf创建web服务`支持选用任意数据库类型，当然也包括mysql，如果选用了mysql数据库类型，不仅支持批量添加标准化的CRUD api接口功能，更重要的是支持生成自定义api接口的模板代码。也就是说`⓷基于protobuf创建web服务`不需要像传统web开发自定义api接口那样编写完整的api接口代码，只需在proto文件定义api接口描述信息，然后在生成的模板中编写具体逻辑代码。
-
-`⓷基于protobuf创建web服务`选用其他数据库类型时，需要人工编写dao、model、数据库初始化等代码，不支持自动生成。
+`⓷基于protobuf创建web服务`如果选用其他数据库类型(非sponge支持)，需要人工编写dao、model、数据库初始化等代码，不支持自动生成；如果选用sponge支持的数据，则可以自动生成dao、model、数据库初始化等代码。
 
 因此`⓷基于protobuf创建web服务`适合通用的web项目开发。
 
@@ -41,7 +39,13 @@ sponge run
 
 ### 🔹创建web服务项目
 
-进入sponge的UI界面，点击左边菜单栏【Protobuf】-->【创建web服务】，选择proto文件(可多选)，接着填写其他参数，鼠标放在问号`?`位置可以查看参数说明，填写完参数后，点击按钮`下载代码`生成web服务项目代码，如下图所示：
+进入sponge的UI界面：
+
+1. 点击左边菜单栏【Protobuf】-->【创建web服务】；
+2. 选择proto文件(可多选)；
+3. 接着填写其他参数，鼠标放在问号`?`位置可以查看参数说明。
+
+填写完参数后，点击按钮`下载代码`生成web服务项目代码，如下图所示：
 
 ![web-http](assets/images/web-http-pb.png)
 
@@ -95,7 +99,7 @@ make run
 
 在浏览器打开 [http://localhost:8080/apis/swagger/index.html](http://localhost:8080/apis/swagger/index.html)，可以在页面上看到api接口，如下图所示：
 
-> [!warning] 在没有编写具体逻辑代码之前，直接在swagger页面请求，会返回错误码500，因为生成的模板代码(internal/handler/xxx.go)下每个方法函数下都有一行代码 `panic("implement me")`，提示需要实现具体逻辑代码。
+> [!warning] 在没有编写业务逻辑代码之前，直接在swagger页面请求，会返回错误码500，因为生成的模板代码(internal/handler/xxx.go)下每个方法函数下都有一行代码 `panic("implement me")`，提示需要实现业务逻辑代码。
 
 ![web-http-swagger](assets/images/web-http-pb-swagger.png)
 
@@ -107,12 +111,16 @@ make run
 
 项目中有些api接口需要标准化的CRUD api接口，这些标准化的CRUD api接口可以直接生成，并且无缝添加到web服务代码中。
 
-点击左边菜单栏【Public】-->【生成handler CRUD代码】，填写`mysql dsn地址`，然后点击`获取表名`，选择mysql表(可多选)，
-注意必须开启`protobuf类型`，填写module名称、服务名称等参数，填写完参数后，点击按钮`下载代码`生成handler CRUD代码，如下图所示：
+1. 点击左边菜单栏【Public】-->【生成handler CRUD代码】；
+2. 选择数据库`mysql`，填写`数据库dsn`，然后点击按钮`获取表名`，选择mysql表(可多选)；
+3. 开启`protobuf类型`;
+4. 填写module名称、服务名称等参数。
+
+填写完参数后，点击按钮`下载代码`生成handler CRUD代码，如下图所示：
 
 ![web-http-handler-pb](assets/images/web-http-handler-pb.png)
 
-> [!tip] 等价命令 **sponge web handler-pb --module-name=user --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher,cause**，有更简单的等价命令，使用参数`--out`指定web服务代码目录，直接合并代码到web服务代码，**sponge web handler --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher,cause --out=user**
+> [!tip] 等价命令 **sponge web handler-pb --module-name=user --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher,cause**，有更简单的等价命令，使用参数`--out`指定web服务代码目录，直接合并代码到web服务代码，**sponge web handler --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher,cause --out=user**
 
 生成的CRUD handler代码目录如下，在目录`internal`和`api/user`下的子目录`cache`、`dao`、`ecode`、`handler`、`model`、`v1` 包含了以表名开头的go文件和测试文件。
 
@@ -150,7 +158,7 @@ make proto
 make run
 ```
 
-> [!attention] 如果执行命令`make proto`时，报错 **api/types/types.proto: File not found.** 或 **internal\cache\xxx.go:40:38: undefined: model.CacheType**，请执行命令`make patch`，再一次执行命令`make proto`。
+> [!attention] 如果执行命令`make proto`时，报错 **api/types/types.proto: File not found.** 或 **internal\cache\xxx.go:40:38: undefined: model.CacheType**，请执行命令`make patch TYPE=init-mysql`，如果使用其他数据库类型，把命令中的mysql改为对应数据库类型名称。
 
 在浏览器刷新页面 [http://localhost:8080/apis/swagger/index.html](http://localhost:8080/apis/swagger/index.html)，在页面上可以看到新添加的增删改查api接口，在页面测试这些增删改查api接口。
 
@@ -162,7 +170,7 @@ make run
 
 ### 🔹人工添加自定义api接口
 
-随着业务需求增加，可能会增加一些新的自定义的api接口，添加自定义api接口的主要流程是`在proto文件定义api接口` --> `在生成的模板代码中编写具体逻辑代码`。
+随着业务需求增加，可能会增加一些新的自定义的api接口，添加自定义api接口的主要流程是`在proto文件定义api接口` --> `在生成的模板代码中编写业务逻辑代码`。
 
 例如在本项目中添加一个修改密码接口的步骤：
 
@@ -216,9 +224,9 @@ make proto
 
 <br>
 
-**(2) 编写具体逻辑代码**
+**(2) 编写业务逻辑代码**
 
-进入目录`internal/handler`，打开文件`user.go`，在ChangePassword方法函数下编写具体逻辑代码。
+进入目录`internal/handler`，打开文件`user.go`，在ChangePassword方法函数下编写业务逻辑代码。
 
 > [!tip] 在人工添加的自定义api接口中，可能需要对数据增删改查操作(也叫dao CRUD)，这些dao CRUD代码可以直接生成，不需要人工编写，点击查看<a href="/zh-cn/public-doc?id=%f0%9f%94%b9%e7%94%9f%e6%88%90%e5%92%8c%e4%bd%bf%e7%94%a8dao-crud%e4%bb%a3%e7%a0%81" target="_blank">生成和使用dao CRUD代码说明</a>。
 
@@ -228,7 +236,7 @@ make proto
 
 **(3) 测试api接口**
 
-编写完具体逻辑代码后，在终端执行命令：
+编写完业务逻辑代码后，在终端执行命令：
 
 ```bash
 # 编译和运行服务
@@ -239,7 +247,7 @@ make run
 
 <br>
 
-添加一个自定义api接口比较简单，只需在proto文件定义api接口描述信息，然后在生成的模板填写具体逻辑代码，不需要像传统web开发那样编写完整的api接口代码，让开发者专注在编写具体业务逻辑。
+添加一个自定义api接口比较简单，只需在proto文件定义api接口描述信息，然后在生成的模板填写业务逻辑代码，不需要像传统web开发那样编写完整的api接口代码，让开发者专注在具体业务逻辑。
 
 <br>
 
@@ -280,7 +288,7 @@ make update-config
 
 ## 🏷选用其他数据库进行web开发
 
-`⓷基于protobuf创建web服务`默认不包括操作数据库相关代码，开发者可以选用任何数据库类型作为数据存储，上面介绍了选用mysql进行web开发的具体过程，操作起来简单方便，得益于sponge支持基于mysql表来生成api接口所需的各种代码(例如dao、model、cache)。如果选用其他数据库类型，sponge暂时不支持生成这些代码。
+`⓷基于protobuf创建web服务`默认不包括操作数据库相关代码，可以选用任何数据库类型作为数据存储，上面介绍了选用mysql(sponge支持的数据库类型mysql、postgresql、tidb、sqlite)进行web开发的具体过程，操作起来简单方便。
 
 虽然sponge不支持通过其他数据库类型来生成操作数据库相关代码，但基于proto文件生成`api接口模板代码`、`注册路由代码`、`错误码`、`自动合并模板代码`等，减少了不少人工编写的代码，比传统的web服务开发更高效率。
 
@@ -319,9 +327,9 @@ sponge run
 打开配置文件`configs/服务名称.yml`，添加数据地址配置，示例：
 
 ```yml
-# mongodb settings
-mongodb:
-  dsn: "mongodb://127.0.0.1:27017/user"
+# elasticsearch settings
+elasticsearch:
+  addr: "http://localhost:9200"
 ```
 
 打开终端，切换到服务目录下，执行命令更新配置go结构体代码：
@@ -344,7 +352,7 @@ make update-config
 
 请看上面章节 <a href="/zh-cn/web-development-protobuf?id=%f0%9f%94%b9%e4%ba%ba%e5%b7%a5%e6%b7%bb%e5%8a%a0%e8%87%aa%e5%ae%9a%e4%b9%89api%e6%8e%a5%e5%8f%a3" target="_blank">人工添加自定义api接口文档</a>。
 
-> [!tip] 在api接口模板代码编写具体逻辑代码时，如果涉及到对数据操作，例如需要人工编写`model`、`dao`等代码。
+> [!tip] 在api接口模板代码编写业务逻辑代码时，如果涉及到对数据操作，需要人工编写`model`、`dao`等代码。
 
 > [!tip] 在人工添加的自定义api接口中，可能需要用到缓存，例如生成的token，这类string类型缓存代码可以直接生成，不需要人工编写，点击查看<a href="/zh-cn/public-doc?id=%f0%9f%94%b9%e7%94%9f%e6%88%90%e5%92%8c%e4%bd%bf%e7%94%a8cache%e4%bb%a3%e7%a0%81" target="_blank">生成和使用cache代码说明</a>。
 

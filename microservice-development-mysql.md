@@ -1,9 +1,9 @@
 
-`⓶基于sql创建grpc服务`是使用mysql作为数据存储的grpc服务，因为已经选定了数据库类型，并且sponge支持生成gorm的标准化CRUD代码，所以可以一键生成带有CRUD api接口的完整grpc服务代码，在grpc服务代码中可以批量添加CRUD api接口代码，不需要编写任何一行go代码，只需连接mysql数据库。
+`⓶基于sql创建grpc服务`创建一个开发到部署的完整grpc服务代码，支持在grpc服务代码中批量添加标准化CRUD api接口代码而不需要编写任何一行go代码，实现api接口"低代码开发"；支持在grpc服务代码基础上二次开发，例如添加自定义api接口，只需在proto文件定义api接口，然后在生成的api接口模板编写业务逻辑代码。
 
-如果开发只有标准化CRUD api接口的grpc服务，这是最简单的grpc服务开发方式之一，不需要写go代码，实现了grpc服务api接口"低代码开发"。添加自定义api接口时，也比较简单，只需在proto文件定义api接口，然后在生成的api接口模板编写具体逻辑代码。
+因此`⓶基于sql创建grpc服务`sponge适合开发已选定数据库类型的微服务项目。
 
-因此`⓶基于sql创建grpc服务`适合选用mysql作为数据库的微服务项目。
+生成grpc服务代码时支持基于数据库 mysql、postgresql、tidb、sqlite，下面操作以mysql为例介绍grpc服务开发步骤，选用其他数据库类型的开发步骤一样。
 
 <br>
 
@@ -29,11 +29,17 @@ sponge run
 
 ### 🏷创建grpc服务项目
 
-进入sponge的UI界面，点击左边菜单栏【SQL】-->【创建grpc服务】，填写`mysql dsn地址`，然后点击按钮`获取表名`，选择表名(可多选)，接着填写其他参数，鼠标放在问号`?`位置查可以看参数说明，填写完参数后，点击按钮`下载代码`生成grpc服务完整项目代码，如下图所示：
+进入sponge的UI界面：
+
+1. 点击左边菜单栏【SQL】-->【创建grpc服务】；
+2. 选择数据库`mysql`，填写`数据库dsn`，然后点击按钮`获取表名`，选择表名(可多选)；
+3. 填写其他参数，鼠标放在问号`?`位置可以查看参数说明；
+
+填写完参数后，点击按钮`下载代码`生成grpc服务完整项目代码，如下图所示：
 
 ![micro-rpc](assets/images/micro-rpc.png)
 
-> [!tip] 等价命令 **sponge micro rpc --module-name=user --server-name=user --project-name=edusys --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher**
+> [!tip] 等价命令 **sponge micro rpc --module-name=user --server-name=user --project-name=edusys --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher**
 
 > [!tip] 解压的grpc服务代码目录名称的格式是`服务名称-类型-时间`，可以修改目录名称(例如把名称中的类型和时间去掉)。
 
@@ -96,12 +102,17 @@ make run
 
 ### 🏷自动添加CRUD api接口
 
-如果有新的mysql表需要生成CRUD api接口代码，点击左边菜单栏【Public】-->【生成service CRUD代码】，填写`mysql dsn地址`，然后点击`获取表名`，选择mysql表(可多选)，
-接着填写其他参数，填写完参数后，点击按钮`下载代码`生成service CRUD代码，如下图所示：
+如果有新的mysql表需要生成CRUD api接口代码，
+
+1. 点击左边菜单栏【Public】-->【生成service CRUD代码】；
+2. 选择数据库`mysql`，填写`数据库dsn`，然后点击按钮`获取表名`，选择mysql表(可多选)；
+3. 填写其他参数。
+
+填写完参数后，点击按钮`下载代码`生成service CRUD代码，如下图所示：
 
 ![micro-rpc-service](assets/images/micro-rpc-service.png)
 
-> [!tip] 等价命令 **sponge micro service --module-name=user --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach**，有更简单的等价命令，使用参数`--out`指定user服务代码目录，直接合并代码到user服务代码，**sponge micro service --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach --out=user**
+> [!tip] 等价命令 **sponge micro service --module-name=user --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach**，有更简单的等价命令，使用参数`--out`指定user服务代码目录，直接合并代码到user服务代码，**sponge micro service --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach --out=user**
 
 生成的service CRUD代码目录如下，在目录`internal`和`api/user`下的子目录`cache`、`dao`、`ecode`、`model`、`service`、`v1`包含了以表名开头的go文件和测试文件。
 
@@ -132,7 +143,7 @@ make proto
 make run
 ```
 
-> [!attention] 如果执行命令`make proto`时，报错 **api/types/types.proto: File not found.** 或 **internal\cache\xxx.go:40:38: undefined: model.CacheType**，请执行命令`make patch`，再一次执行命令`make proto`。
+> [!attention] 如果执行命令`make proto`时，报错 **api/types/types.proto: File not found.** 或 **internal\cache\xxx.go:40:38: undefined: model.CacheType**，请执行命令`make patch TYPE=init-mysql`，如果使用其他数据库类型，把命令中的mysql改为对应数据库类型名称。
 
 同样的使用`goland`IDE打开项目代码，进入目录`internal/service`，打开后缀为`_client_test.go`测试文件，测试之前先填写请求参数。如果不使用`goland`IDE来测试，也可以在终端执行测试命令`go test -run 测试函数名/grpc方法名`。
 
@@ -144,7 +155,7 @@ make run
 
 ### 🏷人工添加自定义api接口
 
-项目中通常不止有标准化的CRUD api接口，还有自定义的api接口，添加自定义api接口的主要流程是`在proto文件定义api接口` --> `在生成的模板代码中编写具体逻辑代码`。
+项目中通常不止有标准化的CRUD api接口，还有自定义的api接口，添加自定义api接口的主要流程是`在proto文件定义api接口` --> `在生成的模板代码中编写业务逻辑代码`。
 
 例如在本项目中添加一个登录接口步骤：
 
@@ -185,9 +196,9 @@ make proto
 
 <br>
 
-**(2) 编写具体逻辑代码**
+**(2) 编写业务逻辑代码**
 
-进入目录`internal/service`，打开文件`teacher.go`，在Login方法函数下编写具体逻辑代码，例如验证密码、生成token等。
+进入目录`internal/service`，打开文件`teacher.go`，在Login方法函数下编写业务逻辑代码，例如验证密码、生成token等。
 
 > [!tip] 在人工添加的自定义api接口中，可能需要对数据增删改查操作(也叫dao CRUD)，这些dao CRUD代码可以直接生成，不需要人工编写，点击查看<a href="/zh-cn/public-doc?id=%f0%9f%94%b9%e7%94%9f%e6%88%90%e5%92%8c%e4%bd%bf%e7%94%a8dao-crud%e4%bb%a3%e7%a0%81" target="_blank">生成和使用dao CRUD代码说明</a>。
 
@@ -197,7 +208,7 @@ make proto
 
 **(3) 测试api接口**
 
-编写完具体逻辑代码后，在终端执行命令：
+编写完业务逻辑代码后，在终端执行命令：
 
 ```bash
 # 编译和运行服务
@@ -210,7 +221,7 @@ make run
 
 <br>
 
-添加一个自定义api接口比较简单，只需在proto文件定义api接口描述信息，然后在生成的模板填写具体逻辑代码，grpc客户端测试代码是自动生成的，不需要借助第三方grpc客户端来测试，不需要像传统grpc开发那样人工编写完整api接口代码，让开发者专注在编写具体业务逻辑。
+添加一个自定义api接口比较简单，只需在proto文件定义api接口描述信息，然后在生成的模板填写业务逻辑代码，grpc客户端测试代码是自动生成的，不需要借助第三方grpc客户端来测试，不需要像传统grpc开发那样人工编写完整api接口代码，让开发者专注在编写业务逻辑。
 
 <br>
 

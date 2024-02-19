@@ -13,7 +13,7 @@
 
 > 🔸**第五阶段**，支持生成代码命令UI界面化，丰富的开箱即用的组件，grpc服务服务测试，构建部署自动化等，已经具备作为基础开发框架。
 
-总的来说，sponge是一个集成了`自动生成代码`、`web和微服务框架`、`基础开发框架`的golang生产力工具。
+总的来说，sponge是一个集成了`自动生成代码`、`Gin和GRPC` go基础开发框架。
 
 <br>
 
@@ -43,46 +43,48 @@
 
 #### **⓵基于sql创建web服务**
 
-`⓵基于sql创建web服务`是使用mysql作为数据存储的传统web服务，包括了从开发到部署的完整功能、标准化CRUD api接口。
+`⓵基于sql创建web服务`是包括数据存储的完整web后端服务，包括了从开发到部署的完整功能、标准化CRUD api接口。
 
-**适用场景：** 使用mysql作为数据存储，并且绝大多数api接口是标准化CRUD接口的web项目，例如后台管理项目。
+**适用场景：** 绝大多数api接口是标准化CRUD接口的web项目，例如后台管理项目。
 
 **特点：**
 
-- 不需要编写任何一行go代码就可以运行使用，只需连接mysql数据库，一键生成包含标准化CRUD api接口的完整项目工程代码，开箱即用。
+- 支持数据库mysql、postgresql、tidb、sqlite。
+- 不需要编写任何一行go代码就可以运行使用，只需连接数据库，一键生成包含标准化CRUD api接口的完整项目工程代码，开箱即用。
 - 支持批量添加标准化CRUD api接口，生成的标准化CRUD api接口代码无缝嵌入项目代码中。
-- 支持自定义api接口，但需要像传统web开发那样人工去编写完整的api接口代码。
+- 支持自定义api接口，但需要像web开发那样人工去编写完整的api接口代码。
 
 如上图所示，生成的web服务代码代码包括 `handler`、 `dao`、`model` 三个子模块代码，向内包含，同样的原理，生成`handler`模块代码包含`dao`、 `model`两个子模块代码。
 
 #### **⓶基于sql创建grpc服务**
 
-`⓶基于sql创建grpc服务`是使用mysql作为数据存储的grpc服务，包括了从开发到部署的完整功能、标准化的CRUD api接口、grpc客户端测试代码。
+`⓶基于sql创建grpc服务`是包括数据存储的完整grpc服务，包括了从开发到部署的完整功能、标准化的CRUD api接口、grpc客户端测试代码。
 
-**适用场景：** 使用mysql作为数据存储的通用微服务项目。
+**适用场景：** 使用指定数据库存储的通用微服务项目。
 
 **特点：**
 
+- 支持数据库mysql、postgresql、tidb、sqlite。
 - 不需要编写任何一行go代码就可以运行使用，只需连接mysql数据库，一键生成包括标准化CRUD api接口的完整项目工程代码，开箱即用。
 - 通过解析sql来生成proto文件里的标准化CRUD api接口描述信息，不需要人工定义。
 - 支持批量添加标准化CRUD api接口。
-- 支持自定义api接口，只需在proto文件填写自定义api接口描述信息，然后在api接口模板中填写具体逻辑代码。
+- 支持自定义api接口，只需在proto文件填写自定义api接口描述信息，然后在api接口模板中填写业务逻辑代码。
 - 支持单独生成dao CRUD代码无缝嵌入到grpc服务项目代码中，然后在`service`调用`dao`接口。
-- 自动生成grpc客户端测试和压测代码，不需要借助第三方grpc客户端工具测试grpc服务，直接在`Goland`或`VS code`上测试api接口。
+- 自动生成grpc客户端测试和压测代码，不需要借助第三方grpc客户端工具测试grpc服务，直接在`Goland`或`Visual Studio Code`上测试api接口。
 
 如上图所示，生成的grpc服务代码包括了 `service`、`dao`、`model`、`protobuf` 四个子模块，向内包含，生成`service`模块代码包括了 `dao`、`model`、`protobuf` 三个子模块代码。
 
 #### **⓷基于protobuf创建web服务**
 
-`⓷基于protobuf创建web服务`是通用web服务，包括了从开发到部署所需功能、api接口模板代码，支持自选数据库类型作为数据存储。
+`⓷基于protobuf创建web服务`是不包括数据库存储的通用web服务，包括了从开发到部署所需功能、api接口模板代码，支持自选的数据库类型和ORM。
 
 **适用场景：** 通用的web服务项目。
 
 **特点：**
 
 - 支持批量生成任意api接口模板代码。
-- 新增api接口时，会自动合并新增的api接口代码到模板代码，简化了web服务的api接口开发，在proto文件编写任意api接口描述信息，在生成api接口模板代码填写具体逻辑代码。
-- 如果选用了mysql作为数据存储，其实就是`⓵基于sql创建web服务`的增强版，不仅支持批量添加标准化CRUD api接口，自定api接口代码(除了具体逻辑代码)也是自动生成的，添加一个完整的自定义api接口时，不需要像传统开发api接口那样人工编写接口全部代码。
+- 新增api接口时，会自动合并新增的api接口代码到模板代码，简化了web服务的api接口开发，在proto文件编写任意api接口描述信息，在生成api接口模板代码填写业务逻辑代码。
+- 如果选用了mysql作为数据存储，其实就是`⓵基于sql创建web服务`的增强版，不仅支持批量添加标准化CRUD api接口，自定api接口代码(除了业务逻辑代码)也是自动生成的，添加一个完整的自定义api接口时，不需要像传统开发api接口那样人工编写接口全部代码。
 - 如果选用非mysql类型数据时，必须人工编写连接数据代码、dao代码，在handler调用dao接口。
 - 需要了解使用protobuf。
 
@@ -90,7 +92,7 @@
 
 #### **⓸基于protobuf创建grpc服务**
 
-`⓸基于protobuf创建grpc服务`是通用grpc服务服务，包括了从开发到部署所需功能、api接口模板代码，支持自选数据库类型作为数据存储。
+`⓸基于protobuf创建grpc服务`是不包括数据库存储的通用grpc服务，包括了从开发到部署所需功能、api接口模板代码，支持自选数据库类型作为数据存储。
 
 **适用场景：** 通用的微服务项目。
 
@@ -100,7 +102,7 @@
 - 新增api接口时，会自动合并新增的api接口代码到模板代码。
 - 如果选用了mysql作为数据存储，则与`⓶基于sql创建grpc服务`是完全一样，支持批量添加标准化CRUD api接口，也支持单独生成dao CRUD代码无缝嵌入到grpc服务项目代码中，然后在`service`调用`dao`接口。
 - 如果选用非mysql类型数据时，必须人工编写连接数据代码、dao代码，在service调用dao接口。
-- 自动生成grpc客户端测试和压测代码，不需要借助第三方grpc客户端工具测试grpc服务，直接在`Goland`或`VS code`上测试api接口。
+- 自动生成grpc客户端测试和压测代码，不需要借助第三方grpc客户端工具测试grpc服务，直接在`Goland`或`Visual Studio Code`上测试api接口。
 - 需要了解使用protobuf。
 
 如上图所示，生成的grpc服务代码包括了`service template`， 如果数据类型使用mysql，生成代码还包括`dao`、`model`子模块，如果使用其他数据类型，需要人工编写`dao`、`model`子模块代码。
@@ -113,7 +115,7 @@
 
 **特点：**
 
-- 支持批量生成任意api接口模板代码，只需在protobuf定义api接口描述信息，在生成的模板文件编写具体逻辑代码。
+- 支持批量生成任意api接口模板代码，只需在protobuf定义api接口描述信息，在生成的模板文件编写业务逻辑代码。
 - 新增api接口时，会自动合并新增的api接口代码到模板代码。
 - 支持无缝嵌入生成的连接grpc服务代码。
 - 支持负载均衡、路由、鉴权、监控功能。
@@ -144,8 +146,10 @@ sponge创建的微服务代码框架如下图所示，这是典型的微服务�
 - 自动化api接口文档 [swagger](https://github.com/swaggo/swag), [protoc-gen-openapiv2](https://github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2)
 - 鉴权 [jwt](https://github.com/golang-jwt/jwt)
 - 参数校验 [validator](https://github.com/go-playground/validator)
-- 自适应限流 [ratelimit](pkg/shield/ratelimit)
-- 自适应熔断 [circuitbreaker](pkg/shield/circuitbreaker)
+- 消息组件 [rabbitmq](https://github.com/rabbitmq/amqp091-go)
+- 分布式事务管理器 [dtm](https://github.com/dtm-labs/dtm)
+- 自适应限流 [ratelimit](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/ratelimit)
+- 自适应熔断 [circuitbreaker](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/circuitbreaker)
 - 链路跟踪 [opentelemetry](https://go.opentelemetry.io/otel)
 - 指标监控 [prometheus](https://github.com/prometheus/client_golang/prometheus), [grafana](https://github.com/grafana/grafana)
 - 服务注册与发现 [etcd](https://github.com/etcd-io/etcd), [consul](https://github.com/hashicorp/consul), [nacos](https://github.com/alibaba/)
@@ -201,7 +205,7 @@ sponge源码包括了`生成代码工具`、`web和微服务代码`和`基础开
 
 > [!tip] 在sponge源码中，除了`cmd/sponge`、`cmd/protoc-gen-go-gin`、`cmd/protoc-gen-go-rpc-tmpl`这3个目录属于生成代码工具，其他目录的代码都是模板代码。
 
-如果看懂了sponge创建的项目代码，也就看懂了sponge源码(开发过项目都比较容易看懂)，主要了解项目代码中api和internal两个目录下的代码，应该对这两个目录不陌生，api目录主要是定义api接口描述信息的，internal目录主要是存放业务逻辑代码的，使用sponge开发项目主要流程是`在proto文件定义api接口` --> `在生成的模板代码中编写具体逻辑代码`，web和grpc服务开发都是一样的套路。
+如果看懂了sponge创建的项目代码，也就看懂了sponge源码(开发过项目都比较容易看懂)，主要了解项目代码中api和internal两个目录下的代码，应该对这两个目录不陌生，api目录主要是定义api接口描述信息的，internal目录主要是存放业务逻辑代码的，使用sponge开发项目主要流程是`在proto文件定义api接口` --> `在生成的模板代码中编写业务逻辑代码`，web和grpc服务开发都是一样的套路。
 
 > [!tip] 如果项目一开使用单体web服务(`⓷基于protobuf创建web服务`)，随着业务功能的增加，越来越复杂，如果想要把业务复杂的单体web服务拆分为grpc服务非常方便，基本不需要重写代码，只需简单的移植业务逻辑代码到grpc服务中即可，原因是web和grpc服务共用一套模板代码。
 
@@ -255,7 +259,7 @@ sponge包括这么多种生成代码命令都是为了在开发项目过程中�
 
 ### 🏷项目代码鸡蛋模型
 
-sponge生成代码过程中剥离了业务逻辑与非业务逻辑两大部分代码。以一个完整的web服务项目代码为例，把完整的web服务代码看作一个鸡蛋，**蛋壳**表示web服务框架代码，蛋白和蛋黄都表示业务逻辑代码，**蛋黄**是业务逻辑的核心(需要人工编写的代码)，例如定义mysql表、定义api接口、编写具体逻辑代码都属于蛋黄部分。**蛋白**是业务逻辑核心代码与web框架代码连接的桥梁(自动生成，不需要人工编写)，例如根据proto文件生成的注册路由代码、handler方法函数代码、参数校验代码、错误码、swagger文档等都属于蛋白部分。
+sponge生成代码过程中剥离了业务逻辑与非业务逻辑两大部分代码。以一个完整的web服务项目代码为例，把完整的web服务代码看作一个鸡蛋，**蛋壳**表示web服务框架代码，蛋白和蛋黄都表示业务逻辑代码，**蛋黄**是业务逻辑的核心(需要人工编写的代码)，例如定义mysql表、定义api接口、编写业务逻辑代码都属于蛋黄部分。**蛋白**是业务逻辑核心代码与web框架代码连接的桥梁(自动生成，不需要人工编写)，例如根据proto文件生成的注册路由代码、handler方法函数代码、参数校验代码、错误码、swagger文档等都属于蛋白部分。
 
 `⓷基于protobuf创建web服务`代码的鸡蛋模型剖析图如下图所示：
 

@@ -6,7 +6,7 @@
 
 Download Go from the following link: [https://go.dev/doc/install](https://go.dev/doc/install)
 
-> [!note] Go version 1.16 or higher is required.
+> [!note] Recommended version: 1.20 or above. 
 
 Check your Go version: `go version`
 
@@ -14,9 +14,9 @@ Check your Go version: `go version`
 
 **✅ Install protoc**
 
-Download Protocol Buffers (protoc) from the following link: [https://github.com/protocolbuffers/protobuf/releases/tag/v3.20.3](https://github.com/protocolbuffers/protobuf/releases/tag/v3.20.3)
+Download protoc from: [https://github.com/protocolbuffers/protobuf/releases/tag/v25.2](https://github.com/protocolbuffers/protobuf/releases/tag/v25.2)
 
-> [!note] Version 3.20 or higher is required. add the directory where the protoc binaries are located to the system environment variable path.
+> [!note] Download the protoc binaries according to the system type, move the protoc binaries to the directory where the go binaries are located.
 
 Check your protoc version: `protoc --version`
 
@@ -59,7 +59,7 @@ Perform some basic configuration for Cmder:
 - **Configure right-click to open Cmder**: Press `Win+X`, then press 'A' to open a command prompt with administrative privileges. Run the command `Cmder.exe /REGISTER ALL`. Right-click in any folder and select `Cmder Here` to open the Cmder interface.
 - **Fix the space issue when entering commands**: Open the Cmder interface, press `Win+Alt+P` to access the settings, search for `Monospace` in the upper-left corner, uncheck it, and save your changes.
 
-> [!attention] When using sponge for project development in a Windows environment, it's recommended to use Cmder to avoid errors related to missing Linux commands. Please do not use the built-in Windows cmd terminal, the terminal within GoLand, or VS Code.
+> [!attention] When using sponge for project development in a Windows environment, it's recommended to use Cmder to avoid errors related to missing Linux commands. Please do not use the built-in Windows cmd terminal, the terminal within GoLand, or Visual Studio Code.
 
 Open the `cmder.exe` terminal and verify support for common Linux commands.
 
@@ -230,7 +230,7 @@ After a successful Docker deployment, access `http://your_host_ip:24631` in your
 
 <!-- tabs:end -->
 
-> [!tip] To upgrade to the latest version of the sponge framework, execute the command `sponge upgrade`.
+> [!tip] To upgrade to the latest version of the sponge, execute the command `sponge upgrade`.
 
 <br>
 
@@ -311,6 +311,6 @@ In your browser, open [http://localhost:8080/swagger/index.html](http://localhos
 
 <br>
 
-If you have new MySQL tables, how can you seamlessly generate standardized CRUD API code and integrate it into your project? How do you add custom API interfaces? Detailed instructions are provided in the <a href="/web-development-mysql" target="_blank">Web Development with MySQL</a> section.
+If you have new MySQL tables, how can you seamlessly generate standardized CRUD API code and integrate it into your project? How do you add custom API interfaces? Detailed instructions are provided in the <a href="/web-development-mysql" target="_blank">Web Service Development (sql)</a> section.
 
 > [!tip] There are five different project creation methods, each explained in detail in the following sections.

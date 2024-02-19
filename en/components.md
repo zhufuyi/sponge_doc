@@ -21,6 +21,8 @@ logger:
     isCompression: true    # Whether to compress/archive old files (default is false)
 ```
 
+> [!tip] Look at the service log description: the string mark `<<<<` indicates the log of the beginning of the request, and the string mark `>>>>` indicates the log of the end of the request return, both appear in pairs, and you can see the log of the whole link from the beginning to the end of the request through the same request_id.
+
 <br>
 
 ### 🏷Gin and Middleware Collection
@@ -734,3 +736,15 @@ When an alert is triggered, the program internally uses the `kill` function to s
 ### 🏷HTTP Client
 
 `gohttp` is a component that wraps the HTTP library. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/gohttp#example-of-use).
+
+<br>
+
+### 🏷Encryption and decryption
+
+`gocrypto` common library for one-way encryption, two-way secrets, asymmetric encryption. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/gocrypto#example-of-use).
+
+<br>
+
+### 🏷Timed Tasks
+
+`gocron` is a timed task library based on the [cron](https://github.com/robfig/cron) package. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/gocron#example-of-use).

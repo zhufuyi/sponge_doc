@@ -100,7 +100,7 @@ make: *** [Makefile:103: run] Error 1
 
 **Answer:**
 
-> Change to the project code directory and run the command `make patch TYPE=mysql-init`.
+> Change to the project code directory and run the command `make patch TYPE=init-mysql`.
 
 <br>
 

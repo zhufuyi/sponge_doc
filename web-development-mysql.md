@@ -1,9 +1,11 @@
 
-`⓵基于sql创建web服务`是使用mysql作为数据存储的web服务，因为已经选定了数据库类型，并且sponge支持生成gorm的标准化CRUD代码，所以可以一键生成带有CRUD api接口的完整web服务代码，在web服务代码中支持批量添加标准化CRUD api接口代码，不需要编写任何一行go代码，只需连接mysql数据库。
+`⓵基于sql创建web服务`创建一个开发到部署的完整web后端服务代码，支持在web服务代码中批量添加标准化CRUD api接口代码而不需要编写任何一行go代码；支持在web服务代码基础上二次开发，例如添加自定义api接口。
 
 如果开发只有标准化CRUD api接口的web服务，这是最简单的web开发方式之一，不需要写go代码，实现了web服务api接口"低代码开发"。但添加自定义api接口时，则需要像传统开发api接口一样人工编写完整的api接口代码，这也是`⓵基于sql创建web服务`的不足之处，不能做到自动生成自定义api接口代码，而在另外一种web开发方式`⓷基于protobuf创建web服务`(也就是<a href="/zh-cn/web-development-protobuf" target="_blank">web开发</a>)中解决了这个不足。
 
-因此`⓵基于sql创建web服务`适合使用mysql作为数据存储，并且绝大多数api接口是标准化CRUD接口的web项目，例如后台管理项目。
+因此`⓵基于sql创建web服务`适合大多数api接口是标准化CRUD接口的web项目，例如后台管理项目。
+
+生成web服务代码时支持数据库 mysql、postgresql、tidb、sqlite，下面操作以mysql为例介绍web服务开发步骤，选用其他数据库类型的开发步骤一样。
 
 <br>
 
@@ -29,11 +31,17 @@ sponge run
 
 ### 🏷创建web服务项目
 
-进入sponge的UI界面，点击左边菜单栏【SQL】-->【创建web服务】，填写`mysql dsn地址`，然后点击按钮`获取表名`，选择表名(可多选)，接着填写其他参数，鼠标放在问号`?`位置可以查看参数说明，填写完参数后，点击按钮`下载代码`生成web服务完整项目代码，如下图所示：
+进入sponge的UI界面：
+
+1. 点击左边菜单栏【SQL】-->【创建web服务】；
+2. 选择数据库`mysql`，填写`数据库dsn`，然后点击按钮`获取表名`，选择表名(可多选)；
+3. 填写其他参数，鼠标放在问号`?`位置可以查看参数说明；
+
+填写完参数后，点击按钮`下载代码`生成web服务完整项目代码，如下图所示：
 
 ![web-http](assets/images/web-http.png)
 
-> [!tip] 等价命令 **sponge web http --module-name=user --server-name=user --project-name=edusys --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher**
+> [!tip] 等价命令 **sponge web http --module-name=user --server-name=user --project-name=edusys --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher**
 
 > [!tip] 解压的web服务代码目录名称的格式是`服务名称-类型-时间`，可以修改目录名称(例如把名称中的类型和时间去掉)。
 
@@ -91,12 +99,17 @@ make run
 
 ### 🏷自动添加CRUD api接口
 
-如果有新的mysql表需要生成CRUD api接口代码，点击左边菜单栏【Public】-->【生成handler CRUD代码】，填写`mysql dsn地址`，然后点击`获取表名`，选择mysql表(可多选)，
-接着填写其他参数，填写完参数后，点击按钮`下载代码`生成handler CRUD代码，如下图所示：
+如果有新的mysql表需要生成CRUD api接口代码，
+
+1. 点击左边菜单栏【Public】-->【生成handler CRUD代码】；
+2. 选择数据库`mysql`，填写`数据库dsn`，然后点击按钮`获取表名`，选择mysql表(可多选)；
+3. 填写其他参数。
+
+填写完参数后，点击按钮`下载代码`生成handler CRUD代码，如下图所示：
 
 ![web-http-handler](assets/images/web-http-handler.png)
 
-> [!tip] 等价命令 **sponge web handler --module-name=user --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach**，有更简单的等价命令，使用参数`--out`指定web服务代码目录，直接合并代码到web服务代码，**sponge web handler --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach --out=user**
+> [!tip] 等价命令 **sponge web handler --module-name=user --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach**，有更简单的等价命令，使用参数`--out`指定web服务代码目录，直接合并代码到web服务代码，**sponge web handler --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach --out=user**
 
 生成的CRUD handler代码目录如下，在目录`internal`下的子目录`cache`、`dao`、`ecode`、`handler`、`model`、`routers`、`types`包含了以表名开头的go文件和测试文件。
 
@@ -136,7 +149,7 @@ make run
 
 ### 🏷人工添加自定义api接口
 
-`⓵基于sql创建web服务`这种方式不支持自动生成自定义的api接口模板代码，只能像传统开发web api接口那样，人工编写handler函数、定义请求参数和返回值、定义字段校验tag、定义业务错误码、注册路由、填写swagger用的注解信息、编写具体逻辑代码等一系列步骤。
+`⓵基于sql创建web服务`这种方式不支持自动生成自定义的api接口模板代码，只能像传统开发web api接口那样，人工编写handler函数、定义请求参数和返回值、定义字段校验tag、定义业务错误码、注册路由、填写swagger用的注解信息、编写业务逻辑代码等一系列步骤。
 
 例如在本项目中添加一个登录接口，需要经过下面6个步骤：
 
@@ -232,9 +245,9 @@ func teacherRouter(group *gin.RouterGroup, h handler.TeacherHandler) {
 
 <br>
 
-**(5) 编写具体逻辑代码**
+**(5) 编写业务逻辑代码**
 
-编写登录的具体逻辑代码，例如验证密码、生成token等。
+编写登录的业务逻辑代码，例如验证密码、生成token等。
 
 > [!tip] 在人工添加的自定义api接口中，可能需要对数据增删改查操作(也叫dao CRUD)，这些dao CRUD代码可以直接生成，不需要人工编写，点击查看<a href="/zh-cn/public-doc?id=%f0%9f%94%b9%e7%94%9f%e6%88%90%e5%92%8c%e4%bd%bf%e7%94%a8dao-crud%e4%bb%a3%e7%a0%81" target="_blank">生成和使用dao CRUD代码说明</a>。
 
@@ -244,7 +257,7 @@ func teacherRouter(group *gin.RouterGroup, h handler.TeacherHandler) {
 
 **(6) 测试api接口**
 
-编写完具体逻辑代码后，在终端执行命令：
+编写完业务逻辑代码后，在终端执行命令：
 
 ```bash
 # 生成swagger文档

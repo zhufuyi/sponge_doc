@@ -21,6 +21,8 @@ logger:
     isCompression: true    # 是否压缩/归档旧文件，默认值false
 ```
 
+> [!tip] 查看服务日志说明：字符串标记 `<<<<` 表示请求开始的日志，字符串标记 `>>>>` 表示请求结束返回的日志，都是成对出现的，可以通过相同的request_id看到请求开始到结束整条链路的日志。
+
 <br>
 
 ### 🏷gin与常用中间件集合
@@ -742,3 +744,15 @@ go tool pprof -http=[host]:[port] [options] source
 ### 🏷http客户端
 
 `gohttp`是封装http库的组件，点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/gohttp#example-of-use)。
+
+<br>
+
+### 🏷加密解密
+
+`gocrypto`常用的单向加密、双向机密、非对称加密的库，点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/gocrypto#example-of-use)。
+
+<br>
+
+### 🏷定时任务
+
+`gocron`是基于[cron](https://github.com/robfig/cron)封装的定时任务库，点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/gocron#example-of-use)。

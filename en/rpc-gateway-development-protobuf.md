@@ -175,7 +175,7 @@ make run
 
 ### 🏷Manually Adding API Interfaces
 
-Adding new API interfaces to the grpc gateway service is relatively straightforward, with the main process being to `define API interface descriptions in the proto file` --> `write specific logic code in template files`.
+Adding new API interfaces to the grpc gateway service is relatively straightforward, with the main process being to `define API interface descriptions in the proto file` --> `write business logic code in template files`.
 
 > [!note] Defining API interface descriptions in the proto file should be done within the directory specific to the grpc gateway service. For example, if the directory is `api/edusys/v1`, add API interface descriptions to the proto file within that directory. You can also create a new proto file and add API interface descriptions.
 
@@ -233,9 +233,9 @@ make proto
 
 <br>
 
-**(2) Writing Specific Logic Code in Template Files**
+**(2) Writing Business Logic Code in Template Files**
 
-With the `grpc service connection code`, `grpc service API interfaces`, and `generated template code` in place, you can now write specific logic code. Execute the following command:
+With the `grpc service connection code`, `grpc service API interfaces`, and `generated template code` in place, you can now write business logic code. Execute the following command:
 
 If you simply want to forward HTTP requests to grpc service, the generated template code should already provide the necessary functionality, and you won't need to write Go code. Remove the `panic("implement me")` line and uncomment the code under the `example` directory. Then, make any necessary adjustments. For example, open the `internal/service/user_gw.go` file and the uncommented code will look like this:
 
@@ -352,7 +352,7 @@ make run
 
 Open [http://localhost:8080/apis/swagger/index.html](http://localhost:8080/apis/swagger/index.html) in your browser. You will see the API interfaces on the page, as shown in the image below. Test whether you can successfully call the grpc service interfaces by making requests through the Swagger interface.
 
-> [!warning] Before writing specific logic code, if you directly request via the Swagger page, it will return a 500 error because the generated template code (internal/service/xxx.go) has a `panic("implement me")` line in every method function, indicating that specific logic code needs to be implemented.
+> [!warning] Before writing business logic code, if you directly request via the Swagger page, it will return a 500 error because the generated template code (internal/service/xxx.go) has a `panic("implement me")` line in every method function, indicating that business logic code needs to be implemented.
 
 ![web-http-swagger](assets/images/web-http-pb-swagger.png)
 

@@ -1,10 +1,11 @@
 
-The `⓵Create web service based on sql` (web service based on SQL) is a web service that uses MySQL as its data storage. Since the database type has already been chosen, and sponge supports generating standardized CRUD code using GORM, you can generate a complete web service code with CRUD API interfaces with a single click. This web service allows you to easily add standardized CRUD API interfaces without writing a single line of Go code, as long as you connect it to a MySQL database.
+`⓵ create web service based on sql ` create a development to deployment of the complete web back-end service code , support in the web service code in bulk to add standardised CRUD api interface code without the need to write any line of go code ; support in the web service code on the basis of the secondary development , such as adding custom api interfaces .
 
 If you're developing a web service with only standardized CRUD API interfaces, this is one of the simplest ways to develop a web application. It allows you to achieve "low-code development" of web service APIs without writing Go code. However, when adding custom API interfaces, you'll need to manually write the complete API interface code, just like traditional API development. This is a limitation of the `⓵Create web service based on sql`, as it doesn't automatically generate custom API interface code. This limitation is addressed in another web development approach called `⓷Create web service based on protobuf` (web development with [protobuf](https://en.wikipedia.org/wiki/Protocol_Buffers)), as explained in the <a href="/web-development-protobuf" target="_blank">Web Development</a> section.
 
-Therefore, `⓵Create web service based on sql` is suitable for web projects that use MySQL as the data store and where the majority of API interfaces are standardized CRUD interfaces, such as backend administration projects.
+Therefore `⓵ Create web service based on sql` is suitable for the vast majority of web projects where the api interface is a standardised CRUD interface, such as backend administration projects.
 
+Generate web service code to support the database mysql, postgresql, tidb, sqlite, the following operation to mysql as an example of the introduction of web service development steps, the development steps are the same for selecting other database types.
 <br>
 
 ### 🏷Pre-development Preparations
@@ -29,11 +30,17 @@ Access the sponge code generation UI interface in your browser by navigating to 
 
 ### 🏷Creating a Web Service Project
 
-In the sponge UI interface, navigate to the left sidebar, click on "SQL," and then click on "Create Web Service" Fill in the `MySQL DSN address`, click the "Get Table Names" button, select the table names (you can select multiple), and then fill in the other parameters. Hover over the question mark `?` to view parameter explanations. After filling in the parameters, click the "Download Code" button to generate the complete project code for the web service, as shown in the image below:
+In the sponge UI interface, 
+
+1. Click `SQL` --> `Create web service` on the left menu bar.
+2. Select database `mysql`, fill in the `database dsn`, click the `get table names` button, select the table names (you can select multiple).
+3. Fill in the other parameters. Hover over the question mark `?` to view parameter explanations.
+
+After filling in the parameters, click the `Download Code` button to generate the complete project code for the web service, as shown in the image below:
 
 ![web-http](assets/images/web-http.png)
 
-> [!tip] Equivalent command: **sponge web http --module-name=user --server-name=user --project-name=edusys --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher**
+> [!tip] Equivalent command: **sponge web http --module-name=user --server-name=user --project-name=edusys --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher**
 
 > [!tip] The directory name format for the extracted web service code is `service_name-type-time`. You can modify the directory name, such as removing the type and time from the name.
 
@@ -92,14 +99,15 @@ In your browser, open [http://localhost:8080/swagger/index.html](http://localhos
 
 If you have new MySQL tables and need to generate CRUD API interface code for them, follow these steps:
 
-1. Click on the left sidebar menu "Public" and then select "Generate handler CRUD code."
-2. Fill in the `MySQL DSN address` and click on "Get Table Names." Select the MySQL tables you want to generate code for (you can select multiple tables).
+1. Click on the left sidebar menu `Public` --> `Generate handler CRUD code`.
+2. Select database `mysql`, fill in the `database dsn` and click on `get table names`. Select the MySQL tables you want to generate code for (you can select multiple tables).
 3. Fill in the remaining parameters.
-4. After completing the parameters, click the "Download Code" button to generate the CRUD handler code, as shown in the image below:
+
+After completing the parameters, click the `Download Code` button to generate the CRUD handler code, as shown in the image below:
 
 ![web-http-handler](assets/images/web-http-handler.png)
 
-> [!tip] Equivalent command: **sponge web handler --module-name=user --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach**. There's a simpler equivalent command that allows you to specify the web service code directory using the `--out` parameter and directly merge the code into the web service code: **sponge web handler --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach --out=user**
+> [!tip] Equivalent command: **sponge web handler --module-name=user --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach**. There's a simpler equivalent command that allows you to specify the web service code directory using the `--out` parameter and directly merge the code into the web service code: **sponge web handler --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach --out=user**
 
 The generated CRUD handler code directory structure is as follows. The `internal` directory contains subdirectories such as `cache`, `dao`, `ecode`, `handler`, `model`, `routers`, and `types`, which include Go files and test files named after the table names.
 
@@ -139,7 +147,7 @@ Adding standardized CRUD API interface code to your web service project requires
 
 ### 🏷Manually Adding Custom API Interfaces
 
-The `⓵Create web service based on sql` (web service based on SQL) does not support automatic generation of custom API interface template code. You'll need to manually write handler functions, define request parameters and response structures, set field validation tags, define custom error codes, register routes, provide Swagger annotations, and write the actual logic, just like traditional web API development.
+The `⓵Create web service based on sql` does not support automatic generation of custom API interface template code. You'll need to manually write handler functions, define request parameters and response structures, set field validation tags, define custom error codes, register routes, provide Swagger annotations, and write the actual logic, just like traditional web API development.
 
 For example, to add a login interface to this project, you'll need to follow these six steps:
 
@@ -235,9 +243,9 @@ func teacherRouter(group *gin.RouterGroup, h handler.TeacherHandler) {
 
 <br>
 
-**(5) Write Specific Logic Code**
+**(5) Write Business Logic Code**
 
-Write the specific logic code for the login functionality, such as password validation and token generation.
+Write the business logic code for the login functionality, such as password validation and token generation.
 
 > [!tip] In manually added custom API interfaces, you may need to perform data CRUD operations (also known as DAO CRUD). These DAO CRUD code sections can be generated automatically without manual coding. Click to view <a href="/public-doc?id=%f0%9f%94%b9generating-and-using-dao-crud-code" target="_blank">Generating and Using dao CRUD Code</a> instructions.
 
@@ -247,7 +255,7 @@ Write the specific logic code for the login functionality, such as password vali
 
 **(6) Test API interfaces**
 
-After writing the specific logic code, execute the following commands in the terminal:
+After writing the business logic code, execute the following commands in the terminal:
 
 ```bash
 # Generate Swagger documentation

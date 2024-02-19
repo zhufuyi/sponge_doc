@@ -38,11 +38,17 @@ Example: Querying males older than 20
 
 ### 🔹Generating and Using DAO CRUD Code
 
-Click on the left sidebar menu **Public** --> **Generate DAO CRUD Code**, fill in the `MySQL DSN address`, then click **Fetch Table Names**, select the MySQL table(s) you want (you can select multiple), and then fill in the other parameters. After filling in the parameters, click the **Download Code** button to generate DAO CRUD code, as shown in the image below:
+In the sponge UI interface,
+
+1. Click `Public` --> `Generate DAO CRUD Code` on the left menu bar.
+2. Select database (such as mysql), fill in the `database dsn`, click the `get table names` button, select the table names (you can select multiple).
+3. Fill in the other parameters. Hover over the question mark `?` to view parameter explanations.
+
+After filling in the parameters, click the `Download Code` button to generate the complete project code for dao, as shown in the image below:
 
 ![web-http-dao](assets/images/web-http-dao.png)
 
-> [!tip] Equivalent command: **sponge web dao --module-name=user --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teach**, there is a simpler equivalent command by using the `--out` parameter to specify the directory of the user service, and the code will be merged directly into the user service: **sponge web dao --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teach --out=user**
+> [!tip] Equivalent command: **sponge web dao --module-name=user --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teach**, there is a simpler equivalent command by using the `--out` parameter to specify the directory of the user service, and the code will be merged directly into the user service: **sponge web dao --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teach --out=user**
 
 The generated DAO CRUD code directory structure is as follows, and it contains Go files and test files that start with the table name in subdirectories `cache`, `dao`, and `model` under the `internal` directory:
 

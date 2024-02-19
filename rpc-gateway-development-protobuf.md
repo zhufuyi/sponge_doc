@@ -175,7 +175,7 @@ make run
 
 ### 🏷人工添加api接口
 
-在grpc网关服务添加新的api接口比较简单，主要流程是`在proto文件定义api接口描述信息` --> `在模板文件编写具体逻辑代码`。
+在grpc网关服务添加新的api接口比较简单，主要流程是`在proto文件定义api接口描述信息` --> `在模板文件编写业务逻辑代码`。
 
 > [!note] `在proto文件定义api接口描述信息`是在`api/服务名称/v1`目录下的proto文件添加api接口描述信息，也可以创建新的proto文件。
 
@@ -233,9 +233,9 @@ make proto
 
 <br>
 
-**(2) 在模板文件编写具体逻辑代码**
+**(2) 在模板文件编写业务逻辑代码**
 
-有了`连接grpc服务代码`、`grpc服务api接口`、`生成的模板代码`之后，接下来可以编写具体逻辑代码了，执行命令：
+有了`连接grpc服务代码`、`grpc服务api接口`、`生成的模板代码`之后，接下来可以编写业务逻辑代码了，执行命令：
 
 如果只是简单的把http请求转发给grpc服务处理，生成的模板代码默认已经实现了，不需要写go代码，删除`panic("implement me")`，然后释放`example`下面的注释代码，然后简单的调整一下代码即可。例如打开`internal/service/user_gw.go`文件，释放注释后的代码如下：
 
@@ -353,7 +353,7 @@ make run
 
 在浏览器打开 [http://localhost:8080/apis/swagger/index.html](http://localhost:8080/apis/swagger/index.html)，可以在页面上看到api接口，如下图所示。请求api接口，测试是否能够正常调用grpc服务接口。
 
-> [!warning] 在没有编写具体逻辑代码之前，直接在swagger页面请求，会返回错误码500，因为生成的模板代码(internal/service/xxx.go)下每个方法函数下都有一行代码 `panic("implement me")`，提示需要实现具体逻辑代码。
+> [!warning] 在没有编写业务逻辑代码之前，直接在swagger页面请求，会返回错误码500，因为生成的模板代码(internal/service/xxx.go)下每个方法函数下都有一行代码 `panic("implement me")`，提示需要实现业务逻辑代码。
 
 ![web-http-swagger](assets/images/web-http-pb-swagger.png)
 

@@ -1,8 +1,8 @@
-`⓶Create grpc service based on sql` is grpc service that use MySQL as their data storage. Since the database type has been chosen, and sponge supports generating standardized CRUD code using GORM, you can easily generate complete grpc service code with CRUD API interfaces at the push of a button. Within the grpc service code, you can batch-add CRUD API interface code without writing a single line of Go code; all you need to do is connect to the MySQL database.
+`⓶Create grpc service based on sql` create a complete development to deployment of grpc service code, support in the grpc service code to add standardised CRUD api interface code in bulk without writing any line of go code, to achieve api interface "low-code development"; support secondary development on the basis of the grpc service code, such as adding custom api interfaces, just define the api interface in the proto file. Then write the business logic code in the generated api interface template.
 
-If you're developing a grpc service that only requires standardized CRUD API interfaces, this is one of the simplest ways to develop grpc service. You won't need to write Go code, and it enables "low-code development" for grpc service API interfaces. Adding custom API interfaces is also relatively straightforward; you just need to define the API interface in a proto file and then write specific logic in the generated API interface templates.
+Therefore, `⓶Create grpc service based on sql`  is suitable for developing microservice projects with selected database types.
 
-Therefore, `⓶Create grpc service based on sql` using MySQL as the database are suitable for grpc service projects where MySQL is the preferred database option.
+Generate grpc service code support based on the database mysql, postgresql, tidb, sqlite, the following operation to mysql as an example of grpc service development steps, the development steps are the same for selecting other database types.
 
 <br>
 
@@ -26,11 +26,17 @@ Access http://localhost:24631 in your web browser to enter the sponge code gener
 
 ### 🏷Creating a GRPC Service Project
 
-In the sponge UI, navigate to the left sidebar **SQL** -> **Create grpc service**. Fill in the `MySQL DSN address`, then click the button to `Fetch Table Names`. Select the table names (you can select multiple), fill in the other parameters, and hover over the question marks `?` to see parameter explanations. After filling in the parameters, click the button to `Download Code` to generate the complete grpc service project code, as shown in the image below:
+In the sponge UI interface,
+
+1. Click `SQL` --> `Create grpc service` on the left menu bar.
+2. Select database `mysql`, fill in the `database dsn`, click the `get table names` button, select the table names (you can select multiple).
+3. Fill in the other parameters. Hover over the question mark `?` to view parameter explanations.
+
+After filling in the parameters, click the `Download Code` button to generate the complete project code for the grpc service, as shown in the image below:
 
 ![micro-rpc](assets/images/micro-rpc.png)
 
-> [!tip] Equivalent command: **sponge micro rpc --module-name=user --server-name=user --project-name=edusys --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher**
+> [!tip] Equivalent command: **sponge micro rpc --module-name=user --server-name=user --project-name=edusys --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher**
 
 > [!tip] The directory name for the extracted grpc service code follows the format `ServiceName-Type-Date`. You can modify the directory name, for example, removing the type and date.
 
@@ -93,11 +99,17 @@ If you don't have the `GoLand` IDE, you can still test using commands. Navigate 
 
 ### 🏷Automatically Adding CRUD API Interfaces
 
-If you have new MySQL tables that need CRUD API interface code generated, go to the left sidebar **Public** -> **Generate Service CRUD Code**. Fill in the `MySQL DSN address`, then click `Fetch Table Names` and select the MySQL tables (you can select multiple). Next, fill in the other parameters. Once you've filled in the parameters, click the button to `Download Code`, as shown in the image below:
+If you have new MySQL tables and need to generate CRUD API interface code for them, follow these steps:
+
+1. Click on the left sidebar menu `Public` --> `Generate service CRUD code`.
+2. Select database `mysql`, fill in the `database dsn` and click on `get table names`. Select the MySQL tables you want to generate code for (you can select multiple tables).
+3. Fill in the remaining parameters.
+
+After completing the parameters, click the `Download Code` button to generate the CRUD service code, as shown in the image below:
 
 ![micro-rpc-service](assets/images/micro-rpc-service.png)
 
-> [!tip] Equivalent command: **sponge micro service --module-name=user --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach**. There's an even simpler equivalent command. Use the `--out` parameter to specify the user service code directory and directly merge the code into the user service code. Example: **sponge micro service --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach --out=user**
+> [!tip] Equivalent command: **sponge micro service --module-name=user --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach**. There's an even simpler equivalent command. Use the `--out` parameter to specify the user service code directory and directly merge the code into the user service code. Example: **sponge micro service --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=cause,teach --out=user**
 
 The generated service CRUD code directory structure is shown below. The `internal` and `api/user` directories contain subdirectories `cache`, `dao`, `ecode`, `model`, `service`, and `v1`, each of which contains Go files and test files named after the table names.
 
@@ -128,7 +140,7 @@ make proto
 make run
 ```
 
-> [!attention] If you encounter an error like **api/types/types.proto: File not found.** or **internal\cache\xxx.go:40:38: undefined: model.CacheType** when running the `make proto` command, please execute the `make patch` command and then run `make proto` again.
+> [!attention] If you encounter an error like **api/types/types.proto: File not found.** or **internal\cache\xxx.go:40:38: undefined: model.CacheType** when running the `make proto` command, please execute the `make patch TYPE=init-mysql` command. If you are using another database type, change mysql in the command to the name of the corresponding database type.
 
 Similarly, use the `GoLand` IDE to open the project code, navigate to the `internal/service` directory, and open the test file with the suffix `_client_test.go`. Before testing, fill in the request parameters. If you're not using the `GoLand` IDE for testing, you can execute the test command in the terminal, like this: `go test -run Test_service_teacher_methods/GetByID`.
 
@@ -136,7 +148,7 @@ Similarly, use the `GoLand` IDE to open the project code, navigate to the `inter
 
 ### 🏷Manually Adding Custom API Interfaces
 
-Projects typically include custom API interfaces in addition to standard CRUD API interfaces. The main process for adding custom API interfaces is to `define the API interfaces in the proto file` -> `write specific logic code in the generated template code`.
+Projects typically include custom API interfaces in addition to standard CRUD API interfaces. The main process for adding custom API interfaces is to `define the API interfaces in the proto file` --> `write business logic code in the generated template code`.
 
 For example, to add a login interface to this project:
 
@@ -173,9 +185,9 @@ After adding the API interface description, execute the following command in the
 make proto
 ```
 
-**(2) Write Specific Logic Code**
+**(2) Write Business Logic Code**
 
-Go to the `internal/service` directory, open the `teacher.go` file, and write specific logic code under the `Login` method function. For example, you can include code to validate passwords and generate tokens.
+Go to the `internal/service` directory, open the `teacher.go` file, and write business logic code under the `Login` method function. For example, you can include code to validate passwords and generate tokens.
 
 > [!tip] In manually added custom API interfaces, you may need to perform data CRUD operations (also known as DAO CRUD). These DAO CRUD code sections can be generated automatically without manual coding. Click to view <a href="/public-doc?id=%f0%9f%94%b9generating-and-using-dao-crud-code" target="_blank">Generating and Using dao CRUD Code</a> instructions.
 
@@ -183,7 +195,7 @@ Go to the `internal/service` directory, open the `teacher.go` file, and write sp
 
 **(3) Test the API Interface**
 
-After writing the specific logic code, execute the following command in the terminal:
+After writing the business logic code, execute the following command in the terminal:
 
 ```bash
 # Compile and run the service
@@ -194,7 +206,7 @@ In the `GoLand` IDE, go to the `internal/service` directory and open the test fi
 
 If you're not using the `GoLand` IDE for testing, you can execute the test command in the terminal like this: `go test -run Test_service_teacher_methods/GetByID`.
 
-Adding a custom API interface is straightforward. Simply define the API interface description in the proto file, then write the specific logic code in the generated template. The grpc client testing code is automatically generated, eliminating the need for third-party grpc client tools for testing. You don't need to write complete API interface code as in traditional grpc development, allowing developers to focus on writing specific business logic.
+Adding a custom API interface is straightforward. Simply define the API interface description in the proto file, then write the business logic code in the generated template. The grpc client testing code is automatically generated, eliminating the need for third-party grpc client tools for testing. You don't need to write complete API interface code as in traditional grpc development, allowing developers to focus on writing specific business logic.
 
 <br>
 

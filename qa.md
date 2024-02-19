@@ -102,7 +102,7 @@ make: *** [Makefile:103: run] Error 1
 
 **解答：**
 
-> 切换到项目代码目录下，在执行命令 `make patch TYPE=mysql-init`
+> 切换到项目代码目录下，在执行命令 `make patch TYPE=init-mysql`，如果使用其他数据库类型，把命令中的mysql改为对应数据库类型名称。
 
 <br>
 

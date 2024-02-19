@@ -1,9 +1,8 @@
 
-The `⓷Create web service based on protobuf` is designed for general web service development and supports various database types as data storage options. On the other hand, the `⓵Create web service based on sql`, which is <a href="/web-development-mysql" target="_blank">Web Development with MySQL</a>, specifically uses MySQL as the database type. This is one of the main differences between the two methods, and you can consider `⓵Create web service based on sql` as a specialized subset of `⓷Create web service based on protobuf`.
+The `⓷Create web service based on protobuf` create generic web service code, you can choose your own database and orm. while `⓵create web service based on sql` (a.k.a. <a href="/web-development-mysql" target="_blank">Web Service Development (sql)</a>) only supports mysql, postgresql, tidb, sqlite database types, which is one of the main differences between the two ways of creating web services, and you can think of `⓵Create web service based on sql` as a subset of `⓷Create web service based on protobuf`.
 
-When you choose `⓷Create web service based on protobuf`, you have the flexibility to select any database type, including MySQL. If you opt for MySQL as the database type, it not only supports batch addition of standardized CRUD API interfaces but, more importantly, it also allows the generation of template code for custom API interfaces. This means that with `⓷Create web service based on protobuf`, you don't need to write complete API interface code as you would in traditional web development. Instead, you define API interface descriptions in proto files and then write specific logic code in the generated templates.
 
-When using other database types with `⓷Create web service based on protobuf`, you'll need to manually write DAO, model, database initialization, and other code, as auto-generation is not supported.
+`⓷Create web service based on protobuf`, if you choose other database types (not supported by sponge), you need to manually write code for dao, model, database initialisation, etc. code, which does not support auto-generation; if you choose data supported by sponge, you can automatically generate dao, model, database initialisation, etc. code.
 
 Therefore, `⓷Create web service based on protobuf` is suitable for general web project development.
 
@@ -41,7 +40,13 @@ Access [http://localhost:24631](http://localhost:24631) in your browser to enter
 
 ### 🔹Creating a Web Service Project
 
-In the sponge UI interface, click on the left-hand menu **[Protobuf]** --> **[Create Web Service]**. Select the proto file(s) (multiple selections are possible), fill in the other parameters, and hover over the question mark `?` to view parameter descriptions. After completing the parameters, click the `Download Code` button to generate the web service project code, as shown in the image below:
+In the sponge UI interface:
+
+1. click on the left-hand menu `Protobuf` --> `Create Web Service`.
+2. Select the proto file(s) (multiple selections are possible).
+3. Fill in the other parameters, and hover over the question mark `?` to view parameter descriptions.
+
+After completing the parameters, click the `Download Code` button to generate the web service project code, as shown in the image below:
 
 ![web-http](assets/images/web-http-pb.png)
 
@@ -95,7 +100,7 @@ make run
 
 Open [http://localhost:8080/apis/swagger/index.html](http://localhost:8080/apis/swagger/index.html) in your browser. You will see the API interfaces on the page, as shown in the image below:
 
-> [!warning] Before writing specific logic code, if you directly request via the Swagger page, it will return a 500 error because the generated template code (internal/handler/xxx.go) has a `panic("implement me")` line in every method function, indicating that specific logic code needs to be implemented.
+> [!warning] Before writing business logic code, if you directly request via the Swagger page, it will return a 500 error because the generated template code (internal/handler/xxx.go) has a `panic("implement me")` line in every method function, indicating that business logic code needs to be implemented.
 
 ![web-http-swagger](assets/images/web-http-pb-swagger.png)
 
@@ -107,11 +112,16 @@ Open [http://localhost:8080/apis/swagger/index.html](http://localhost:8080/apis/
 
 Some API interfaces in the project require standardized CRUD (Create, Read, Update, Delete) functionality. These standardized CRUD API interfaces can be automatically generated and seamlessly added to the web service code.
 
-Click on the left menu bar "Public" -> "Generate handler CRUD code." Fill in the `MySQL DSN address`, then click "Get table names" and select the MySQL tables (multiple selections are allowed). Note that you must enable the `protobuf type`. Fill in parameters like module name, service name, and others, then click the "Download code" button to generate handler CRUD code, as shown in the image below:
+1. Click on the left sidebar menu `Public` --> `Generate handler CRUD code`.
+2. Select database `mysql`, fill in the `database dsn` and click on `get table names`. Select the MySQL tables you want to generate code for (you can select multiple tables).
+3. Enable the 'protobuf type'.
+4. Fill in parameters such as module name, service name, etc.
+
+After completing the parameters, click the `Download Code` button to generate the CRUD handler code, as shown in the image below:
 
 ![web-http-handler-pb](assets/images/web-http-handler-pb.png)
 
-> [!tip] Equivalent command: **sponge web handler-pb --module-name=user --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher,cause**. There is a simpler equivalent command that uses the `--out` parameter to specify the web service code directory and directly merge the code into the web service code: **sponge web handler --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher,cause --out=user**.
+> [!tip] Equivalent command: **sponge web handler-pb --module-name=user --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher,cause**. There is a simpler equivalent command that uses the `--out` parameter to specify the web service code directory and directly merge the code into the web service code: **sponge web handler --db-driver=mysql --db-dsn="root:123456@(192.168.3.37:3306)/school" --db-table=teacher,cause --out=user**.
 
 The generated CRUD handler code directory structure includes subdirectories under `internal` and `api/user`, such as `cache`, `dao`, `ecode`, `handler`, `model`, and `v1`. These directories contain Go files and test files named after the table names.
 
@@ -149,7 +159,7 @@ make proto
 make run
 ```
 
-> [!attention] If you encounter errors like **api/types/types.proto: File not found.** or **internal\cache\xxx.go:40:38: undefined: model.CacheType** while executing the `make proto` command, please run the `make patch` command and then execute the `make proto` command again.
+> [!attention] If you encounter errors like **api/types/types.proto: File not found.** or **internal\cache\xxx.go:40:38: undefined: model.CacheType** while executing the `make proto` command, please run the `make patch TYPE=init-mysql` command. If you are using another database type, change mysql in the command to the name of the corresponding database type.
 
 Refresh the page in your browser [http://localhost:8080/apis/swagger/index.html](http://localhost:8080/apis/swagger/index.html). You will see the newly added CRUD API interfaces, and you can test these interfaces on the page.
 
@@ -161,7 +171,7 @@ Adding standardized CRUD API interface code in bulk to the web service project c
 
 ### 🔹Manually Adding Custom API interfaces
 
-As business requirements evolve, there may be a need to add new custom API interfaces. The main process for adding custom API interfaces is to `define the API interfaces in the proto files` -> `write specific logic code in the generated template code`.
+As business requirements evolve, there may be a need to add new custom API interfaces. The main process for adding custom API interfaces is to `define the API interfaces in the proto files` -> `write business logic code in the generated template code`.
 
 For example, to add a "Change Password" API interface to this project:
 
@@ -215,9 +225,9 @@ make proto
 
 <br>
 
-**(2) Write Specific Logic Code**
+**(2) Write Business Logic Code**
 
-Navigate to the `internal/handler` directory and open the `user.go` file. Write the specific logic code under the `ChangePassword` method.
+Navigate to the `internal/handler` directory and open the `user.go` file. Write the business logic code under the `ChangePassword` method.
 
 > [!tip] In manually added custom API interfaces, you may need to perform data CRUD operations (also known as DAO CRUD). These DAO CRUD code sections can be generated automatically without manual coding. Click to view <a href="/public-doc?id=%f0%9f%94%b9generating-and-using-dao-crud-code" target="_blank">Generating and Using dao CRUD Code</a> instructions.
 
@@ -227,7 +237,7 @@ Navigate to the `internal/handler` directory and open the `user.go` file. Write 
 
 **(3) Test the API interface**
 
-After writing the specific logic code, execute the following command in the terminal:
+After writing the business logic code, execute the following command in the terminal:
 
 ```bash
 # Compile and run the service
@@ -238,7 +248,7 @@ Refresh the page in your browser [http://localhost:8080/apis/swagger/index.html]
 
 <br>
 
-Adding a custom API interface is relatively simple. You only need to define the API interface description in the proto file and then fill in the specific logic code in the generated template. You don't need to write the entire API interface code as you would in traditional web development. This allows developers to focus on writing specific business logic.
+Adding a custom API interface is relatively simple. You only need to define the API interface description in the proto file and then fill in the business logic code in the generated template. You don't need to write the entire API interface code as you would in traditional web development. This allows developers to focus on writing specific business logic.
 
 <br>
 
@@ -279,7 +289,7 @@ make update-config
 
 ## 🏷Using Other Databases for Web Development
 
-`⓷Create web service based on protobuf` do not include database-related code by default. Developers can choose any database type for data storage. The above describes the specific process of choosing mysql for web development, the operation is simple and convenient, thanks to sponge's support for generating various code (e.g., dao, model, cache) based on MySQL tables to create API interfaces. sponge currently does not support generating these codes for other database types.
+`⓷Create web service based on protobuf` do not include database-related code by default. you can choose any database type as a data store, the above describes the choice of mysql (sponge support for database types mysql, postgresql, tidb, sqlite) for the specific process of web development, the operation is simple and convenient.
 
 While sponge does not support generating database-related code for other database types, it simplifies web service development by generating API interface templates, route registration code, error codes, and automatically merging template code based on protobuf files, eliminating the need to write a significant amount of code compared to traditional web service development.
 
@@ -318,9 +328,9 @@ Please refer to the section on <a href="/web-development-protobuf?id=%f0%9f%94%b
 Open the configuration file `configs/service_name.yml` and add the data address configuration, for example:
 
 ```yml
-# mongodb settings
-mongodb:
-  dsn: "mongodb://127.0.0.1:27017/user"
+# elasticsearch settings
+elasticsearch:
+  addr: "http://localhost:9200"
 ```
 
 Open a terminal, navigate to the service directory, and execute the command to update the configuration Go structs:
@@ -343,7 +353,7 @@ Then, navigate to the `cmd/service_name/initial` directory, open `initApp.go`, a
 
 Please refer to the section on <a href="/web-development-protobuf?id=%f0%9f%94%b9manually-adding-custom-api-interfaces" target="_blank">Manually Adding Custom API interfaces</a>.
 
-> [!tip] When writing specific logic code in the API interface template code, if it involves data operations, such as the need to manually write `model` and `dao` code, be sure to do so.
+> [!tip] When writing business logic code in api interface template code, if it involves manipulating data, you need to manually write `model`, `dao` and other code.
 
 > [!tip] In manually added custom API interfaces, you may need to use caching, such as generating tokens. For string-type cache code like this, you can generate it directly and don't need to write it manually. Click to view <a href="/public-doc?id=%f0%9f%94%b9generating-and-using-cache-code" target="_blank">Generating and Using Cache Code</a> instructions.
 

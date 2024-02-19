@@ -6,7 +6,7 @@
 
 下载go地址： [https://studygolang.com/dl](https://studygolang.com/dl)
 
-> [!note] 要求1.16以上版本。
+> [!note] 建议是1.20以上版本。
 
 查看go版本 `go version`
 
@@ -14,9 +14,9 @@
 
 **✅ 安装 protoc**
 
-下载protoc地址： [https://github.com/protocolbuffers/protobuf/releases/tag/v3.20.3](https://github.com/protocolbuffers/protobuf/releases/tag/v3.20.3)
+下载protoc地址： [https://github.com/protocolbuffers/protobuf/releases/tag/v25.2](https://github.com/protocolbuffers/protobuf/releases/tag/v25.2)
 
-> [!note] 要求v3.20以上版本，把 protoc 二进制文件所在目录添加到系统环境变量path。
+> [!note] 根据系统类型下载对应的 protoc 二进制文件，把 protoc 二进制文件移动到go二进制文件所在的目录。
 
 查看protoc版本: `protoc --version`
 
@@ -27,7 +27,7 @@
 
 安装完go和protoc之后，接下来安装sponge，支持在windows、mac、linux和docker环境安装。
 
-> [!tip] 如果不能科学上网，安装sponge时，获取github的库会遇到超时失败问题，建议设置为国内代理，执行命令 **go env -w GOPROXY=https://goproxy.cn,direct**
+> [!tip] 如果不能科学上网，安装sponge时，获取github的库可能会遇到超时失败问题，建议设置为国内代理，执行命令 **go env -w GOPROXY=https://goproxy.cn,direct**
 
 <!-- tabs:start -->
 
@@ -62,7 +62,7 @@
 - **解决输入命令时的空格问题**，打开cmder界面，按下组合键win+alt+p进入设置界面，在左上角搜索`Monospace`，取消勾选，保存退出。
 - **配置鼠标右键启动cmder**，按下组合键`win+x`，再按字母`a`进入有管理权限的终端，执行命令`Cmder.exe /REGISTER ALL`。 随便在一个文件夹里按下鼠标右键，选择`Cmder Here`打开cmder界面。
 
-> [!attention] 在windows环境使用sponge开发项目，为了避免找不到linux命令错误，请使用cmder，不要用系统自带的cmd终端、Goland和VS Code下的终端。
+> [!attention] 在windows环境使用sponge开发项目，为了避免找不到linux命令错误，请使用cmder，不要用系统自带的cmd终端、Goland和Visual Studio Code下的终端。
 
 打开`cmder.exe`终端，检查是否支持常用的linux命令。
 
@@ -222,17 +222,17 @@ services:
       - "24631:24631"
 ```
 
-```bash
-# 启动服务
-docker-compose up -d
+启动服务：
 
+```bash
+docker-compose up -d
 ```
 
 在docker部署成功后，在浏览器访问 `http://你的宿主机ip:24631`。
 
 <!-- tabs:end -->
 
-> [!tip] 升级最新sponge框架版本，执行命令 `sponge upgrade`
+> [!tip] 升级最新sponge版本，执行命令 `sponge upgrade`
 
 <br>
 
@@ -264,7 +264,7 @@ sponge run
 
 下面使用`⓵基于sql创建web服务`方式来创建项目示例，也是5种方式中创建项目最简单之一，不需要编写任何一行go代码，只需连接mysql数据库，就可以生成一个线上部署的完整web服务项目，web服务的api接口包括了标准化的`CRUD`、`任意条件的分页查询`、`缓存`，也包括了丰富的组件，开箱即用。
 
-> [!tip] 生成代码需要依赖mysql服务和mysql表，如果都没有准备好，这里有[docker启动mysql服务脚本](https://github.com/zhufuyi/sponge/blob/main/test/server/mysql/docker-compose.yaml)，启动mysql服务之后导入[mysql表sql](https://github.com/zhufuyi/sponge_examples/blob/main/1_web-gin-CRUD/test/sql/user.sql)。
+> [!tip] 生成代码依赖mysql服务和mysql表，如果都没有准备好，这里有[docker启动mysql服务脚本](https://github.com/zhufuyi/sponge/blob/main/test/server/mysql/docker-compose.yaml)，启动mysql服务之后导入[mysql表sql](https://github.com/zhufuyi/sponge_examples/blob/main/1_web-gin-CRUD/test/sql/user.sql)。
 
 进入sponge的UI界面，点击左边菜单栏【SQL】--> 【创建web服务】，填写`mysql dsn地址`，点击`获取表名`，然后选择表名(可多选)，接着填写其他参数，鼠标放在问号`?`位置查看参数说明，填写完参数后，点击按钮`下载代码`生成web服务完整项目代码，如下图所示：
 
@@ -313,7 +313,7 @@ make run
 
 <br>
 
-如果有新的mysql表，如何批量生成标准化的CRUD api接口代码无缝嵌入到项目代码呢？如果想新增的自定义api接口，又如何操作呢？在 <a href="/zh-cn/web-development-mysql" target="_blank">web开发(mysql)</a> 章节中详细介绍。
+如果有新的mysql表，如何批量生成标准化的CRUD api接口代码无缝嵌入到项目代码呢？如果想新增的自定义api接口，又如何操作呢？在 <a href="/zh-cn/web-development-mysql" target="_blank">web开发(sql)</a> 章节中详细介绍。
 
 > [!tip] 共有5种方式创建不同类型项目，在后面的章节中详细介绍。
 
