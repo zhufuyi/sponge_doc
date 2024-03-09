@@ -1,8 +1,6 @@
-`⓶Create grpc service based on sql` create a complete development to deployment of grpc service code, support in the grpc service code to add standardised CRUD api interface code in bulk without writing any line of go code, to achieve api interface "low-code development"; support secondary development on the basis of the grpc service code, such as adding custom api interfaces, just define the api interface in the proto file. Then write the business logic code in the generated api interface template.
+`⓶Create grpc service based on sql` create a complete development to deployment of grpc service code, support in the grpc service code to add standardised CRUD api interface code in bulk without writing any line of go code, to achieve api interface "low-code development". It can be freely developed on the basis of the generated grpc service code, and theoretically it can be done completely using its own libraries instead of using sponge's libraries by default.
 
-Therefore, `⓶Create grpc service based on sql`  is suitable for developing microservice projects with selected database types.
-
-Generate grpc service code support based on the database mysql, postgresql, tidb, sqlite, the following operation to mysql as an example of grpc service development steps, the development steps are the same for selecting other database types.
+Generate grpc service code support based on the database mysql, mongodb, postgresql, tidb, sqlite, the following operation to mysql as an example of grpc service development steps, the development steps are the same for selecting other database types.
 
 <br>
 
@@ -326,3 +324,5 @@ Other configurations can be set according to your needs, and you can also add ne
 ```bash
 make update-config
 ```
+
+> [!tip] For a more detailed description of the service settings click on the section [**Components and Configuration**](https://go-sponge.com/components).

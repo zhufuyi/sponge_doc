@@ -41,7 +41,7 @@ make deploy-binary USER=root PWD=123456 IP=192.168.1.10
 sponge创建的web和grpc服务支持docker部署，部署在本机的docker容器上，需要本地安装有[docker](https://www.docker.com/)服务和[docker-compose](https://github.com/docker/compose/releases)命令，切换到服务代码目录，部署命令：
 
 ```bash
-# 构建容器并运行服务，如果需要更新服务，再次执行此命令
+# 构建镜像并运行服务，如果需要更新服务，再次执行此命令
 make deploy-docker
 ```
 

@@ -19,53 +19,39 @@
 
 <br>
 
-**📖 功能特点：**
+### 主要特性
 
-> 🔸生成代码命令UI界面化，简单易用。
-> 
-> 🔸自动合并新增模板代码，实现api接口"低代码开发"。
->
-> 🔸代码解耦模块化设计，丰富功能组件开箱即用，也可以很方便使用自己的组件。
->
-> 🔸Web框架 [gin](https://github.com/gin-gonic/gin)
->
-> 🔸RPC框架 [grpc](https://github.com/grpc/grpc-go)
->
-> 🔸配置解析 [viper](https://github.com/spf13/viper)
->
-> 🔸配置中心 [nacos](https://github.com/alibaba/nacos)
->
-> 🔸日志组件 [zap](https://github.com/uber-go/zap)
->
-> 🔸数据库orm组件 [gorm](https://github.com/go-gorm/gorm)
->
-> 🔸缓存组件 [go-redis](https://github.com/go-redis/redis), [ristretto](https://github.com/dgraph-io/ristretto)
->
-> 🔸自动化api接口文档 [swagger](https://github.com/swaggo/swag), [protoc-gen-openapiv2](https://github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2)
->
-> 🔸鉴权 [jwt](https://github.com/golang-jwt/jwt)
->
-> 🔸参数校验 [validator](https://github.com/go-playground/validator)
->
-> 🔸消息队列 [rabbitmq](https://github.com/rabbitmq/amqp091-go)
->
-> 🔸分布式事务管理器 [dtm](https://github.com/dtm-labs/dtm)
->
-> 🔸自适应限流 [ratelimit](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/ratelimit)
->
-> 🔸自适应熔断 [circuitbreaker](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/circuitbreaker)
->
-> 🔸链路跟踪 [opentelemetry](https://github.com/open-telemetry/opentelemetry-go)
->
-> 🔸服务注册与发现 [etcd](https://github.com/etcd-io/etcd), [consul](https://github.com/hashicorp/consul), [nacos](https://github.com/alibaba/nacos)
->
-> 🔸自适应采集 [profile](https://go.dev/blog/pprof)
->
-> 🔸资源统计 [gopsutil](https://github.com/shirou/gopsutil)
->
-> 🔸代码规范检查 [golangci-lint](https://github.com/golangci/golangci-lint)
->
-> 🔸持续集成部署 [jenkins](https://github.com/jenkinsci/jenkins), [docker](https://www.docker.com/), [kubernetes](https://github.com/kubernetes/kubernetes)
+|                     ||
+|:--------------------|:----|
+| **界面化操作**           | 生成代码命令UI界面化，简单易用。 |
+| **数据库支持**           | 支持 MySQL、MongoDB、PostgreSQL、TiDB 和 SQLite 等主流数据库。 |
+| **自动生成代码**          | 根据数据库表自动生成代码、合并代码，节省大量时间和精力。 |
+| **服务类型丰富**          | 支持web服务、grpc服务、grpc网关服务开发。 |
+| **高可靠高性能**          | 服务代码解耦模块化设计，代码经过严格的测试，并遵循良好的编码规范，自带缓存轻松应对高并发。 |
+| **部署自动化**           | 提供二进制、docker、kubernetes一站式自动化部署，快速将应用程序部署到生产环境。 |
+| **团队协作**            | 代码统一规范化，团队协作更高效。 |
+
+<br>
+
+### 优势
+
+|||
+|:--------------------|:----|
+| **提升开发效率** | 自动生成代码、合并代码等特性显著提高了开发速度。 |
+| **降低开发难度** | 低代码开发使开发人员无需编写大量代码即可创建应用程序。 |
+| **缩短上线时间** | 部署自动化功能减少了部署时间，使应用程序更快地投入生产使用。 |
+| **提高代码质量** | 自动生成的单元测试确保应用程序的高质量和可维护性。 |
+| **降低开发成本** | 通过大幅提高效率和减少开发人员投入，降低了应用程序的总体开发成本。 |
+
+<br>
+
+### 使用场景
+
+sponge适用于各种业务的后端服务开发：
+
+* **高性能 Web 服务**
+* **微服务**
+* **grpc网关服务**
 
 <br>
 
@@ -73,7 +59,7 @@
 
 > [!tip] 在使用过程中有任何问题和想法，请在这里提 [Issue](https://github.com/zhufuyi/sponge/issues)。
 
-如果对您有帮助给个[star⭐](https://github.com/zhufuyi/sponge)，欢迎加入`go sponge微信交流群`，加微信进群(标注sponge)。
+如果对您有帮助给个[star⭐](https://github.com/zhufuyi/sponge)支持一下，欢迎加入`go sponge微信交流群`，加微信进群(标注sponge)。
 
 <p>
 <img width="300px" src="/assets/images/wechat.jpg">

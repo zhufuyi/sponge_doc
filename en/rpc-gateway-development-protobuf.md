@@ -392,3 +392,5 @@ Other configurations can be adjusted as needed or new configurations can be adde
 ```bash
 make update-config
 ```
+
+> [!tip] For a more detailed description of the service settings click on the section [**Components and Configuration**](https://go-sponge.com/components).

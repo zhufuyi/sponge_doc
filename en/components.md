@@ -99,25 +99,78 @@ The common interceptors are already in the generated grpc service code `internal
 
 <br>
 
-### 🏷Mysql
+### 🏷Gorm
 
-`mysql` is a database component based on [gorm](https://github.com/go-gorm/gorm). It builds upon gorm and adds features like tracing and arbitrary condition querying. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/mysql#example-of-use).
+`ggrom` is a database component based on [gorm](https://github.com/go-gorm/gorm). It builds upon gorm and adds features like tracing and arbitrary condition querying. Check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/ggorm#examples-of-use).
 
-Set the field `mysql` in the yaml configuration file in the `configs` directory, Master-slave configuration is supported:
+If the database uses **mysql** or **tidb**, set the yaml file in the `configs` directory:
 
 ```yaml
-mysql:
-  # dsn format,  <user>:<pass>@(127.0.0.1:3306)/<db>?[k=v& ......]
-  dsn: "root:123456@(127.0.0.1:3306)/account?parseTime=true&loc=Local&charset=utf8mb4"
-  enableLog: true            # whether to turn on printing of all logs
-  maxIdleConns: 3            # set the maximum number of connections in the idle connection pool
-  maxOpenConns: 100          # set the maximum number of open database connections
-  connMaxLifetime: 30        # sets the maximum time for which the connection can be reused, in minutes
-  #slavesDsn:                # sets slaves mysql dsn, array type
-  #  - "your slave dsn 1"
-  #  - "your slave dsn 2"
-  #mastersDsn:               # sets masters mysql dsn, array type, non-required field, if there is only one master, there is no need to set the mastersDsn field, the default dsn field is mysql master.
-  #  - "your master dsn"
+# database setting
+database:
+  driver: "mysql"
+  mysql:
+    # dsn format,  <user>:<pass>@(127.0.0.1:3306)/<db>?[k=v& ......]
+    dsn: "root:123456@(127.0.0.1:3306)/account?parseTime=true&loc=Local&charset=utf8mb4"
+    enableLog: true            # whether to turn on printing of all logs
+    maxIdleConns: 3            # set the maximum number of connections in the idle connection pool
+    maxOpenConns: 100          # set the maximum number of open database connections
+    connMaxLifetime: 30        # sets the maximum time for which the connection can be reused, in minutes
+    #slavesDsn:                # sets slaves mysql dsn, array type
+    #  - "your slave dsn 1"
+    #  - "your slave dsn 2"
+    #mastersDsn:               # sets masters mysql dsn, array type, non-required field, if there is only one master, there is no need to set the mastersDsn field, the default dsn field is mysql master.
+    #  - "your master dsn"
+```
+
+<br>
+
+If the database uses **postgresql**, set the yaml file in the `configs` directory:
+
+```yaml
+# database setting
+database:
+  driver: "postgresql"
+  postgres:
+    # dsn format,  <username>:<password>@<hostname>:<port>/<db>?[k=v& ......]
+    dsn: "root:123456@192.168.3.37:5432/account?sslmode=disable"
+    enableLog: true            # whether to turn on printing of all logs
+    maxIdleConns: 3            # set the maximum number of connections in the idle connection pool
+    maxOpenConns: 100          # set the maximum number of open database connections
+    connMaxLifetime: 30        # sets the maximum time for which the connection can be reused, in minutes
+```
+
+<br>
+
+If the database uses **sqlite**, set it in the yaml file in the `configs` directory:
+
+```yaml
+# database setting
+database:
+  driver: "sqlite"
+  sqlite:
+    dbFile: "test/sql/sqlite/sponge.db"   # if you are in a windows environment, the path separator is \\
+    enableLog: true            # whether to turn on printing of all logs
+    maxIdleConns: 3            # set the maximum number of connections in the idle connection pool
+    maxOpenConns: 100          # set the maximum number of open database connections
+    connMaxLifetime: 30        # sets the maximum time for which the connection can be reused, in minutes
+```
+
+<br>
+
+### 🏷Mongodb
+
+`mgo` is based on the official library [mongo](https://github.com/mongodb/mongo-go-driver), Check out the [usage example](https://github.com/zhufuyi/sponge/blob/main/pkg/mgo/README.md#example-of-use)。
+
+Set up the yaml file in the `configs` directory:
+
+```yaml
+# database setting
+database:
+  driver: "mongodb"
+  mongodb:
+    # dsn format,  <username>:<password>@<hostname1>:<port1>[,<hostname2>:<port2>,......]/<db>?[k=v& ......]
+    dsn: "root:123456@192.168.3.37:27017/account?connectTimeoutMS=15000"
 ```
 
 <br>
@@ -143,7 +196,7 @@ redis:
 
 ### 🏷Message Queue
 
-`rabbitmq` is based on [amqp091-go](github.com/rabbitmq/amqp091-go) encapsulated messaging components, support for automatic reconnection and custom queue parameter settings, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/rabbitmq#example-of-use).
+`rabbitmq` is based on [amqp091-go](https://github.com/rabbitmq/amqp091-go) encapsulated messaging components, support for automatic reconnection and custom queue parameter settings, check out the [usage example](https://github.com/zhufuyi/sponge/tree/main/pkg/rabbitmq#example-of-use).
 
 Set the field `rabbitmq` in the yaml configuration file in the `configs` directory:
 
@@ -168,11 +221,20 @@ Service registration and discovery support three types: Consul, etcd, and Nacos.
 Set the fields in the yaml configuration file in the `configs` directory:
 
 ```yaml
-consul:
-  addr: "127.0.0.1:8500"
+# 1. Set the field registryDiscoveryType under app, e.g. if you use etcd for registration and discovery, also set the service address of etcd
+# 2. Fill in the field host under app, note: if etcd and host are not on the same machine, host must be filled in with the local ip or domain name, not 127.0.0.1
+app:
+  registryDiscoveryType: "etcd" # support consul, etcd, nacos
+  host: "127.0.0.1"
 
 etcd:
   addrs: ["127.0.0.1:2379"]
+
+
+# If you choose consul or nacos for service registration and discovery, the configuration is similar to etcd
+
+consul:
+  addr: "127.0.0.1:8500"
 
 nacosRd:
   ipAddr: "127.0.0.1"

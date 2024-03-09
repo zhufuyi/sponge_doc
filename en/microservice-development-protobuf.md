@@ -1,9 +1,9 @@
 
-`⓸Create grpc service based on protobuf` create generic web service code, you can choose your own database and orm. while `⓶Create grpc service based on sql` (a.k.a. <a href="/microservice-development-mysql" target="_blank">GRPC service development (sql)</a>) only supports mysql, postgresql, tidb, sqlite database types, which is one of the main differences between the two ways of creating web services, and you can think of `⓶Create grpc service based on sql` as a subset of `⓸Create grpc service based on protobuf`.
+`⓸Create grpc service based on protobuf` create generic web service code, you can choose any database and orm, it is also possible to choose the database type and orm that sponge supports by default. while `⓶Create grpc service based on sql` (a.k.a. <a href="/microservice-development-sql" target="_blank">GRPC service development (sql)</a>) only supports mysql, mongodb, postgresql, tidb, sqlite database types, which is one of the main differences between the two ways of creating web services, and you can think of `⓶Create grpc service based on sql` as a subset of `⓸Create grpc service based on protobuf`.
 
 `⓸Create grpc service based on protobuf`, if you choose other database types (not supported by sponge), you need to manually write code for dao, model, database initialisation, etc. code, which does not support auto-generation; if you choose data supported by sponge, you can automatically generate dao, model, database initialisation, etc. code.
 
-Therefore, `⓸Create grpc service based on protobuf` is suitable for generic grpc service project development.
+`⓸Create grpc service based on protobuf` is suitable for generic grpc service project development.
 
 <br>
 
@@ -100,7 +100,7 @@ If you don't have the **Goland** IDE, you can run tests using commands. Switch t
 
 ### 🔹Automatically Adding CRUD API Interfaces
 
-Automatically adding CRUD API interfaces is the same as described in the "GRPC service development (sql)" section in the document. You can click to view the documentation on <a href="/microservice-development-mysql?id=%f0%9f%8f%b7automatically-adding-crud-api-interfaces" target="_blank">Automatically Adding CRUD API Interfaces</a>.
+Automatically adding CRUD API interfaces is the same as described in the "GRPC service development (sql)" section in the document. You can click to view the documentation on <a href="/microservice-development-sql?id=%f0%9f%8f%b7automatically-adding-crud-api-interfaces" target="_blank">Automatically Adding CRUD API Interfaces</a>.
 
 > [!tip] In the CRUD API interfaces, there is a paginated query interface with arbitrary conditions. With this interface, you can avoid writing many API query interfaces. Click to see <a href="/public-doc?id=%f0%9f%94%b9arbitrary-condition-paging-query" target="_blank">Arbitrary Condition Paging Query</a> instructions.
 
@@ -108,26 +108,26 @@ Automatically adding CRUD API interfaces is the same as described in the "GRPC s
 
 ### 🔹Manually Adding Custom API Interfaces
 
-Manually adding custom API interfaces is the same as described in the "GRPC service development (sql)" section in the document. You can click to view the documentation on <a href="/microservice-development-mysql?id=%f0%9f%8f%b7manually-adding-custom-api-interfaces" target="_blank">Manually Adding Custom API Interfaces</a>.
+Manually adding custom API interfaces is the same as described in the "GRPC service development (sql)" section in the document. You can click to view the documentation on <a href="/microservice-development-sql?id=%f0%9f%8f%b7manually-adding-custom-api-interfaces" target="_blank">Manually Adding Custom API Interfaces</a>.
 
 <br>
 
 ### 🔹Calling APIs from Other GRPC Service
 
 Calling APIs from Other grpc service is the same as `Calling APIs from Other GRPC Service` in the `GRPC service development (sql)` chapter, click to view
-<a href="/microservice-development-mysql?id=%f0%9f%8f%b7calling-apis-from-other-grpc-service" target="_blank">Calling APIs from Other GRPC Service Documentation</a>.
+<a href="/microservice-development-sql?id=%f0%9f%8f%b7calling-apis-from-other-grpc-service" target="_blank">Calling APIs from Other GRPC Service Documentation</a>.
 
 <br>
 
 ### 🔹Configuration the Service
 
-The configuration of services is the same as described in the "GRPC service development (sql)" section in the document. You can click to view the documentation on <a href="/microservice-development-mysql?id=%f0%9f%8f%b7configuring-the-service" target="_blank">Configuring the Service</a>.
+The configuration of services is the same as described in the "GRPC service development (sql)" section in the document. You can click to view the documentation on <a href="/microservice-development-sql?id=%f0%9f%8f%b7configuring-the-service" target="_blank">Configuring the Service</a>.
 
 <br>
 
 ## 🏷Developing GRPC Service with Other Databases
 
-`⓸Create grpc service based on protobuf` do not include database-related code by default. you can choose any database type as a data store, the above describes the choice of mysql (sponge support for database types mysql, postgresql, tidb, sqlite) for the specific process of web development, the operation is simple and convenient.
+`⓸Create grpc service based on protobuf` do not include database-related code by default. you can choose any database type as a data store, the above describes the choice of mysql (sponge support for database types mysql, mongodb, postgresql, tidb, sqlite) for the specific process of web development, the operation is simple and convenient.
 
 Although sponge doesn't support automatically generating database-related code for other database types, it generates API interface template code, grpc client test code, error codes, and automates the merging of template code. This significantly reduces the need for manual code writing, making grpc service development simpler and more convenient compared to traditional grpc service development.
 
@@ -191,7 +191,7 @@ Next, go to the `cmd/service-name/initial` directory and open `initApp.go`. Repl
 
 > [!note] When writing business logic code in api interface template code, if it involves manipulating data, you need to manually write `model`, `dao` and other code.
 
-Adding custom API interfaces is the same as described in the "Custom API interfaces" section of the document under "GRPC service development (sql)". You can click to view the documentation on <a href="/microservice-development-mysql?id=%f0%9f%94%b9generating-and-using-cache-code" target="_blank">Generating and Using Cache Code</a> instructions.
+Adding custom API interfaces is the same as described in the "Custom API interfaces" section of the document under "GRPC service development (sql)". You can click to view the documentation on <a href="/microservice-development-sql?id=%f0%9f%94%b9generating-and-using-cache-code" target="_blank">Generating and Using Cache Code</a> instructions.
 
 > [!tip] In manually added custom API interfaces, you may need to use caching, such as generating tokens. For string-type cache code like this, you can generate it directly and don't need to write it manually. Click to view <a href="/public-doc?id=%f0%9f%94%b9generating-and-using-cache-code" target="_blank">Generating and Using Cache Code</a> instructions.
 
@@ -200,11 +200,11 @@ Adding custom API interfaces is the same as described in the "Custom API interfa
 ### 🔹Calling APIs from Other GRPC service
 
 Calling APIs from Other grpc service is the same as `Calling APIs from Other GRPC Service` in the `GRPC service development (sql)` chapter, click to view 
- <a href="/microservice-development-mysql?id=%f0%9f%8f%b7calling-apis-from-other-grpc-service" target="_blank">Calling APIs from Other GRPC Service Documentation</a>.
+ <a href="/microservice-development-sql?id=%f0%9f%8f%b7calling-apis-from-other-grpc-service" target="_blank">Calling APIs from Other GRPC Service Documentation</a>.
 
 <br>
 
 ### 🔹Configuring the Service
 
-Configuring the service is the same as described in the "GRPC service development (sql)" section of the document. You can click to view the documentation on <a href="/microservice-development-mysql?id=%f0%9f%8f%b7configuring-the-service" target="_blank">Configuring the Service</a>.
+Configuring the service is the same as described in the "GRPC service development (sql)" section of the document. You can click to view the documentation on <a href="/microservice-development-sql?id=%f0%9f%8f%b7configuring-the-service" target="_blank">Configuring the Service</a>.
 

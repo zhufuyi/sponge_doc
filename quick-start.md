@@ -313,7 +313,7 @@ make run
 
 <br>
 
-如果有新的mysql表，如何批量生成标准化的CRUD api接口代码无缝嵌入到项目代码呢？如果想新增的自定义api接口，又如何操作呢？在 <a href="/zh-cn/web-development-mysql" target="_blank">web开发(sql)</a> 章节中详细介绍。
+如果有新的mysql表，如何批量生成标准化的CRUD api接口代码无缝嵌入到项目代码呢？如果想新增的自定义api接口，又如何操作呢？在 <a href="/zh-cn/web-development-sql" target="_blank">web开发(sql)</a> 章节中详细介绍。
 
 > [!tip] 共有5种方式创建不同类型项目，在后面的章节中详细介绍。
 

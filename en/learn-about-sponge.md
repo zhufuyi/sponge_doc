@@ -19,7 +19,7 @@ In summary, sponge is an integrated `automated code generation`, `Gin and GRPC` 
 
 ### 🏷Code Generation Framework
 
-The code generation primarily relies on two methods: **SQL** and **protobuf**. Each method can generate different types of functional code. The framework for generating code is illustrated in the diagram below:
+The code generation primarily relies on two methods: **SQL** and **protobuf**. Each method can generate different types of functional code, among them **SQL** support common database mysql, mongodb, postgresql, tidb, sqlite. The framework for generating code is illustrated in the diagram below:
 
 ![sponge-framework](assets/images/sponge-framework.png)
 <p align="center">sponge Code Generation Framework</p>
@@ -47,7 +47,7 @@ In other words, sponge supports a total of five project creation methods, each s
 
 **Features:**
 
-- Support databases mysql, postgresql, tidb, sqlite.
+- Support databases mysql, mongodb, postgresql, tidb, sqlite.
 - You can run and use it without writing any Go code; just connect to the MySQL database. It generates complete project code, including standardized CRUD API interfaces, ready to use out of the box.
 - It supports batch addition of standardized CRUD API interfaces, and the generated code seamlessly integrates into the project code.
 - Custom API interfaces are also supported, but you need to manually write the complete API interface code, similar to traditional web development.
@@ -62,7 +62,7 @@ As shown in the diagram above, the generated web service code includes three sub
 
 **Features:**
 
-- Support databases mysql, postgresql, tidb, sqlite.
+- Support databases mysql, mongodb, postgresql, tidb, sqlite.
 - You can run and use it without writing any Go code; just connect to the MySQL database. It generates complete project code, including standardized CRUD API interfaces, ready to use out of the box.
 - It generates standardized CRUD API interface descriptions in the proto file by parsing SQL, eliminating the need for manual definitions.
 - It supports batch addition of standardized CRUD API interfaces.
@@ -130,7 +130,7 @@ These five project creation methods cater to different project scenarios and req
 
 ### 🏷Microservices Framework
 
-The microservices code framework created by sponge is depicted in the following diagram. It represents a typical microservices architecture with a layered structure. This framework offers high performance, scalability, and includes commonly used service governance functionalities. It can easily replace or add your own service governance features.
+Sponge is essentially a microservice framework that includes code generation capabilities. The microservice framework is shown in the following figure, which is a typical microservice hierarchical structure, with high performance, high scalability, contains commonly used service governance features, you can easily replace or add their own service governance features.
 
 ![microservices-framework](assets/images/microservices-framework.png)
 <p align="center">Microservices Framework Diagram</p>
@@ -142,7 +142,7 @@ Key functionalities of the microservices:
 - Configuration parsing: [viper](https://github.com/spf13/viper)
 - Configuration center: [nacos](https://github.com/alibaba/nacos)
 - Logging component: [zap](https://github.com/uber-go/zap)
-- Database ORM component: [gorm](https://github.com/go-gorm/gorm)
+- Database ORM component: [gorm](https://github.com/go-gorm/gorm), [mongo-go-driver](https://github.com/mongodb/mongo-go-driver)
 - Cache components: [go-redis](https://github.com/go-redis/redis), [ristretto](https://github.com/dgraph-io/ristretto)
 - Automated API documentation: [swagger](https://github.com/swaggo/swag), [protoc-gen-openapiv2](https://github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2)
 - Authentication: [jwt](https://github.com/golang-jwt/jwt)
@@ -260,9 +260,13 @@ sponge offers a variety of code generation commands to minimize or eliminate the
 
 <br>
 
-### 🏷Project Code Egg Model
+### 🏷Egg Model for Generate Service Code
 
-sponge's code generation process divides code into two main parts: business logic and non-business logic. Taking a complete web service project code as an example, consider the entire web service codebase as an egg. The "shell" represents the web service framework code, while both the "white" and the "yolk" represent business logic code. The "yolk" is the core of the business logic (code that needs to be written manually). Examples include defining MySQL tables, defining API interfaces, and writing business logic code. The "white" serves as the bridge between the core business logic code and the web framework code (auto-generated and does not require manual coding). It includes code generated based on proto files, such as route registration code, handler method function code, parameter validation code, error codes, Swagger documentation, and more.
+The sponge code generation process strips away the business logic and non-business logic of the two major parts of the code. Sponge's code generation function as a hen, the generated service code is the egg, take the generated web service backend code as an example:
+
+- `Eggshell` is web service framework code (automatically generated without manual writing).
+- `Yolk` is the core of business logic. For example, defining mysql tables, defining api interfaces, and writing specific logic codes all belong to yolk (code that needs to be written manually).
+- `Albumen` is a bridge connecting the core code of business logic and the web framework code. For example, the registration route code, handler code, parameter verification code, error code, and swagger document generated according to the proto file belong to the albumen (code that automatically generated without manual writing).
 
 The egg model for `⓷Create web service based on protobuf` code is illustrated in the following diagram:
 

@@ -1,9 +1,7 @@
 
-`⓶基于sql创建grpc服务`创建一个开发到部署的完整grpc服务代码，支持在grpc服务代码中批量添加标准化CRUD api接口代码而不需要编写任何一行go代码，实现api接口"低代码开发"；支持在grpc服务代码基础上二次开发，例如添加自定义api接口，只需在proto文件定义api接口，然后在生成的api接口模板编写业务逻辑代码。
+`⓶基于sql创建grpc服务`创建一个开发到部署的完整grpc服务代码，支持在grpc服务代码中批量添加标准化CRUD api接口代码而不需要编写任何go代码，实现api接口"低代码开发"。可以在生成的grpc服务代码基础上自由二次开发，理论上可以做到完全使用自己的库来替代默认使用sponge的库。
 
-因此`⓶基于sql创建grpc服务`sponge适合开发已选定数据库类型的微服务项目。
-
-生成grpc服务代码时支持基于数据库 mysql、postgresql、tidb、sqlite，下面操作以mysql为例介绍grpc服务开发步骤，选用其他数据库类型的开发步骤一样。
+生成grpc服务代码支持基于数据库 mysql、mongodb、postgresql、tidb、sqlite，下面操作以mysql为例介绍grpc服务开发步骤，选用其他数据库类型的开发步骤一样。
 
 <br>
 
@@ -343,6 +341,8 @@ make copy-proto SERVER=../user
 ```bash
 make update-config
 ```
+
+> [!tip] 更多服务设置详细说明点击查看章节 [**组件与配置**](https://go-sponge.com/zh-cn/components)。
 
 ---
 

@@ -311,6 +311,6 @@ In your browser, open [http://localhost:8080/swagger/index.html](http://localhos
 
 <br>
 
-If you have new MySQL tables, how can you seamlessly generate standardized CRUD API code and integrate it into your project? How do you add custom API interfaces? Detailed instructions are provided in the <a href="/web-development-mysql" target="_blank">Web Service Development (sql)</a> section.
+If you have new MySQL tables, how can you seamlessly generate standardized CRUD API code and integrate it into your project? How do you add custom API interfaces? Detailed instructions are provided in the <a href="/web-development-sql" target="_blank">Web Service Development (sql)</a> section.
 
 > [!tip] There are five different project creation methods, each explained in detail in the following sections.

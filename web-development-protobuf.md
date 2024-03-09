@@ -1,9 +1,9 @@
 
-`⓷基于protobuf创建web服务`创建通用的web服务代码，可以选用自己的数据库和orm。而`⓵基于sql创建web服务`，也就是 <a href="/zh-cn/web-development-mysql" target="_blank">web开发(sql)</a> 只支持mysql、postgresql、tidb、sqlite数据库类型，这是两种方式创建web服务的主要区别之一，可以把`⓵基于sql创建web服务`看作是`⓷基于protobuf创建web服务`一个子集。
+`⓷基于protobuf创建web服务`创建通用的web服务后端代码，可以选用任意的数据库和orm，也可以选用sponge默认支持的数据库类型和orm。而`⓵基于sql创建web服务`，也就是 <a href="/zh-cn/web-development-sql" target="_blank">web开发(sql)</a> 只支持mysql、mongodb、postgresql、tidb、sqlite数据库类型，这是两种方式创建web服务的主要区别之一，可以把`⓵基于sql创建web服务`看作是`⓷基于protobuf创建web服务`一个子集。
 
 `⓷基于protobuf创建web服务`如果选用其他数据库类型(非sponge支持)，需要人工编写dao、model、数据库初始化等代码，不支持自动生成；如果选用sponge支持的数据，则可以自动生成dao、model、数据库初始化等代码。
 
-因此`⓷基于protobuf创建web服务`适合通用的web项目开发。
+`⓷基于protobuf创建web服务`适合通用的web项目开发。
 
 <br>
 
@@ -284,11 +284,13 @@ make run
 make update-config
 ```
 
+> [!tip] 更多服务设置详细说明点击查看章节 [**组件与配置**](https://go-sponge.com/zh-cn/components)。
+
 <br>
 
 ## 🏷选用其他数据库进行web开发
 
-`⓷基于protobuf创建web服务`默认不包括操作数据库相关代码，可以选用任何数据库类型作为数据存储，上面介绍了选用mysql(sponge支持的数据库类型mysql、postgresql、tidb、sqlite)进行web开发的具体过程，操作起来简单方便。
+`⓷基于protobuf创建web服务`默认不包括操作数据库相关代码，可以选用任何数据库类型作为数据存储，上面介绍了选用mysql(sponge支持的数据库类型mysql、mongodb、postgresql、tidb、sqlite)进行web开发的具体过程，操作起来简单方便。
 
 虽然sponge不支持通过其他数据库类型来生成操作数据库相关代码，但基于proto文件生成`api接口模板代码`、`注册路由代码`、`错误码`、`自动合并模板代码`等，减少了不少人工编写的代码，比传统的web服务开发更高效率。
 

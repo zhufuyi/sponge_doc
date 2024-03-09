@@ -19,7 +19,7 @@
 
 ### 🏷生成代码框架
 
-生成代码主要基于**sql**和**protobuf**两种方式，每种方式拥有生成不同功能代码，生成代码的框架图如下所示：
+生成代码主要基于**sql**和**protobuf**两种方式，每种方式拥有生成不同功能代码，其中**sql**支持常用的数据库mysql、mongodb、postgresql、tidb、sqlite，生成代码的框架图如下所示：
 
 ![sponge-framework](assets/images/sponge-framework.png)
 <p align="center">sponge生成代码框架图</p>
@@ -49,7 +49,7 @@
 
 **特点：**
 
-- 支持数据库mysql、postgresql、tidb、sqlite。
+- 支持数据库mysql、mongodb、postgresql、tidb、sqlite。
 - 不需要编写任何一行go代码就可以运行使用，只需连接数据库，一键生成包含标准化CRUD api接口的完整项目工程代码，开箱即用。
 - 支持批量添加标准化CRUD api接口，生成的标准化CRUD api接口代码无缝嵌入项目代码中。
 - 支持自定义api接口，但需要像web开发那样人工去编写完整的api接口代码。
@@ -64,7 +64,7 @@
 
 **特点：**
 
-- 支持数据库mysql、postgresql、tidb、sqlite。
+- 支持数据库mysql、mongodb、postgresql、tidb、sqlite。
 - 不需要编写任何一行go代码就可以运行使用，只需连接mysql数据库，一键生成包括标准化CRUD api接口的完整项目工程代码，开箱即用。
 - 通过解析sql来生成proto文件里的标准化CRUD api接口描述信息，不需要人工定义。
 - 支持批量添加标准化CRUD api接口。
@@ -129,7 +129,7 @@
 
 ### 🏷微服务框架
 
-sponge创建的微服务代码框架如下图所示，这是典型的微服务分层结构，具有高性能，高扩展性，包含常用的服务治理功能，可以很方便替换或添加自己的服务治理功能。
+sponge本质是一个带有生成代码功能的微服务框架，创建的微服务代码框架如下图所示，这是典型的微服务分层结构，具有高性能，高扩展性，包含常用的服务治理功能，可以很方便替换或添加自己的服务治理功能。
 
 ![microservices-framework](assets/images/microservices-framework.png)
 <p align="center">微服务框架图</p>
@@ -140,9 +140,9 @@ sponge创建的微服务代码框架如下图所示，这是典型的微服务�
 - RPC 框架 [grpc](https://github.com/grpc/grpc-go)
 - 配置解析 [viper](https://github.com/spf13/viper)
 - 配置中心 [nacos](https://github.com/alibaba/nacos)
-- 日志组件 [zap](https://go.uber.org/zap)
-- 数据库orm组件 [gorm](https://gorm.io/gorm)
-- 缓存组件 [go-redis](https://github.com/go-redis/redis), [ristretto](github.com/dgraph-io/ristretto)
+- 日志组件 [zap](https://github.com/uber-go/zap)
+- 数据库orm组件 [gorm](https://github.com/go-gorm/gorm), [mongo-go-driver](https://github.com/mongodb/mongo-go-driver)
+- 缓存组件 [go-redis](https://github.com/go-redis/redis), [ristretto](https://github.com/dgraph-io/ristretto)
 - 自动化api接口文档 [swagger](https://github.com/swaggo/swag), [protoc-gen-openapiv2](https://github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2)
 - 鉴权 [jwt](https://github.com/golang-jwt/jwt)
 - 参数校验 [validator](https://github.com/go-playground/validator)
@@ -150,9 +150,9 @@ sponge创建的微服务代码框架如下图所示，这是典型的微服务�
 - 分布式事务管理器 [dtm](https://github.com/dtm-labs/dtm)
 - 自适应限流 [ratelimit](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/ratelimit)
 - 自适应熔断 [circuitbreaker](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/circuitbreaker)
-- 链路跟踪 [opentelemetry](https://go.opentelemetry.io/otel)
+- 链路跟踪 [opentelemetry](https://github.com/open-telemetry/opentelemetry-go)
 - 指标监控 [prometheus](https://github.com/prometheus/client_golang/prometheus), [grafana](https://github.com/grafana/grafana)
-- 服务注册与发现 [etcd](https://github.com/etcd-io/etcd), [consul](https://github.com/hashicorp/consul), [nacos](https://github.com/alibaba/)
+- 服务注册与发现 [etcd](https://github.com/etcd-io/etcd), [consul](https://github.com/hashicorp/consul), [nacos](https://github.com/alibaba/nacos)
 - 自适应采集 [profile](https://go.dev/blog/pprof)
 - 资源统计 [gopsutil](https://github.com/shirou/gopsutil)
 - 代码规范检查 [golangci-lint](https://github.com/golangci/golangci-lint)
@@ -257,9 +257,13 @@ sponge包括这么多种生成代码命令都是为了在开发项目过程中�
 
 <br>
 
-### 🏷项目代码鸡蛋模型
+### 🏷生成服务代码的鸡蛋模型
 
-sponge生成代码过程中剥离了业务逻辑与非业务逻辑两大部分代码。以一个完整的web服务项目代码为例，把完整的web服务代码看作一个鸡蛋，**蛋壳**表示web服务框架代码，蛋白和蛋黄都表示业务逻辑代码，**蛋黄**是业务逻辑的核心(需要人工编写的代码)，例如定义mysql表、定义api接口、编写业务逻辑代码都属于蛋黄部分。**蛋白**是业务逻辑核心代码与web框架代码连接的桥梁(自动生成，不需要人工编写)，例如根据proto文件生成的注册路由代码、handler方法函数代码、参数校验代码、错误码、swagger文档等都属于蛋白部分。
+sponge生成代码过程中剥离了业务逻辑与非业务逻辑两大部分代码，把sponge的生成代码功能看作是母鸡，生成的服务代码就是鸡蛋，以生成的一个web服务后端代码为例：
+
+- `蛋壳`是web服务框架代码(自动生成，不需要人工编写)。
+- `蛋黄`是业务逻辑的核心，例如定义mysql表、在proto定义api接口、编写具体逻辑代码都属于蛋黄部分(需要人工编写的代码)。
+- `蛋白`是业务逻辑核心代码与web框架代码连接的桥梁，例如根据proto文件生成的注册路由代码、handler代码、dao代码、参数校验代码、错误码、swagger文档等都属于蛋白部分(自动生成，不需要人工编写)。
 
 `⓷基于protobuf创建web服务`代码的鸡蛋模型剖析图如下图所示：
 

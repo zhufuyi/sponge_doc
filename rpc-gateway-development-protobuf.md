@@ -394,6 +394,8 @@ make run
 make update-config
 ```
 
+> [!tip] 更多服务设置详细说明点击查看章节 [**组件与配置**](https://go-sponge.com/zh-cn/components)。
+
 <br>
 
 ---

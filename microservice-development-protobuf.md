@@ -1,9 +1,9 @@
 
-`⓸基于protobuf创建grpc服务`创建通用的grpc服务代码，可以选用自己的数据库和orm。而`⓶基于sql创建grpc服务`(<a href="/zh-cn/microservice-development-mysql" target="_blank">grpc服务开发(sql)</a>)只支持mysql、postgresql、tidb、sqlite数据库类型，这是两种方式创建grpc服务的主要区别，可以把`⓶基于sql创建grpc服务`看作是`⓸基于protobuf创建grpc服务`一个子集。
+`⓸基于protobuf创建grpc服务`创建通用的grpc服务代码，可以选用任意的数据库和orm，也可以选用sponge默认支持的数据库类型和orm。而`⓶基于sql创建grpc服务`(<a href="/zh-cn/microservice-development-sql" target="_blank">grpc服务开发(sql)</a>)只支持mysql、mongodb、postgresql、tidb、sqlite数据库类型，这是两种方式创建grpc服务的主要区别，可以把`⓶基于sql创建grpc服务`看作是`⓸基于protobuf创建grpc服务`一个子集。
 
 `⓸基于protobuf创建grpc服务`, 如果选用其他数据库类型(非sponge支持)，需要人工编写dao、model、数据库初始化等代码，不支持自动生成；如果选用sponge支持的数据，则可以自动生成dao、model、数据库初始化等代码。
 
-因此`⓸基于protobuf创建grpc服务`适合通用的grpc服务项目开发。
+`⓸基于protobuf创建grpc服务`适合通用的grpc服务项目开发。
 
 <br>
 
@@ -101,7 +101,7 @@ make run
 ### 🔹自动添加CRUD api接口
 
 自动添加CRUD api接口与`grpc服务开发(sql)`章节中`自动添加CRUD api接口`一样，点击查看
-<a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%87%aa%e5%8a%a8%e6%b7%bb%e5%8a%a0crud-api%e6%8e%a5%e5%8f%a3" target="_blank">自动添加CRUD api接口文档</a>。
+<a href="/zh-cn/microservice-development-sql?id=%f0%9f%8f%b7%e8%87%aa%e5%8a%a8%e6%b7%bb%e5%8a%a0crud-api%e6%8e%a5%e5%8f%a3" target="_blank">自动添加CRUD api接口文档</a>。
 
 
 > [!tip] CRUD api 接口中有一个任意条件分页查询接口，有了这个接口后，可以少写很多api查询接口，点击查看<a href="/zh-cn/public-doc?id=%f0%9f%94%b9%e4%bb%bb%e6%84%8f%e6%9d%a1%e4%bb%b6%e5%88%86%e9%a1%b5%e6%9f%a5%e8%af%a2" target="_blank">任意条件分页查询接口的使用规则</a>。
@@ -111,7 +111,7 @@ make run
 ### 🔹人工添加自定义api接口
 
 人工添加自定义api接口与`grpc服务开发(sql)`章节中`人工添加自定义api接口`一样，点击查看
-<a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e4%ba%ba%e5%b7%a5%e6%b7%bb%e5%8a%a0%e8%87%aa%e5%ae%9a%e4%b9%89api%e6%8e%a5%e5%8f%a3" target="_blank">人工添加自定义api接口文档</a>。
+<a href="/zh-cn/microservice-development-sql?id=%f0%9f%8f%b7%e4%ba%ba%e5%b7%a5%e6%b7%bb%e5%8a%a0%e8%87%aa%e5%ae%9a%e4%b9%89api%e6%8e%a5%e5%8f%a3" target="_blank">人工添加自定义api接口文档</a>。
 
 <br>
 
@@ -119,20 +119,20 @@ make run
 
 调用其他grpc服务api接口与`grpc服务开发(sql)`章节中`调用其他grpc服务api接口`一样，点击查看
 
-<a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%b0%83%e7%94%a8%e5%85%b6%e4%bb%96grpc%e6%9c%8d%e5%8a%a1api%e6%8e%a5%e5%8f%a3" target="_blank">调用其他grpc服务api接口文档</a>。
+<a href="/zh-cn/microservice-development-sql?id=%f0%9f%8f%b7%e8%b0%83%e7%94%a8%e5%85%b6%e4%bb%96grpc%e6%9c%8d%e5%8a%a1api%e6%8e%a5%e5%8f%a3" target="_blank">调用其他grpc服务api接口文档</a>。
 
 <br>
 
 ### 🔹设置服务
 
 设置服务与`grpc服务开发(sql)`章节中`设置服务`一样，点击查看
-<a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%ae%be%e7%bd%ae%e6%9c%8d%e5%8a%a1" target="_blank">设置服务文档</a>。
+<a href="/zh-cn/microservice-development-sql?id=%f0%9f%8f%b7%e8%ae%be%e7%bd%ae%e6%9c%8d%e5%8a%a1" target="_blank">设置服务文档</a>。
 
 <br>
 
 ## 🏷选用其他数据库进行grpc服务开发
 
-`⓸基于protobuf创建grpc服务`默认不包括操作数据库相关代码，可以选用任何数据库类型作为数据存储，上面介绍了选用mysql(sponge支持的数据库类型mysql、postgresql、tidb、sqlite)进行web开发的具体过程，操作起来简单方便。
+`⓸基于protobuf创建grpc服务`默认不包括操作数据库相关代码，可以选用任何数据库类型作为数据存储，上面介绍了选用mysql(sponge支持的数据库类型mysql、mongodb、postgresql、tidb、sqlite)进行web开发的具体过程，操作起来简单方便。
 
 虽然sponge不支持通过其他数据库类型来生成操作数据库相关代码，但基于proto文件生成`api接口模板代码`、`grpc客户端测试代码`、`错误码`、`自动合并模板代码`等，减少了不少原本需要人工编写的代码，比传统的grpc服务开发更简单方便。
 
@@ -197,7 +197,7 @@ make update-config
 > [!note] 在api接口模板代码编写业务逻辑代码时，如果涉及到对数据操作，需要人工编写`model`、`dao`等代码。
 
 添加自定义api接口与`grpc服务开发(sql)`章节中`人工添加自定义api接口`一样，点击查看
-<a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e4%ba%ba%e5%b7%a5%e6%b7%bb%e5%8a%a0%e8%87%aa%e5%ae%9a%e4%b9%89api%e6%8e%a5%e5%8f%a3" target="_blank">人工添加自定义api接口文档</a>。
+<a href="/zh-cn/microservice-development-sql?id=%f0%9f%8f%b7%e4%ba%ba%e5%b7%a5%e6%b7%bb%e5%8a%a0%e8%87%aa%e5%ae%9a%e4%b9%89api%e6%8e%a5%e5%8f%a3" target="_blank">人工添加自定义api接口文档</a>。
 
 > [!tip] 在人工添加的自定义api接口中，可能需要用到缓存，例如生成的token，这类string类型缓存代码可以直接生成，不需要人工编写，点击查看<a href="/zh-cn/public-doc?id=%f0%9f%94%b9%e7%94%9f%e6%88%90%e5%92%8c%e4%bd%bf%e7%94%a8cache%e4%bb%a3%e7%a0%81" target="_blank">生成和使用cache代码说明</a>。
 
@@ -207,14 +207,14 @@ make update-config
 
 调用其他grpc服务api接口与`grpc服务开发(sql)`章节中`调用其他grpc服务api接口`一样，点击查看
 
-<a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%b0%83%e7%94%a8%e5%85%b6%e4%bb%96grpc%e6%9c%8d%e5%8a%a1api%e6%8e%a5%e5%8f%a3" target="_blank">调用其他grpc服务api接口文档</a>。
+<a href="/zh-cn/microservice-development-sql?id=%f0%9f%8f%b7%e8%b0%83%e7%94%a8%e5%85%b6%e4%bb%96grpc%e6%9c%8d%e5%8a%a1api%e6%8e%a5%e5%8f%a3" target="_blank">调用其他grpc服务api接口文档</a>。
 
 <br>
 
 ### 🔹设置服务
 
 设置服务与`grpc服务开发(sql)`章节中`设置服务`一样，点击查看
-<a href="/zh-cn/microservice-development-mysql?id=%f0%9f%8f%b7%e8%ae%be%e7%bd%ae%e6%9c%8d%e5%8a%a1" target="_blank">设置服务文档</a>。
+<a href="/zh-cn/microservice-development-sql?id=%f0%9f%8f%b7%e8%ae%be%e7%bd%ae%e6%9c%8d%e5%8a%a1" target="_blank">设置服务文档</a>。
 
 <br>
 

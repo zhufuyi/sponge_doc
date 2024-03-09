@@ -1,11 +1,11 @@
 
-`⓵ create web service based on sql ` create a development to deployment of the complete web back-end service code , support in the web service code in bulk to add standardised CRUD api interface code without the need to write any line of go code ; support in the web service code on the basis of the secondary development , such as adding custom api interfaces .
+`⓵create web service based on sql` create a development to deployment of the complete web back-end service code , support in the web service code in bulk to add standardised CRUD api interface code without the need to write any line of go code. It can be freely developed on the basis of the generated web service code, and theoretically it can be done completely using its own libraries instead of using sponge's libraries by default.
 
-If you're developing a web service with only standardized CRUD API interfaces, this is one of the simplest ways to develop a web application. It allows you to achieve "low-code development" of web service APIs without writing Go code. However, when adding custom API interfaces, you'll need to manually write the complete API interface code, just like traditional API development. This is a limitation of the `⓵Create web service based on sql`, as it doesn't automatically generate custom API interface code. This limitation is addressed in another web development approach called `⓷Create web service based on protobuf` (web development with [protobuf](https://en.wikipedia.org/wiki/Protocol_Buffers)), as explained in the <a href="/web-development-protobuf" target="_blank">Web Development</a> section.
+If you're developing a web service with only standardized CRUD API interfaces, this is one of the simplest ways to develop a web application. It allows you to achieve "low-code development" of web service APIs without writing Go code. However, when adding custom API interfaces, you'll need to manually write the complete API interface code, just like traditional API development. This is a limitation of the `⓵Create web service based on sql`, as it doesn't automatically generate custom API interface code. This shortcoming is addressed in another web development approach `⓷Create web service based on protobuf` (a.k.a. <a href="/web-development-protobuf" target="_blank">Web Development (protobuf)</a>).
 
-Therefore `⓵ Create web service based on sql` is suitable for the vast majority of web projects where the api interface is a standardised CRUD interface, such as backend administration projects.
+Therefore `⓵Create web service based on sql` is suitable for the vast majority of web projects where the api interface is a standardised CRUD interface, such as backend administration projects.
 
-Generate web service code to support the database mysql, postgresql, tidb, sqlite, the following operation to mysql as an example of the introduction of web service development steps, the development steps are the same for selecting other database types.
+Generate web service code to support the database mysql, mongodb, postgresql, tidb, sqlite, the following operation to mysql as an example of the introduction of web service development steps, the development steps are the same for selecting other database types.
 <br>
 
 ### 🏷Pre-development Preparations
@@ -301,3 +301,5 @@ Other configurations can be adjusted as needed, and you can also add custom conf
 ```bash
 make update-config
 ```
+
+> [!tip] For a more detailed description of the service settings click on the section [**Components and Configuration**](https://go-sponge.com/components).

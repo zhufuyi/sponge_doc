@@ -1,10 +1,10 @@
 
-The `⓷Create web service based on protobuf` create generic web service code, you can choose your own database and orm. while `⓵create web service based on sql` (a.k.a. <a href="/web-development-mysql" target="_blank">Web Service Development (sql)</a>) only supports mysql, postgresql, tidb, sqlite database types, which is one of the main differences between the two ways of creating web services, and you can think of `⓵Create web service based on sql` as a subset of `⓷Create web service based on protobuf`.
+The `⓷Create web service based on protobuf` create generic web service backend code, you can choose any database and orm, it is also possible to choose the database type and orm that sponge supports by default. while `⓵create web service based on sql` (a.k.a. <a href="/web-development-sql" target="_blank">Web Service Development (sql)</a>) only supports mysql, mongodb, postgresql, tidb, sqlite database types, which is one of the main differences between the two ways of creating web services, and you can think of `⓵Create web service based on sql` as a subset of `⓷Create web service based on protobuf`.
 
 
 `⓷Create web service based on protobuf`, if you choose other database types (not supported by sponge), you need to manually write code for dao, model, database initialisation, etc. code, which does not support auto-generation; if you choose data supported by sponge, you can automatically generate dao, model, database initialisation, etc. code.
 
-Therefore, `⓷Create web service based on protobuf` is suitable for general web project development.
+`⓷Create web service based on protobuf` is suitable for general web project development.
 
 <br>
 
@@ -285,11 +285,13 @@ You can configure other settings according to your needs and add new configurati
 make update-config
 ```
 
+> [!tip] For a more detailed description of the service settings click on the section [**Components and Configuration**](https://go-sponge.com/components).
+
 <br>
 
 ## 🏷Using Other Databases for Web Development
 
-`⓷Create web service based on protobuf` do not include database-related code by default. you can choose any database type as a data store, the above describes the choice of mysql (sponge support for database types mysql, postgresql, tidb, sqlite) for the specific process of web development, the operation is simple and convenient.
+`⓷Create web service based on protobuf` do not include database-related code by default. you can choose any database type as a data store, the above describes the choice of mysql (sponge support for database types mysql, mongodb, postgresql, tidb, sqlite) for the specific process of web development, the operation is simple and convenient.
 
 While sponge does not support generating database-related code for other database types, it simplifies web service development by generating API interface templates, route registration code, error codes, and automatically merging template code based on protobuf files, eliminating the need to write a significant amount of code compared to traditional web service development.
 

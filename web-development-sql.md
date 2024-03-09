@@ -1,11 +1,11 @@
 
-`⓵基于sql创建web服务`创建一个开发到部署的完整web后端服务代码，支持在web服务代码中批量添加标准化CRUD api接口代码而不需要编写任何一行go代码；支持在web服务代码基础上二次开发，例如添加自定义api接口。
+`⓵基于sql创建web服务`创建一个开发到部署的完整web后端服务代码，支持在web服务代码中批量添加标准化CRUD api接口代码而不需要编写任何go代码。可以在生成的web服务代码基础上自由二次开发，理论上可以做到完全使用自己的库来替代默认使用sponge的库。
 
-如果开发只有标准化CRUD api接口的web服务，这是最简单的web开发方式之一，不需要写go代码，实现了web服务api接口"低代码开发"。但添加自定义api接口时，则需要像传统开发api接口一样人工编写完整的api接口代码，这也是`⓵基于sql创建web服务`的不足之处，不能做到自动生成自定义api接口代码，而在另外一种web开发方式`⓷基于protobuf创建web服务`(也就是<a href="/zh-cn/web-development-protobuf" target="_blank">web开发</a>)中解决了这个不足。
+如果开发只有标准化CRUD api接口的web服务，这是最简单的web开发方式之一，不需要写go代码，实现了web服务api接口"低代码开发"。但添加自定义api接口时，则需要像传统开发api接口一样人工编写完整的api接口代码，这也是`⓵基于sql创建web服务`的不足之处，不能做到自动生成自定义api接口代码，而在另外一种web开发方式`⓷基于protobuf创建web服务`(也就是<a href="/zh-cn/web-development-protobuf" target="_blank">web开发(protobuf)</a>)中解决了这个不足。
 
 因此`⓵基于sql创建web服务`适合大多数api接口是标准化CRUD接口的web项目，例如后台管理项目。
 
-生成web服务代码时支持数据库 mysql、postgresql、tidb、sqlite，下面操作以mysql为例介绍web服务开发步骤，选用其他数据库类型的开发步骤一样。
+生成web服务代码支持数据库 mysql、mongodb、postgresql、tidb、sqlite，下面操作以mysql为例介绍web服务开发步骤，选用其他数据库类型的开发步骤一样。
 
 <br>
 
@@ -303,6 +303,8 @@ make run
 ```bash
 make update-config
 ```
+
+> [!tip] 更多服务设置详细说明点击查看章节 [**组件与配置**](https://go-sponge.com/zh-cn/components)。
 
 <br>
 

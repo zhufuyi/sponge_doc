@@ -41,7 +41,7 @@ To start or stop a deployed service, you need to navigate to the target machine'
 Web and grpc services created by sponge also support Docker deployment, running on Docker containers on your local machine. You need to have [Docker](https://www.docker.com/) and [docker-compose](https://github.com/docker/compose/releases) commands installed locally. Navigate to the service code directory and use the following deployment commands:
 
 ```bash
-# Build the container and run the service, execute this command again if you need to update the service
+# Build the image and run the service, execute this command again if you need to update the service
 make deploy-docker
 ```
 

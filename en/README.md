@@ -15,60 +15,43 @@
 
 <br>
 
-[Sponge](https://github.com/zhufuyi/sponge) is a basic development framework that integrates `code auto generation`, `gin and grpc framework`. Sponge has a wealth of code generation commands to generate different functionality of the code can be combined into a complete service (similar to artificially scattered sponge cells that can automatically recombine into a new sponge). Code decoupling modular design, it is easy to build a complete project from development to deployment, just fill in the business logic code on the generated template code, greatly improved development efficiency and reduced development difficulty, the use of Go can also be "low-code development".
+[Sponge](https://github.com/zhufuyi/sponge) is a basic development framework that integrates code auto generation, Gin and GRPC, sponge has a rich set of code generation commands, generating different functional code can be combined into a complete service (similar to the way that artificially broken sponge cells can automatically recombine into a new sponge). The code is decoupled and modularly designed, it is easy to build a complete project from development to deployment, just fill in the business logic code on the generated template code, greatly improved development efficiency and reduced development difficulty, the use of Go can also be "low-code development".
 
 <br>
 
-**📖 Key Features**
+### Key Features
 
-> 🔸User-friendly UI for code generation commands.
-> 
-> 🔸Automatic merging of template code for "low-code development" of API interfaces.
->
-> 🔸Modular and decoupled code design with rich functional components readily available, you can also easily use their own components.
->
-> 🔸Web framework [gin](https://github.com/gin-gonic/gin)
->
-> 🔸RPC framework [grpc](https://github.com/grpc/grpc-go)
->
-> 🔸Configuration parsing [viper](https://github.com/spf13/viper)
->
-> 🔸Configuration center [nacos](https://github.com/alibaba/nacos)
->
-> 🔸Logging component [zap](https://github.com/uber-go/zap)
->
-> 🔸Database ORM component [gorm](https://github.com/go-gorm/gorm)
->
-> 🔸Cache component [go-redis](https://github.com/go-redis/redis), [ristretto](https://github.com/dgraph-io/ristretto)
->
-> 🔸Automated API documentation [swagger](https://github.com/swaggo/swag), [protoc-gen-openapiv2](https://github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2)
->
-> 🔸Authentication [jwt](https://github.com/golang-jwt/jwt)
->
-> 🔸Message Queue [rabbitmq](https://github.com/rabbitmq/amqp091-go)
->
-> 🔸Distributed Transaction Manager [dtm](https://github.com/dtm-labs/dtm)
->
-> 🔸Parameter validation [validator](https://github.com/go-playground/validator)
->
-> 🔸Adaptive rate limiting [ratelimit](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/ratelimit)
->
-> 🔸Adaptive circuit breaking [circuitbreaker](https://github.com/zhufuyi/sponge/tree/main/pkg/shield/circuitbreaker)
->
-> 🔸Distributed Tracing [opentelemetry](https://github.com/open-telemetry/opentelemetry-go)
->
-> 🔸Metrics monitoring [prometheus](https://github.com/prometheus/client_golang/prometheus), [grafana](https://github.com/grafana/grafana)
->
-> 🔸Service registration and discovery [etcd](https://github.com/etcd-io/etcd), [consul](https://github.com/hashicorp/consul), [nacos](https://github.com/alibaba/nacos)
->
-> 🔸Adaptive collecting [profile](https://go.dev/blog/pprof)
->
-> 🔸Resource statistics [gopsutil](https://github.com/shirou/gopsutil)
->
-> 🔸Code quality checking [golangci-lint](https://github.com/golangci/golangci-lint)
->
-> 🔸Continuous integration and deployment [jenkins](https://github.com/jenkinsci/jenkins), [docker](https://www.docker.com/), [kubernetes](https://github.com/kubernetes/kubernetes)
+|||
+|:---|:----|
+| **GUI Operation**                | The code generation command comes with a user-friendly GUI interface. |
+| **Database Support**                 | Supports mainstream databases such as MySQL, MongoDB, PostgreSQL, TiDB, and SQLite. |
+| **Automatic Code Generation**        | Automatically generate and merge code based on database tables, saving significant time and effort. |
+| **Rich Service Types**               | Supports the development of web services, grpc services, and grpc gateway services. |
+| **High Reliability and Performance** | Service code is decoupled and modularized, with rigorous testing and adherence to good coding practices. Built-in caching easily handles high concurrency. |
+| **Automated Deployment**             | Provides one-stop automated deployment of binaries, docker, and kubernetes, quickly deploying applications to production environments. |
+| **Team Collaboration**               | Unified code specifications for more efficient team collaboration. |
 
+<br>
+
+### Advantages
+
+|||
+|:---|:----|
+| **Improved Development Efficiency** | Automatic code generation, code merging, and other features significantly improve development speed.                               |
+| **Reduced Development Difficulty**  | Low-code development allows developers to create applications without writing large amounts of code.                               |
+| **Shortened Time to Market**        | Deployment automation reduces deployment time, enabling applications to be put into production faster.                             |
+| **Improved Code Quality**           | Automatically generated unit tests ensure high quality and maintainability of applications.                                        |
+| **Reduced Development Cost**        | By significantly improving efficiency and reducing developer involvement, the overall development cost of applications is reduced. |
+
+<br>
+
+### Application Scenarios
+
+sponge is suitable for the development of back-end services for various businesses:
+
+* **High-performance Web services**
+* **Microservices**
+* **RPC gateway services**
 
 <br>
 

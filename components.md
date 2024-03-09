@@ -99,25 +99,78 @@ grpc拦截器分为客户端和服务端，包括了日志、jwt鉴权、recover
 
 <br>
 
-### 🏷mysql
+### 🏷gorm
 
-`mysql`是基于[gorm](https://github.com/go-gorm/gorm)封装的数据库组件，在gorm基础上增加了链路跟踪、自定义条件查询等功能。点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/mysql#example-of-use)。
+`ggrom`是基于[gorm](https://github.com/go-gorm/gorm)封装的数据库组件，在gorm基础上增加了链路跟踪、自定义条件查询等功能。点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/ggorm#examples-of-use)。
 
-在`configs`目录下yaml文件设置`mysql`，支持主从配置：
+如果数据库使用 **mysql** 或 **tidb**，在`configs`目录下yaml文件设置：
 
 ```yaml
-mysql:
-  # dsn format,  <user>:<pass>@(127.0.0.1:3306)/<db>?[k=v& ......]
-  dsn: "root:123456@(127.0.0.1:3306)/account?parseTime=true&loc=Local&charset=utf8mb4"
-  enableLog: true             # 是否开启日志
-  maxIdleConns: 3             # 设置空闲连接池中的最大连接数
-  maxOpenConns: 100           # 设置打开的数据库连接数上限
-  connMaxLifetime: 30         # 设置连接可重复使用的最长时间，单位(分)
-  #slavesDsn:                 # 设置从 mysql dsn
-  #  - "你的 dsn 1"
-  #  - "你的 dsn 2"
-  #mastersDsn:                # 设置 masters mysql dsn，数组类型，非必填字段，如果只有一个 master，则无需设置 mastersDsn 字段，默认 dsn 字段为 mysql master.
-  #  - "你的 master dsn"
+# database setting
+database:
+  driver: "mysql"
+  mysql:
+    # dsn format,  <user>:<pass>@(127.0.0.1:3306)/<db>?[k=v& ......]
+    dsn: "root:123456@(127.0.0.1:3306)/account?parseTime=true&loc=Local&charset=utf8mb4"
+    enableLog: true             # 是否开启日志
+    maxIdleConns: 3             # 设置空闲连接池中的最大连接数
+    maxOpenConns: 100           # 设置打开的数据库连接数上限
+    connMaxLifetime: 30         # 设置连接可重复使用的最长时间，单位(分)
+    #slavesDsn:                 # 设置从 mysql dsn
+    #  - "你的 dsn 1"
+    #  - "你的 dsn 2"
+    #mastersDsn:                # 设置 masters mysql dsn，数组类型，非必填字段，如果只有一个 master，则无需设置 mastersDsn 字段，默认 dsn 字段为 mysql master.
+    #  - "你的 master dsn"
+```
+
+<br>
+
+如果数据库使用 **postgresql**，在`configs`目录下yaml文件设置：
+
+```yaml
+# database setting
+database:
+  driver: "postgresql"
+  postgres:
+    # dsn format,  <username>:<password>@<hostname>:<port>/<db>?[k=v& ......]
+    dsn: "root:123456@192.168.3.37:5432/account?sslmode=disable"
+    enableLog: true             # 是否开启日志
+    maxIdleConns: 3             # 设置空闲连接池中的最大连接数
+    maxOpenConns: 100           # 设置打开的数据库连接数上限
+    connMaxLifetime: 30         # 设置连接可重复使用的最长时间，单位(分)
+```
+
+<br>
+
+如果数据库使用 **sqlite**，在`configs`目录下yaml文件设置：
+
+```yaml
+# database setting
+database:
+  driver: "sqlite"
+  sqlite:
+    dbFile: "test/sql/sqlite/sponge.db"   # 如果在 Windows 环境中，路径分隔符为\\
+    enableLog: true             # 是否开启日志
+    maxIdleConns: 3             # 设置空闲连接池中的最大连接数
+    maxOpenConns: 100           # 设置打开的数据库连接数上限
+    connMaxLifetime: 30         # 设置连接可重复使用的最长时间，单位(分)
+```
+
+<br>
+
+### 🏷mongodb
+
+`mgo` 基于官方库[mongo](https://github.com/mongodb/mongo-go-driver)封装的库，点击查看[使用示例](https://github.com/zhufuyi/sponge/blob/main/pkg/mgo/README.md#example-of-use)。
+
+在`configs`目录下yaml文件设置：
+
+```yaml
+# database setting
+database:
+  driver: "mongodb"
+  mongodb:
+    # dsn format,  <username>:<password>@<hostname1>:<port1>[,<hostname2>:<port2>,......]/<db>?[k=v& ......]
+    dsn: "root:123456@192.168.3.37:27017/account?connectTimeoutMS=15000"
 ```
 
 <br>
@@ -143,7 +196,7 @@ redis:
 
 ### 🏷 消息队列
 
-`rabbitmq`是基于[amqp091-go](github.com/rabbitmq/amqp091-go)封装的消息组件，支持自动重新连接和自定义队列参数设置，点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/rabbitmq#example-of-use)。
+`rabbitmq`是基于[amqp091-go](https://github.com/rabbitmq/amqp091-go)封装的消息组件，支持自动重新连接和自定义队列参数设置，点击查看[使用示例](https://github.com/zhufuyi/sponge/tree/main/pkg/rabbitmq#example-of-use)。
 
 在`configs`目录下yaml文件设置字段`rabbitmq`：
 
@@ -170,11 +223,21 @@ rabbitmq:
 在`configs`目录下yaml文件设置，选择其中一种即可。
 
 ```yaml
-consul:
-  addr: "127.0.0.1:8500"
+# (1) 在app下设置字段registryDiscoveryType，例如使用etcd作为注册与发现，还要设置etcd服务地址
+# (2) 在app下填写字段host值，注意：如果etcd和host不在同一台机器，host必须填写本地的ip或域名，不能填写127.0.0.1
+app:
+  registryDiscoveryType: "etcd"   # 支持consul、etcd、nacos三种方式
+  host: "127.0.0.1"
 
 etcd:
   addrs: ["127.0.0.1:2379"]
+
+
+
+# 如果选择consul或nacos作为服务注册与发现，配置与etcd类似
+
+consul:
+  addr: "127.0.0.1:8500"
 
 nacosRd:
   ipAddr: "127.0.0.1"
